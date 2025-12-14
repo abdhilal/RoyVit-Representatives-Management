@@ -24,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'is_active',
+        'warehouse_id',
     ];
 
     /**
@@ -55,5 +56,10 @@ class User extends Authenticatable
     public function userSettings()
     {
         return $this->hasOne(UserSetting::class,'id');
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 }

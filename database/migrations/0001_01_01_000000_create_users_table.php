@@ -18,6 +18,7 @@ return new class extends Migration
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->boolean('is_active')->default(true);
+            $table->foreignId('warehouse_id')->nullable()->constrained('warehouses')->onDelete('set null');
             $table->softDeletes();
             $table->rememberToken();
             $table->timestamps();

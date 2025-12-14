@@ -39,9 +39,25 @@ class PermissionSeeder extends Seeder
             ]
         ];
 
+        $warehousePermissions = [
+            'group_name' => 'warehouses',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-warehouses',
+                'show-warehouses',
+                'create-warehouses',
+                'update-warehouses',
+                'delete-warehouses',
+            ]
+        ];
 
 
-        $permissions = [$userPermissions, $rolePermissions];
+
+        $permissions = [
+            $userPermissions,
+            $rolePermissions,
+            $warehousePermissions
+        ];
 
 
         foreach ($permissions as $permission) {

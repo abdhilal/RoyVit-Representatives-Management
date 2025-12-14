@@ -1,4 +1,4 @@
-<aside class="page-sidebar {{ session('icon') === 'Colorful' ? 'iconcolor-sidebar' : '' }}" data-sidebar-layout="{{ session('icon') === 'Colorful' ? 'iconcolor-sidebar' : 'stroke-svg' }}"> 
+<aside class="page-sidebar {{ session('icon') === 'Colorful' ? 'iconcolor-sidebar' : '' }}" data-sidebar-layout="{{ session('icon') === 'Colorful' ? 'iconcolor-sidebar' : 'stroke-svg' }}">
   <div class="left-arrow" id="left-arrow"><i data-feather="arrow-left"></i></div>
   <div class="main-sidebar" id="main-sidebar">
     <ul class="sidebar-menu" id="simple-bar">
@@ -56,6 +56,7 @@
             $hasChildren = count($children) > 0;
             $href = $hasChildren ? 'javascript:void(0)' : (isset($item['route']) ? route($item['route']) : ($item['url'] ?? '#'));
             $icon = $item['icon'] ?? null;
+            $iconFa = $item['icon_fa'] ?? null;
             $label = $item['label'] ?? '';
             $itemActive = isset($item['route']) ? request()->routeIs($item['route']) : (isset($item['url']) ? request()->is(ltrim(parse_url($item['url'], PHP_URL_PATH) ?? '', '/')) : false);
             // keep submenu open if any child is active
@@ -71,7 +72,9 @@
           <li class="sidebar-list {{ $open ? 'active' : '' }}">
             <i class="fa-solid fa-thumbtack"></i>
             <a class="sidebar-link" href="{{ $href }}" @if($hasChildren) aria-expanded="{{ $open ? 'true' : 'false' }}" @endif>
-              @if($icon)
+              @if($iconFa)
+                <i class="{{ $iconFa }}"></i>
+              @elseif($icon)
                 <svg class="stroke-icon">
                   <use href="{{ asset('assets/svg/iconly-sprite.svg#'.$icon) }}"></use>
                 </svg>
@@ -88,7 +91,7 @@
                     $childHref = isset($child['route']) ? route($child['route']) : ($child['url'] ?? '#');
                     $childActive = isset($child['route']) ? request()->routeIs($child['route']) : (isset($child['url']) ? request()->is(ltrim(parse_url($child['url'], PHP_URL_PATH) ?? '', '/')) : false);
                   @endphp
-                  <li class="{{ $childActive ? 'active' : '' }}"> 
+                  <li class="{{ $childActive ? 'active' : '' }}">
                     <a href="{{ $childHref }}" @if(!empty($child['color'])) style="color: {{ $child['color'] }}" @endif>{{ __($child['label'] ?? '') }}</a>
                   </li>
                 @endforeach

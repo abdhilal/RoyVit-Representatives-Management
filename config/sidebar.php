@@ -5,7 +5,7 @@ return [
         'title' => 'general',
         'items' => [
             ['label' => 'dashboard', 'icon' => 'Home-dashboard', 'url' => '/'],
-            ['label' => 'profile', 'icon' => 'Profile', 'route' => 'profile.index'],
+            ['label' => 'profile', 'icon_fa' => 'fa-solid fa-user', 'route' => 'profile.index'],
 
             [
                 'label' => 'users',
@@ -32,7 +32,13 @@ return [
     [
         'title' => 'Settings',
         'items' => [
-            ['label' => 'Customize Appearance', 'icon' => 'Setting', 'route' => 'settings.index'],
+            ['label' => 'Customize Appearance', 'icon_fa' => 'fa-solid fa-image', 'route' => 'settings.index'],
+        ],
+    ],
+    [
+        'title' => 'Warehouses',
+        'items' => [
+            ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
         ],
     ],
 ];

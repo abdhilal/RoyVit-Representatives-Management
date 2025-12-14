@@ -4,9 +4,10 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\GroupController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\GroupController;
+use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\UserSettingController;
 
 Route::middleware(['auth'])->group(function () {
@@ -33,6 +34,9 @@ Route::put('/settings/default', [UserSettingController::class, 'setDefault'])->n
 Route::get('/profile', [ProfileController::class, 'index'])->name('profile.index');
 Route::put('/profile', [ProfileController::class, 'update'])->name('profile.update');
 Route::put('/profile/password', [ProfileController::class, 'updatePassword'])->name('profile.password.update');
+
+
+Route::resource('/warehouses', WarehouseController::class);
 
 
 
