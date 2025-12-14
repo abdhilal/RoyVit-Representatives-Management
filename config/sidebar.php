@@ -54,6 +54,8 @@ return [
                 'children' => [
                     ['label' => 'Cities List', 'icon_fa' => 'fa-solid fa-city', 'route' => 'cities.index', 'parmitions' => ['can' => 'view-cities'],],
                     ['label' => 'Areas List', 'icon_fa' => 'fa-solid fa-map-marker-alt', 'route' => 'areas.index', 'parmitions' => ['can' => 'view-areas'],],
+                    ['label' => 'Specialization List', 'icon_fa' => 'fa-solid fa-graduation-cap', 'route' => 'specializations.index', 'parmitions' => ['can' => 'view-specializations'],],
+                    ['label' => 'Classification List', 'icon_fa' => 'fa-solid fa-graduation-cap', 'route' => 'classifications.index', 'parmitions' => ['can' => 'view-classifications'],],
                 ]
             ],
 

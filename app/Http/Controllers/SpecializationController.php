@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Specialization;
+use App\Services\SpecializationsService;
 use App\Http\Requests\StoreSpecializationRequest;
 use App\Http\Requests\UpdateSpecializationRequest;
 
 class SpecializationController extends Controller
 {
+    protected $specializationsService;
+
+    public function __construct(SpecializationsService $specializationsService)
+    {
+        $this->specializationsService = $specializationsService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $specializations = $this->specializationsService->getAllSpecializations();
+        return view('pages.specializations.index', compact('specializations'));
     }
 
     /**
@@ -21,7 +29,8 @@ class SpecializationController extends Controller
      */
     public function create()
     {
-        //
+        $specialization=new Specialization();
+        return view('pages.specializations.partials.form', compact('specialization'));
     }
 
     /**
@@ -29,7 +38,8 @@ class SpecializationController extends Controller
      */
     public function store(StoreSpecializationRequest $request)
     {
-        //
+        $this->specializationsService->createSpecialization($request->validated());
+        return redirect()->route('specializations.index')->with('success', __('Specialization created successfully'));
     }
 
     /**
@@ -37,7 +47,7 @@ class SpecializationController extends Controller
      */
     public function show(Specialization $specialization)
     {
-        //
+        return view('pages.specializations.show', compact('specialization'));
     }
 
     /**
@@ -45,7 +55,7 @@ class SpecializationController extends Controller
      */
     public function edit(Specialization $specialization)
     {
-        //
+        return view('pages.specializations.partials.form', compact('specialization'));
     }
 
     /**
@@ -53,7 +63,8 @@ class SpecializationController extends Controller
      */
     public function update(UpdateSpecializationRequest $request, Specialization $specialization)
     {
-        //
+        $this->specializationsService->updateSpecialization($specialization, $request->validated());
+        return redirect()->route('specializations.index')->with('success', __('Specialization updated successfully'));
     }
 
     /**
@@ -61,6 +72,7 @@ class SpecializationController extends Controller
      */
     public function destroy(Specialization $specialization)
     {
-        //
+        $this->specializationsService->deleteSpecialization($specialization);
+        return redirect()->route('specializations.index')->with('success', __('Specialization deleted successfully'));
     }
 }

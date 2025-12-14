@@ -11,7 +11,7 @@ class UpdateSpecializationRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+                return auth()->check() && auth()->user()->hasPermissionTo('update-specializations');
     }
 
     /**
@@ -23,6 +23,22 @@ class UpdateSpecializationRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required|string|max:255',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('Name is required'),
+            'name.string' => __('Name must be a string'),
+            'name.max' => __('Name may not be greater than 255 characters'),
+        ];
+    }
+    public function attributes(): array
+    {
+        return [
+            'name' => __('Name'),
+        ];
+    }       
 }

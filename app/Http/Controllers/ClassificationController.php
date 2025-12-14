@@ -3,17 +3,24 @@
 namespace App\Http\Controllers;
 
 use App\Models\Classification;
+use App\Services\ClassificationService;
 use App\Http\Requests\StoreClassificationRequest;
 use App\Http\Requests\UpdateClassificationRequest;
 
 class ClassificationController extends Controller
 {
+    protected $classificationService;
+    public function __construct(ClassificationService $classificationService)
+    {
+        $this->classificationService = $classificationService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $classifications = $this->classificationService->getAllClassifications();
+        return view('pages.classifications.index', compact('classifications'));
     }
 
     /**
@@ -21,7 +28,8 @@ class ClassificationController extends Controller
      */
     public function create()
     {
-        //
+        $classification = new Classification();
+        return view('pages.classifications.partials.form', compact('classification'));
     }
 
     /**
@@ -29,7 +37,8 @@ class ClassificationController extends Controller
      */
     public function store(StoreClassificationRequest $request)
     {
-        //
+        $this->classificationService->createClassification($request->validated());
+        return redirect()->route('classifications.index')->with('success', __('Classification created successfully'));
     }
 
     /**
@@ -45,7 +54,7 @@ class ClassificationController extends Controller
      */
     public function edit(Classification $classification)
     {
-        //
+        return view('pages.classifications.partials.form', compact('classification'));
     }
 
     /**
@@ -53,7 +62,8 @@ class ClassificationController extends Controller
      */
     public function update(UpdateClassificationRequest $request, Classification $classification)
     {
-        //
+        $this->classificationService->updateClassification($classification, $request->validated());
+        return redirect()->route('classifications.index')->with('success', __('Classification updated successfully'));
     }
 
     /**
@@ -61,6 +71,7 @@ class ClassificationController extends Controller
      */
     public function destroy(Classification $classification)
     {
-        //
+        $this->classificationService->deleteClassification($classification);
+        return redirect()->route('classifications.index')->with('success', __('Classification deleted successfully'));
     }
 }

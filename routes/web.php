@@ -12,6 +12,8 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\UserSettingController;
+use App\Http\Controllers\ClassificationController;
+use App\Http\Controllers\SpecializationController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -44,5 +46,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/warehouses', WarehouseController::class);
     Route::resource('/cities', CityController::class);
     Route::resource('/areas', AreaController::class);
+    Route::resource('/specializations', SpecializationController::class);
+    Route::resource('/classifications', ClassificationController::class);
 });
 require __DIR__ . '/auth.php';
