@@ -51,15 +51,19 @@ class User extends Authenticatable
     }
     public function userInformations()
     {
-        return $this->hasOne(UserInformation::class,'id');
+        return $this->hasOne(UserInformation::class, 'id');
     }
     public function userSettings()
     {
-        return $this->hasOne(UserSetting::class,'id');
+        return $this->hasOne(UserSetting::class, 'id');
     }
 
     public function warehouse()
     {
         return $this->belongsTo(Warehouse::class);
+    }
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
     }
 }

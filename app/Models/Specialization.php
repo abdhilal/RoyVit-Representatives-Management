@@ -16,4 +16,8 @@ class Specialization extends Model
     {
         return $this->belongsTo(Warehouse::class);
     }
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
 }

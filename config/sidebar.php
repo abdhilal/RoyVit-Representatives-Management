@@ -41,6 +41,12 @@ return [
             ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
         ],
     ],
+    [
+        'title' => 'Doctors',
+        'items' => [
+            ['label' => 'Doctors List', 'icon_fa' => 'fa-solid fa-user-md', 'route' => 'doctors.index', 'parmitions' => ['can' => 'view-doctors'],],
+        ],
+    ],
 
 
 

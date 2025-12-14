@@ -20,4 +20,26 @@ class Warehouse extends Model
     {
         return $this->hasMany(User::class);
     }
+    public function classifications()
+    {
+        return $this->hasMany(Classification::class);
+    }
+
+    public function specializations()
+    {
+        return $this->hasMany(Specialization::class);
+    }
+    public function areas()
+    {
+        return $this->hasMany(Area::class);
+    }
+    public function doctors()
+    {
+        return $this->hasMany(Doctor::class);
+    }
+
+    public function cities()
+    {
+        return $this->hasMany(City::class);
+    }
 }

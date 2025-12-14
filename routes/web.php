@@ -8,6 +8,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
@@ -48,5 +49,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/areas', AreaController::class);
     Route::resource('/specializations', SpecializationController::class);
     Route::resource('/classifications', ClassificationController::class);
+    Route::resource('/doctors', DoctorController::class);
 });
 require __DIR__ . '/auth.php';
