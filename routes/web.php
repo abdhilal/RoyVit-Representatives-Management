@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
+use App\Http\Controllers\FileController;
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -50,5 +51,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/specializations', SpecializationController::class);
     Route::resource('/classifications', ClassificationController::class);
     Route::resource('/doctors', DoctorController::class);
+    Route::resource('/files', FileController::class);
+    Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
+
+
+
 });
 require __DIR__ . '/auth.php';

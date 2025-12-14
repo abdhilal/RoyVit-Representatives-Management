@@ -118,6 +118,17 @@ class PermissionSeeder extends Seeder
                 'delete-specializations',
             ]
         ];
+        $filePermissions = [
+            'group_name' => 'files',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-files',
+                'show-files',
+                'create-files',
+                'update-files',
+                'delete-files',
+            ]
+        ];
 
 
 
@@ -130,7 +141,8 @@ class PermissionSeeder extends Seeder
             $classificationPermissions,
             $doctorPermissions,
             $representativePermissions,
-            $specializationPermissions
+            $specializationPermissions,
+            $filePermissions
         ];
 
 

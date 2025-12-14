@@ -67,4 +67,12 @@ return [
 
         ],
     ],
+    [
+        'title' => 'Files',
+        'parmitions' => ['can' => 'view-files'],
+
+        'items' => [
+            ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],
+        ],
+    ],
 ];

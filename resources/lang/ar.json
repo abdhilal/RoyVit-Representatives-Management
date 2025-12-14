@@ -349,4 +349,15 @@
     "Classification created successfully":"تم إنشاء التصنيف بنجاح",
     "Classification updated successfully":"تم تحديث التصنيف بنجاح",
     "Classification deleted successfully":"تم حذف التصنيف بنجاح"
+    ,
+    "Files":"الملفات",
+    "Upload File":"رفع ملف",
+    "File":"ملف",
+    "Download":"تحميل",
+    "No files found":"لا توجد ملفات",
+    "File imported successfully.":"تم استيراد الملف بنجاح.",
+    "Upload failed":"فشل الرفع",
+    "Network error":"خطأ في الشبكة",
+    "Uploading":"جاري الرفع",
+    "Processing...":"جاري المعالجة..."
 }
