@@ -51,12 +51,86 @@ class PermissionSeeder extends Seeder
             ]
         ];
 
+        $cityPermissions = [
+            'group_name' => 'cities',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-cities',
+                'show-cities',
+                'create-cities',
+                'update-cities',
+                'delete-cities',
+            ]
+        ];
+        $areaPermissions = [
+            'group_name' => 'areas',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-areas',
+                'show-areas',
+                'create-areas',
+                'update-areas',
+                'delete-areas',
+            ]
+        ];
+        $classificationPermissions = [
+            'group_name' => 'classifications',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-classifications',
+                'show-classifications',
+                'create-classifications',
+                'update-classifications',
+                'delete-classifications',
+            ]
+        ];
+        $doctorPermissions = [
+            'group_name' => 'doctors',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-doctors',
+                'show-doctors',
+                'create-doctors',
+                'update-doctors',
+                'delete-doctors',
+            ]
+        ];
+
+        $representativePermissions = [
+            'group_name' => 'representatives',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-representatives',
+                'show-representatives',
+                'create-representatives',
+                'update-representatives',
+                'delete-representatives',
+            ]
+        ];
+        $specializationPermissions = [
+            'group_name' => 'specializations',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-specializations',
+                'show-specializations',
+                'create-specializations',
+                'update-specializations',
+                'delete-specializations',
+            ]
+        ];
+
 
 
         $permissions = [
             $userPermissions,
             $rolePermissions,
-            $warehousePermissions
+            $warehousePermissions,
+            $cityPermissions,
+            $areaPermissions,
+            $classificationPermissions,
+            $doctorPermissions,
+            $representativePermissions,
+            $specializationPermissions
         ];
 
 
