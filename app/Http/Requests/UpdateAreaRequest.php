@@ -11,7 +11,7 @@ class UpdateAreaRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()->hasPermissionTo('update-areas');
     }
 
     /**
@@ -22,7 +22,30 @@ class UpdateAreaRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+            'city_id' => 'required|exists:cities,id',
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => __('area name'),
+            'city_id' => __('city'),
+        ];
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array<string, string>
+     */
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('area name is required'),
+            'city_id.required' => __('city is required'),
+            'city_id.exists' => __('The selected city is invalid.'),
         ];
     }
 }

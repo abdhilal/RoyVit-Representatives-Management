@@ -41,4 +41,22 @@ return [
             ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
         ],
     ],
+
+
+
+    [
+        'title' => 'information',
+        'items' => [
+            [
+                'label' => 'the information',
+                'icon_fa' => 'fa-solid fa-info',
+                'parmitions' => ['can' => 'create-users'],
+                'children' => [
+                    ['label' => 'Cities List', 'icon_fa' => 'fa-solid fa-city', 'route' => 'cities.index', 'parmitions' => ['can' => 'view-cities'],],
+                    ['label' => 'Areas List', 'icon_fa' => 'fa-solid fa-map-marker-alt', 'route' => 'areas.index', 'parmitions' => ['can' => 'view-areas'],],
+                ]
+            ],
+
+        ],
+    ],
 ];

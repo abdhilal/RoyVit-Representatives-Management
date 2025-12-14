@@ -11,7 +11,7 @@ class UpdateCityRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()->hasPermissionTo('update-cities');
     }
 
     /**
@@ -22,7 +22,26 @@ class UpdateCityRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'name' => 'required|string|max:255',
+        ];
+    }
+
+    /**
+     * Get the validation attributes that apply to the request.
+     *
+     * @return array<string, string>
+     */
+    public function attributes(): array
+    {
+        return [
+            'name' => __('name'),
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('name is required'),
         ];
     }
 }
