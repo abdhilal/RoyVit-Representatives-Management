@@ -79,7 +79,6 @@ class FilesImport implements ToCollection
                     'address' => $r[5],
                     'name' => $r[1],
                     'specialization_id' => $specId,
-
                     'area_id' => $areaId,
                     'representative_id' => $userId,
                     'warehouse_id' => $this->warehouseId,
