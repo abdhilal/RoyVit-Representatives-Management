@@ -11,11 +11,11 @@ class AreaService
     public function getAllAreas()
     {
         if (Auth::user()->hasRole('super-admin')) {
-            return Area::paginate(10);
+            return Area::with('city')->withCount('doctors')->paginate(10);
         }
         return Area::with(['city', function ($query) {
             $query->where('warehouse_id', Auth::user()->warehouse_id);
-        }])->paginate(10);
+        }])->withCount('doctors')->paginate(10);
     }
 
     public function createArea(array $data)

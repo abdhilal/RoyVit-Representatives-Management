@@ -28,6 +28,7 @@
                                     <th>#</th>
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('City') }}</th>
+                                    <th>{{ __('Associated doctors') }}</th>
 
                                     @canany(['show-areas', 'update-areas', 'delete-areas'])
                                         <th>{{ __('actions') }}</th>
@@ -40,6 +41,7 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $area->name }}</td>
                                         <td>{{ $area->city->name??__('No city') }}</td>
+                                        <td>{{ $area->doctors_count }}</td>
 
                                         @canany(['show-areas', 'update-areas', 'delete-areas'])
                                             <td>

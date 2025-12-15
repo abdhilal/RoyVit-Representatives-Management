@@ -368,5 +368,6 @@
     "created_at":"تاريخ الإنشاء",
     "name is required":"يجب إدخال الاسم",
     "file is required":"يجب اختيار ملف",
-    "file must be xlsx, xls, or csv":"يجب أن يكون الملف من نوع xlsx أو xls أو csv"
+    "file must be xlsx, xls, or csv":"يجب أن يكون الملف من نوع xlsx أو xls أو csv",
+    "Associated doctors":"الاطباء المرتبطين"
 }
