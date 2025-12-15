@@ -21,9 +21,11 @@
                     <br>
                     <div>
 
-                        <a href="{{ route('files.create') }}" class="btn btn-outline-success"><i
-                                class="fa-solid fa-download"></i>
-                            {{ __('Import') }}</a>
+                        @can('create-files')
+                            <a href="{{ route('files.create') }}" class="btn btn-outline-success"><i
+                                    class="fa-solid fa-download"></i>
+                                {{ __('Import') }}</a>
+                        @endcan
                     </div>
 
                 </div>
@@ -36,7 +38,9 @@
                                     <th>#</th>
                                     <th>{{ __('File Name') }}</th>
                                     <th>{{ __('created_at') }}</th>
-                                    <th>{{ __('actions') }}</th>
+                                    @canany(['show-files', 'update-files', 'delete-files'])
+                                        <th>{{ __('actions') }}</th>
+                                    @endcanany
                                 </tr>
                             </thead>
                             <tbody>
@@ -45,15 +49,24 @@
                                         <td>{{ $index + 1 }}</td>
                                         <td>{{ $file->name }}</td>
                                         <td>{{ $file->created_at }}</td>
+                                        @canany(['show-files', 'update-files', 'delete-files'])
+                                            <td>
+                                                @can('show-files')
+                                                    @if (!empty($file->path))
+                                                        <a href="{{ route('files.download', $file->id) }}"
+                                                            class="btn btn-sm btn-outline-secondary">
+                                                            <i class="fa-solid fa-download"></i> {{ __('Download') }}
+                                                        </a>
+                                                    @endif
+                                                @endcan
 
-                                        <td>
-                                            @if (!empty($file->path))
-                                                <a href="{{ route('files.download', $file->id) }}"
-                                                    class="btn btn-sm btn-outline-secondary">
-                                                    <i class="fa-solid fa-download"></i> {{ __('Download') }}
-                                                </a>
-                                            @endif
-                                        </td>
+                                                @can('delete-files')
+                                                    <x-buttons.delete-form :action="route('files.destroy', $file)" />
+                                                @endcan
+
+                                            </td>
+                                        @endcanany
+
                                     </tr>
                                 @empty
                                     <tr>

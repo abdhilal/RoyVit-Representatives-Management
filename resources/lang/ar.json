@@ -351,13 +351,22 @@
     "Classification deleted successfully":"تم حذف التصنيف بنجاح"
     ,
     "Files":"الملفات",
+    "Files List":"قائمة الملفات",
+    "Files Manager":"مدير الملفات",
+    "Import":"استيراد",
+    "File Name":"اسم الملف",
     "Upload File":"رفع ملف",
     "File":"ملف",
     "Download":"تحميل",
     "No files found":"لا توجد ملفات",
     "File imported successfully.":"تم استيراد الملف بنجاح.",
+    "File deleted successfully.":"تم حذف الملف بنجاح.",
     "Upload failed":"فشل الرفع",
     "Network error":"خطأ في الشبكة",
     "Uploading":"جاري الرفع",
-    "Processing...":"جاري المعالجة..."
+    "Processing...":"جاري المعالجة...",
+    "created_at":"تاريخ الإنشاء",
+    "name is required":"يجب إدخال الاسم",
+    "file is required":"يجب اختيار ملف",
+    "file must be xlsx, xls, or csv":"يجب أن يكون الملف من نوع xlsx أو xls أو csv"
 }

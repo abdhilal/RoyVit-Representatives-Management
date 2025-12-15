@@ -3,124 +3,90 @@
 namespace App\Imports;
 
 use App\Models\Area;
+use App\Models\Doctor;
+use App\Models\Specialization;
+use App\Models\User;
 use App\Models\Factory;
 use App\Models\Product;
 use App\Models\Pharmacy;
 use Maatwebsite\Excel\Row;
 use App\Models\Transaction;
+use Illuminate\Support\Str;
+use App\Models\Classification;
 use App\Models\Representative;
 use App\Models\AreaRepresentative;
 use Maatwebsite\Excel\Concerns\OnEachRow;
+use Maatwebsite\Excel\Concerns\ToCollection;
+use Illuminate\Support\Collection;
 
-class FilesImport implements OnEachRow
+class FilesImport implements ToCollection
 {
-    protected $fileId;
     protected $warehouseId;
 
-    public function __construct($fileId, $warehouseId)
+    public function __construct($warehouseId)
     {
-        $this->fileId = $fileId;
         $this->warehouseId = $warehouseId;
     }
 
-    public function onRow(Row $row)
+    public function collection(Collection $rows)
     {
-        $r = $row->toArray();  // مصفوفة عادية مثل [0 => ..., 1 => ...]
+        // تخطي العناوين
+        $rows->shift();
 
-        // تخطي الصف الأول (العناوين)
-        if ($row->getIndex() === 1) {
-            return;
-        }
+        // كاش داخلي
+        $areas = Area::pluck('id', 'name')->toArray();
 
-        // خريطة الأعمدة حسب ملفك
-        $factoryName      = $r[0];
-        $movementName     = $r[1];
-        $pharmacyName     = $r[2];
-        $quantityProduct  = $r[3];
-        $productName      = $r[4];
-        $quantityGift     = $r[5];
-        $valueIncome      = $r[6];
-        $valueOutput      = $r[7];
-        $representativeName = $r[8];
-        $areaName         = $r[9];
-        $valueGift        = $r[10];
+        $specializations = Specialization::where('warehouse_id', $this->warehouseId)
+            ->pluck('id', 'name')->toArray();
 
-        // 1️⃣ المصنع
-        $factory = Factory::firstOrCreate(['name' => $factoryName]);
+        $classifications = Classification::where('warehouse_id', $this->warehouseId)
+            ->pluck('id', 'name')->toArray();
 
-        // 2️⃣ المنطقة
-        $area = Area::firstOrCreate(
-            ['name' => $areaName ?? 'بدون منطقة', 'warehouse_id' => $this->warehouseId]
-        );
+        $users = User::pluck('id', 'email')->toArray();
 
-        // 3️⃣ المندوب
-        $representative = Representative::firstOrCreate(
-            [
-                'name' => $representativeName ?? 'بدون مندوب',
+
+        foreach ($rows as $r) {
+
+            $areaId = $areas[$r[4]] ??= Area::create([
+                'name' => $r[4],
+            ])->id;
+
+            $specId = $specializations[$r[3]] ??= Specialization::create([
+                'name' => $r[3],
                 'warehouse_id' => $this->warehouseId,
-            ],
+            ])->id;
 
+            $classId = $classifications[$r[6]] ??= Classification::firstOrCreate([
+                'name' => $r[6],
+                'warehouse_id' => $this->warehouseId,
+            ])->id;
 
-            [
-                'type' => 'sales'
-            ]
-        );
+            $email = Str::of($r[7])
+                ->lower()
+                ->replaceMatches('/[^a-z0-9]+/i', '')
+                ->append('@royvit.com')
+                ->toString();
 
-        $areaRepresentative = AreaRepresentative::firstOrCreate(
-            ['area_id' => $area->id, 'representative_id' => $representative->id]
-        );
+            $userId = $users[$email] ??= User::create([
+                'name' => $r[7],
+                'email' => $email,
+                'warehouse_id' => $this->warehouseId,
+                'password' => bcrypt('12345678'),
+            ])->id;
 
-        // 4️⃣ الصيدلية
-        $pharmacy = Pharmacy::firstOrCreate([
-            'name'               => $pharmacyName,
-            'area_id'            => $area->id,
-            'warehouse_id'       => $this->warehouseId,
-            'representative_id'  => $representative->id
-        ]);
+            Doctor::firstOrCreate(
+                [
+                    'address' => $r[5],
+                    'name' => $r[1],
+                    'specialization_id' => $specId,
 
-        // 5️⃣ المنتج
-        $product = Product::firstOrCreate([
-            'name'         => $productName,
-            'factory_id'   => $factory->id,
-            'warehouse_id' => $this->warehouseId
-        ]);
-
-        // 6️⃣ نوع الحركة
-        $movement = strtolower($movementName);
-
-        if (str_contains($movement, 'مبيع')) {
-            $type = 'Wholesale Sale';
-        } elseif (str_contains($movement, 'مرتجع')) {
-            $type = 'Wholesale Return';
-        } else {
-            $type = 'Wholesale Sale';
-        }
-
-        // 7️⃣ إنشاء العملية
-        Transaction::create([
-            'type'              => $type,
-            'pharmacy_id'       => $pharmacy->id,
-            'quantity_product' => abs((int) $quantityProduct),
-            'product_id'        => $product->id,
-            'quantity_gift' => abs((int) $quantityGift),
-            'value_income' => abs((float) $valueIncome),
-            'value_output' => abs((float) $valueOutput),
-            'representative_id' => $representative->id,
-            'value_gift' => abs((float) $valueGift),
-            'area_id'           => $area->id,
-            'warehouse_id'      => $this->warehouseId,
-            'file_id'           => $this->fileId,
-            'total_income' => abs((float)$valueIncome + ($type === 'Wholesale Return' ? (float)$valueGift : 0)),
-            'total_output' => abs((float)$valueOutput + ($type === 'Wholesale Sale' ? (float)$valueGift : 0)),
-        ]);
-
-
-        if ($type === 'Wholesale Sale') {
-
-            $area->increment('total_value_output', abs((float)$valueOutput + (float)$valueGift));
-        }
-        if ($type === 'Wholesale Return') {
-            $area->increment('total_value_income', abs((float)$valueIncome + (float)$valueGift));
+                    'area_id' => $areaId,
+                    'representative_id' => $userId,
+                    'warehouse_id' => $this->warehouseId,
+                    'gender' => $r[2] == 'ذكر' ? 'male' : 'female',
+                    'classification_id' => $classId,
+                ]
+            );
         }
     }
 }

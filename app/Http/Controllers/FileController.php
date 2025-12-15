@@ -3,7 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\File;
+use App\Imports\FilesImport;
 use App\Services\FileServer;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 use App\Http\Requests\StoreFileRequest;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\UpdateFileRequest;
@@ -39,9 +43,15 @@ class FileController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        $this->fileServer->upload(
-            $request->validated()
-        );
+        // DB::beginTransaction();
+        $data=$request->validated();
+
+        $this->fileServer->upload($data  );
+
+
+        Excel::import(new FilesImport(Auth::user()->warehouse_id), $data['file']);
+        // DB::commit();
+
 
         return redirect()
             ->route('files.index')
@@ -78,7 +88,10 @@ class FileController extends Controller
      */
     public function destroy(File $file)
     {
-        //
+        $this->fileServer->delete($file);
+        return redirect()
+            ->route('files.index')
+            ->with('success', __('File deleted successfully.'));
     }
 
     public function download(File $file)
@@ -86,16 +99,6 @@ class FileController extends Controller
         // Authorization (اختياري لكنه مهم)
         // $this->authorize('view', $file);
 
-        if (!Storage::disk('public')->exists($file->path)) {
-            abort(Response::HTTP_NOT_FOUND);
-        }
-
-        $extension = pathinfo($file->path, PATHINFO_EXTENSION);
-        $safeName = str($file->name)->slug('_');
-
-        return Storage::disk('public')->download(
-            $file->path,
-            "{$safeName}.{$extension}"
-        );
+        return $this->fileServer->download($file);
     }
 }

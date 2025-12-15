@@ -26,4 +26,21 @@ class StoreFileRequest extends FormRequest
             'file' => 'required|file|mimes:xlsx,xls,csv',
         ];
     }
+
+    public function messages(): array
+    {
+        return [
+            'name.required' => __('name is required'),
+            'file.required' => __('file is required'),
+            'file.mimes' => __('file must be xlsx, xls, or csv'),
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'name' => __('File Name'),
+            'file' => __('File'),
+        ];
+    }
 }
