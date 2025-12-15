@@ -10,6 +10,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
@@ -54,7 +55,8 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/files', FileController::class);
     Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
 
+    Route::get('/products/type/{type}', [ProductController::class, 'index'])->name('products.type.index');
 
-
+    Route::resource('/products', ProductController::class)->except(['index']);
 });
 require __DIR__ . '/auth.php';

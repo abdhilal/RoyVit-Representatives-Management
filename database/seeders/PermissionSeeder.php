@@ -129,6 +129,28 @@ class PermissionSeeder extends Seeder
                 'delete-files',
             ]
         ];
+        $productPermissions = [
+            'group_name' => 'products',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-products',
+                'show-products',
+                'create-products',
+                'update-products',
+                'delete-products',
+            ]
+        ];
+        $representativeStorePermissions = [
+            'group_name' => 'representative_stores',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-representative_stores',
+                'show-representative_stores',
+                'create-representative_stores',
+                'update-representative_stores',
+                'delete-representative_stores',
+            ]
+        ];
 
 
 
@@ -142,7 +164,9 @@ class PermissionSeeder extends Seeder
             $doctorPermissions,
             $representativePermissions,
             $specializationPermissions,
-            $filePermissions
+            $filePermissions,
+            $productPermissions,
+            $representativeStorePermissions
         ];
 
 

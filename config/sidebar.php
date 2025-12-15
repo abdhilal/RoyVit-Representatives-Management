@@ -51,6 +51,24 @@ return [
 
 
     [
+        'title' => 'Products',
+        'items' => [
+            [
+                'label' => 'Products List',
+                'icon_fa' => 'fa-solid fa-box',
+                'parmitions' => ['can' => 'create-products'],
+                'children' => [
+                    ['label' => 'Create Product', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'products.create', 'parmitions' => ['can' => 'create-products'],],
+                    ['label' => 'List of medications', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'products.type.index',   'params' => ['type' => 'medicine'], 'parmitions' => ['can' => 'view-products'],],
+                    ['label' => 'Gift List', 'icon_fa' => 'fa-solid fa-gift', 'route' => 'products.type.index',   'params' => ['type' => 'gift'], 'parmitions' => ['can' => 'view-products'],],
+
+                ]
+            ],
+
+        ],
+    ],
+
+    [
         'title' => 'information',
         'items' => [
             [

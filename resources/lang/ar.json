@@ -350,6 +350,19 @@
     "Classification updated successfully":"تم تحديث التصنيف بنجاح",
     "Classification deleted successfully":"تم حذف التصنيف بنجاح"
     ,
+    "Products":"المنتجات",
+    "Products List":"قائمة المنتجات",
+    "Edit Product":"تعديل المنتج",
+    "Add New Product":"إضافة منتج جديد",
+    "No products found":"لا توجد منتجات",
+    "type":"النوع",
+    "products type":"نوع المنتج",
+    "Product created successfully":"تم إنشاء المنتج بنجاح",
+    "Product updated successfully":"تم تحديث المنتج بنجاح",
+    "Product deleted successfully":"تم حذف المنتج بنجاح",
+    "Create Product":"إنشاء منتج",
+    "List of medications":"قائمة الأدوية",
+    "Gift List":"قائمة الهدايا",
     "Files":"الملفات",
     "Files List":"قائمة الملفات",
     "Files Manager":"مدير الملفات",
@@ -369,5 +382,9 @@
     "name is required":"يجب إدخال الاسم",
     "file is required":"يجب اختيار ملف",
     "file must be xlsx, xls, or csv":"يجب أن يكون الملف من نوع xlsx أو xls أو csv",
-    "Associated doctors":"الاطباء المرتبطين"
+    "Associated doctors":"الاطباء المرتبطين",
+    "gift":"هدية",
+    "medicine":"دواء",
+    "products type is required":"نوع المنتج مطلوب",
+    "products type must be medicine or gift":"نوع المنتج يجب أن يكون دواء أو هدية"
 }
