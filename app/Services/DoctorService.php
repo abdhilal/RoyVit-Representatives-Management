@@ -2,7 +2,11 @@
 
 namespace App\Services;
 
+use App\Models\Area;
 use App\Models\Doctor;
+use App\Enums\GanderDoctor;
+use App\Models\Classification;
+use App\Models\Specialization;
 
 class DoctorService
 {
@@ -18,6 +22,17 @@ class DoctorService
         }
         return Doctor::where('warehouse_id', auth()->user()->id)->paginate(10);
     }
+
+    public function getDataCrateDoctors()
+    {
+        $areas =Area::all();
+        $specializations = Specialization::where('warehouse_id', auth()->user()->warehouse_id)->get();
+        $classifications = Classification::where('warehouse_id', auth()->user()->warehouse_id)->get();
+        $ganders = GanderDoctor::cases();
+        return compact('areas', 'specializations', 'classifications', 'ganders');
+    }
+
+
 
     public function createDoctor(array $data)
     {

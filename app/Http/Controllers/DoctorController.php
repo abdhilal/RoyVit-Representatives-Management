@@ -14,21 +14,14 @@ use App\Http\Requests\UpdateDoctorRequest;
 class DoctorController extends Controller
 {
     protected $doctorService;
-    protected $areaService;
-    protected $specializationsService;
-    protected $classificationService;
+
 
     public function __construct(
         DoctorService $doctorService,
-        AreaService $areaService,
-        SpecializationsService $specializationsService,
-        ClassificationService $classificationService
+
 
     ) {
         $this->doctorService = $doctorService;
-        $this->areaService = $areaService;
-        $this->specializationsService = $specializationsService;
-        $this->classificationService = $classificationService;
     }
     /**
      * Display a listing of the resource.
@@ -45,14 +38,8 @@ class DoctorController extends Controller
     public function create()
     {
         $doctor = new Doctor();
-        $areas = $this->areaService->getAllAreas();
-        $specializations = $this->specializationsService->getAllSpecializations();
-        $classifications = $this->classificationService->getAllClassifications();
-        $ganders = GanderDoctor::cases();
 
-
-
-        return view('pages.doctors.partials.form', compact('doctor', 'areas', 'specializations', 'classifications', 'ganders'));
+        return view('pages.doctors.partials.form',array_merge(['doctor' => $doctor], $this->doctorService->getDataCrateDoctors() ) );
     }
 
     /**
@@ -82,11 +69,9 @@ class DoctorController extends Controller
      */
     public function edit(Doctor $doctor)
     {
-        $areas = $this->areaService->getAllAreas();
-        $specializations = $this->specializationsService->getAllSpecializations();
-        $classifications = $this->classificationService->getAllClassifications();
+        $doctor = $this->doctorService->getDoctorWithRelations($doctor);
         $ganders = GanderDoctor::cases();
-        return view('pages.doctors.partials.form', compact('doctor', 'areas', 'specializations', 'classifications', 'ganders'));
+        return view('pages.doctors.partials.form',array_merge(['doctor' => $doctor], $this->doctorService->getDataCrateDoctors() ) );
     }
 
     /**
