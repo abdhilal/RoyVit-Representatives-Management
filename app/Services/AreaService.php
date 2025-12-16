@@ -3,19 +3,24 @@
 namespace App\Services;
 
 use App\Models\Area;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class AreaService
 {
-    public function getAllAreas()
+    public function getAllAreas(Request $request)
     {
+        $query = Area::query();
         if (Auth::user()->hasRole('super-admin')) {
-            return Area::with('city')->withCount('doctors')->paginate(10);
+            $query->with('city');
         }
-        return Area::with(['city', function ($query) {
-            $query->where('warehouse_id', Auth::user()->warehouse_id);
-        }])->withCount('doctors')->paginate(10);
+
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        }
+        return $query->withCount('doctors')->orderBy('name')->paginate(20);
     }
 
     public function createArea(array $data)

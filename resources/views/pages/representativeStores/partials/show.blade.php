@@ -14,11 +14,16 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-
+                    <x-search-form route="representativeStores.onlyshow"
+                        placeholder="{{ __('search products by name or type') }}" col="5" />
                 </div>
                 <div class="card-body">
+
                     <div class="table-responsive">
+
                         <table class="table table-striped">
+
+
                             <thead>
                                 <tr>
                                     <th>#</th>

@@ -5,27 +5,39 @@ namespace App\Services;
 use App\Models\Area;
 use App\Models\Doctor;
 use App\Enums\GanderDoctor;
+use Illuminate\Http\Request;
 use App\Models\Classification;
 use App\Models\Specialization;
 
 class DoctorService
 {
 
-    public function getAllDoctors()
+    public function getAllDoctors(Request $request)
     {
+        $query = Doctor::query();
+
         if (auth()->user()->hasRole('super-admin')) {
-            return Doctor::paginate(10);
+
+            $query->where('warehouse_id', auth()->user()->warehouse_id);
         }
 
         if (auth()->user()->hasRole('representatives')) {
-            return Doctor::where('user_id', auth()->user()->id)->paginate(10);
+
+            $query->where('user_id', auth()->user()->id);
         }
-        return Doctor::where('warehouse_id', auth()->user()->id)->paginate(10);
+
+        if ($request->has('search')) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%')
+                ->orWhere('address', 'like', '%' . $request->input('search') . '%')
+                ->paginate(10);
+        }
+
+        return $query->orderBy('name')->paginate(20);
     }
 
     public function getDataCrateDoctors()
     {
-        $areas =Area::all();
+        $areas = Area::all();
         $specializations = Specialization::where('warehouse_id', auth()->user()->warehouse_id)->get();
         $classifications = Classification::where('warehouse_id', auth()->user()->warehouse_id)->get();
         $ganders = GanderDoctor::cases();

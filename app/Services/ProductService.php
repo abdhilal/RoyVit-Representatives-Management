@@ -3,17 +3,22 @@
 namespace App\Services;
 
 use App\Models\product;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 
 class ProductService
 {
-    public function getAllProducts($type = null)
+    public function getAllProducts(Request $request, $type = null)
     {
-        if($type){
-            return Product::where('type', $type)->where('warehouse_id', Auth::user()->warehouse_id)->paginate(20);
+        $query = Product::query();
+        if ($type) {
+            $query->where('type', $type);
         }
-        return Product::where('warehouse_id', Auth::user()->warehouse_id)->paginate(20);
+        if ($request->input("search")) {
+            $query->where('name', 'like', '%' . $request->input('search') . '%');
+        }
+        return $query->where('warehouse_id', Auth::user()->warehouse_id)->paginate(20);
     }
 
     public function create($data)

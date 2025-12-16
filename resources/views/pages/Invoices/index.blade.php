@@ -15,6 +15,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
+                        <x-search-form route="invoices.index" placeholder="{{ __('search invoices by number or sender or receiver') }}"
+                            col="7" />
                         @can('create-invoices')
                             <x-buttons.create :action="route('invoices.create')" />
                         @endcan
@@ -41,7 +43,9 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
 
-                                        <td><a href="{{ route('invoices.show', $invoice->id) }}">{{ $invoice->number }}</a></td>
+                                        <td><a
+                                                href="{{ route('invoices.show', $invoice->id) }}">{{ $invoice->number }}</a>
+                                        </td>
                                         <td>{{ $invoice->sender->name }}</td>
                                         <td>{{ $invoice->receiver->name }}</td>
                                         <td>{{ $invoice->invoice_items_count }}</td>

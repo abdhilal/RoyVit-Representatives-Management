@@ -26,11 +26,12 @@
 
                                                     <td style="padding: 30px 0;">
 
-                                                        <div style="margin-right: 15px">
+                                                        <div style="margin-right: 15px ">
                                                             <span
-                                                                style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:700;">{{ __('Invoice') }}</span>
+                                                                style="display:block; line-height: 1.5; font-size:16px; color: var(--white); font-weight:700;">{{ __('Invoice') }}</span>
                                                             <span
-                                                                style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:500;">{{ __('Receipt') }} : {{ $invoice->number }}</span>
+                                                                style="display:block; line-height: 1.5; font-size:16px; color: var(--white); font-weight:500;">{{ __('Receipt') }}
+                                                                : {{ $invoice->number }}</span>
 
                                                         </div>
                                                     </td>
@@ -46,20 +47,39 @@
                                                 <tr style="padding: 28px 0; display: flex; justify-content: space-between;">
                                                     <td>
                                                         <span
-                                                            style=" font-size: 16px; font-weight: 500; opacity: 0.8;">{{ __('Sender') }}</span>
+                                                            style=" font-size: 14px; font-weight: 500; opacity: 0.8; color: var(--body-font-color);">{{ __('Sender') }}</span>
                                                         <h4
-                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 16px; color: rgba(48, 142, 135, 1);">
+                                                            style="font-weight:600; margin: 14px 0 5px 0; font-size: 16px; color: var(--theme-default);">
                                                             {{ $invoice->sender->name ?? '-' }}</h4>
                                                         <span
-                                                            style="line-height:2;  font-size: 16px; font-weight: 400;opacity: 0.8;">{{ __('Warehouse') }}:
+                                                            style="line-height:2;  font-size: 12px; font-weight: 400;opacity: 0.8; color: var(--body-font-color);">{{ __('Warehouse') }}:
                                                             {{ $invoice->warehouse->name ?? '-' }}</span>
                                                     </td>
                                                     <td>
                                                         <span
-                                                            style="font-size: 16px; font-weight: 500;opacity: 0.8;">{{ __('Receiver') }}</span>
+                                                            style="font-size: 14px; font-weight: 500;opacity: 0.8; color: var(--body-font-color);">{{ __('Receiver') }}</span>
                                                         <h4
-                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 16px; color: rgba(48, 142, 135, 1);">
+                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 14px; color: var(--theme-default);">
                                                             {{ $invoice->receiver->name ?? '-' }}</h4>
+                                                        <div
+                                                            style="line-height:2; font-size: 12px; opacity: 0.8; color: var(--body-font-color);">
+
+                                                            <div>{{ __('Phone') }}:
+                                                                {{ optional($invoice->receiver->userInformations)->phone ?? __('Not provided') }}
+                                                            </div>
+                                                            <div>{{ __('Address') }}:
+                                                                {{ optional($invoice->receiver->userInformations)->state ?? __('Not provided') }}
+                                                                -{{ optional($invoice->receiver->userInformations)->city ?? __('Not provided') }}
+
+                                                                <p style="color: var(--body-font-color);">
+                                                                    {{ optional($invoice->receiver->userInformations)->address ?? __('Not provided') }}
+                                                                </p>
+                                                            </div>
+
+
+
+
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             </tbody>
@@ -68,7 +88,7 @@
                                 </tr>
                                 <tr>
                                     <td> <span
-                                            style="display:block; background: rgba(82, 82, 108, 0.3); height:1px; width: 100%; margin-bottom:20px;"></span>
+                                            style="display:block; background: var(--border-color); height:1px; width: 100%; margin-bottom:20px;"></span>
                                     </td>
                                 </tr>
                                 <tr>
@@ -77,10 +97,10 @@
                                             <thead>
                                                 <tr style="background: #308e87;">
                                                     <th style="padding: 18px 15px; "><span
-                                                            style="color: #fff; font-size: 16px; font-weight: 600;">{{ __('product') }}</span>
+                                                            style="color: var(--white); font-size: 14px; font-weight: 600;">{{ __('product') }}</span>
                                                     </th>
                                                     <th style="padding: 18px 15px; "><span
-                                                            style="color: #fff; font-size: 16px; font-weight: 600;">{{ __('Qty') }}</span>
+                                                            style="color: var(--white); font-size: 14px; font-weight: 600;">{{ __('Qty') }}</span>
                                                     </th>
                                                 </tr>
                                             </thead>
@@ -88,20 +108,21 @@
                                                 @foreach ($invoice->invoiceItems as $item)
                                                     <tr>
                                                         <td
-                                                            style="padding: 18px 15px 18px 0; display:flex; align-items: center; gap: 10px; border-bottom:1px solid #52526C4D;">
+                                                            style="padding: 18px 15px 18px 0; display:flex; align-items: center; gap: 10px; border-bottom:1px solid var(--border-color);">
                                                             <span
-                                                                style="width: 3px; height: 37px; background-color:#308e87;"></span>
+                                                                style="width: 3px; height: 37px; background-color: var(--theme-default);"></span>
                                                             <ul style="padding: 0; margin: 0; list-style: none;">
                                                                 <li>
-                                                                    <h4
-                                                                        style="font-weight:600; margin:4px 0px; font-size: 16px; color: #308e87;">
-                                                                        {{ $item->product->name ?? '-' }}</h4>
+                                                                    <h2
+                                                                        style="font-weight:600; margin:4px 0px; font-size: 12px; color: var(--theme-default);">
+                                                                        {{ $item->product->name ?? '-' }}</h2>
                                                                 </li>
                                                             </ul>
                                                         </td>
                                                         <td
-                                                            style="padding: 18px 15px; width: 12%; text-align: center; border-bottom:1px solid #52526C4D;">
-                                                            <span style=" opacity: 0.8;">{{ $item->quantity }}</span>
+                                                            style="padding: 18px 15px; width: 12%; text-align: center; border-bottom:1px solid var(--border-color);">
+                                                            <span
+                                                                style=" opacity: 0.8; color: var(--body-font-color);">{{ $item->quantity }}</span>
                                                         </td>
                                                     </tr>
                                                 @endforeach
@@ -118,16 +139,16 @@
                                                     style="display:flex; justify-content: space-between; margin:28px 0; align-items: center;">
                                                     <td>
                                                         <span
-                                                            style=" font-size: 16px; font-weight: 500; opacity: 0.8; font-weight: 600;">{{ __('Warehouse') }}</span>
+                                                            style=" font-size: 14px; font-weight: 500; opacity: 0.8; font-weight: 600; color: var(--body-font-color);">{{ __('Warehouse') }}</span>
                                                         <h4
-                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 16px; color:#308e87;">
+                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 12px; color: var(--theme-default);">
                                                             {{ $invoice->warehouse->name ?? '-' }}</h4>
                                                     </td>
                                                     <td>
                                                         <span
-                                                            style=" font-size: 16px; font-weight: 500; opacity: 0.8; font-weight: 600;">{{ __('Total quantity') }}</span>
+                                                            style=" font-size: 14px; font-weight: 500; opacity: 0.8; font-weight: 600; color: var(--body-font-color);">{{ __('Total quantity') }}</span>
                                                         <h4
-                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 26px; color:#308e87;">
+                                                            style="font-weight:600; margin: 12px 0 5px 0; font-size: 12px; color: var(--theme-default);">
                                                             {{ $totalQty }}</h4>
                                                     </td>
                                                 </tr>
@@ -137,7 +158,7 @@
                                 </tr>
                                 <tr>
                                     <td> <span
-                                            style="display:block;background: rgba(82, 82, 108, 0.3);height: 1px;width: 100%;margin-bottom:30px;"></span>
+                                            style="display:block;background: var(--border-color);height: 1px;width: 100%;margin-bottom:30px;"></span>
                                     </td>
                                 </tr>
                                 <tr>

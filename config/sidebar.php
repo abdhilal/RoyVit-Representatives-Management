@@ -89,7 +89,7 @@ return [
                 'icon_fa' => 'fa-solid fa-file-invoice',
                 'parmitions' => ['can' => 'create-invoices'],
                 'children' => [
-                    ['label' => 'Create Order', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.create', 'parmitions' => ['can' => 'create-invoices'],],
+                    ['label' => 'Create Invoice', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.create', 'parmitions' => ['can' => 'create-invoices'],],
                     ['label' => 'List of invoices', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.index',  'parmitions' => ['can' => 'view-invoices'],],
 
                 ]

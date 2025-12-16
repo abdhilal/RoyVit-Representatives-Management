@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Http\Request;
 use App\Models\RepresentativeStore;
 use App\Services\RepresentativeStoreService;
 use App\Http\Requests\StoreRepresentativeStoreRequest;
@@ -18,9 +19,9 @@ class RepresentativeStoreController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $representativeStores = $this->RepresentativeStoreService->getAllRepresentativeStores();
+        $representativeStores = $this->RepresentativeStoreService->getAllRepresentativeStores($request);
 
         return view('pages.representativeStores.index', compact('representativeStores'));
     }

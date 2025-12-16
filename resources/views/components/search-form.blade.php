@@ -12,9 +12,10 @@
     'submitLabel' => null,
     'showClear' => true,
     'keepQuery' => true,
+    'params' => null,
 ])
 @php
-    $formAction = $action ?? ($route ? route($route) : url()->current());
+    $formAction = $action ?? ($route ? route($route, $params ?? []) : url()->current());
     $currentValue = $value ?? request($name);
     $placeholderText = $placeholder ?? __('search');
     $submitText = $submitLabel ?? __('search');

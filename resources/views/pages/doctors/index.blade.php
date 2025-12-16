@@ -15,6 +15,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
+                        <x-search-form route="doctors.index" placeholder="{{ __('search doctors by name or address') }}"
+                            col="5" />
                         @can('create-doctors')
                             <x-buttons.create :action="route('doctors.create')" />
                         @endcan

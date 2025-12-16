@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Invoice;
+use Illuminate\Http\Request;
 use App\Services\InvoiceService;
 use App\Http\Requests\StoreInvoiceRequest;
 use App\Http\Requests\UpdateInvoiceRequest;
@@ -18,9 +19,9 @@ class InvoiceController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $invoices = $this->invoiceService->getAll();
+        $invoices = $this->invoiceService->getAll($request);
         return view('pages.invoices.index', compact('invoices'));
     }
 

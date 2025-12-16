@@ -16,14 +16,18 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
 
+                        <x-search-form route="products.type.index" params='{{ $type }}'
+                            placeholder="{{ __('search products by name or type') }}" col="5" />
                     </div>
                 </div>
+
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
                                     <th>#</th>
+
                                     <th>{{ __('name') }}</th>
                                     <th>{{ __('type') }}</th>
 

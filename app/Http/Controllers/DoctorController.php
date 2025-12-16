@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Doctor;
 use App\Enums\GanderDoctor;
+use Illuminate\Http\Request;
 use App\Services\AreaService;
 use App\Services\DoctorService;
 use App\Services\ClassificationService;
@@ -26,9 +27,9 @@ class DoctorController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $doctors = $this->doctorService->getAllDoctors();
+        $doctors = $this->doctorService->getAllDoctors($request);
         return view('pages.doctors.index', compact('doctors'));
     }
 

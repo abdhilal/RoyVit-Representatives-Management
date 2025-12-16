@@ -10,9 +10,9 @@ class SpecializationsService
     public function getAllSpecializations()
     {
         if (Auth::user()->hasRole('super-admin')) {
-            return Specialization::paginate(10);
+            return Specialization::orderBy('name')->paginate(20);
         }
-        return Specialization::where('warehouse_id', Auth::user()->warehouse_id)->paginate(10);
+        return Specialization::where('warehouse_id', Auth::user()->warehouse_id)->orderBy('name')->paginate(20);
     }
 
     public function createSpecialization(array $data)

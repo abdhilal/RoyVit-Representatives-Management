@@ -423,7 +423,7 @@
     "invoice updated successfully": "تم تحديث الفاتورة بنجاح",
     "invoice deleted successfully": "تم حذف الفاتورة بنجاح",
     "Orders": "الطلبات",
-    "Orders List": "قائمة الطلبات",
+    "Orders List": "قائمة الطلبيات",
     "The Stores": "المخازن",
     "Stores List": "قائمة المخازن",
     "My storehouse": "مخزني",
@@ -437,5 +437,14 @@
     "Product": "المنتج",
     "Quantity": "الكمية",
     "Type": "النوع",
-    "No representative stores found": "لا توجد مخازن مندوب"
+    "No representative stores found": "لا توجد مخازن مندوب",
+    "Representative Stores List":"قائمة مخازن المندوبين",
+    "Representative Stores":"مخازن المندوبين",
+    "search doctors by name or address":"بحث عن الأطباء حسب الاسم أو العنوان",
+    "Search Stores":"بحث عن المخازن",
+    "search products by name or type":"بحث في المنتجات عن طريق الاسم",
+    "Invoice Number":"رقم الفاتورة",
+    "search invoices by number or sender or receiver":"بحث في الفواتير عن طريق رقم الفاتورة أو المرسل أو المستلم",
+    "search areas by name or city":"بحث في المناطق عن طريق الاسم أو المدينة",
+    "Create Invoice":"انشاء فاتورة"
 }

@@ -6,86 +6,131 @@ use App\Models\Area;
 use App\Models\Doctor;
 use App\Models\Specialization;
 use App\Models\User;
-use App\Models\Factory;
-use App\Models\Product;
-use App\Models\Pharmacy;
-use Maatwebsite\Excel\Row;
-use App\Models\Transaction;
-use Illuminate\Support\Str;
 use App\Models\Classification;
-use App\Models\Representative;
-use App\Models\AreaRepresentative;
-use Maatwebsite\Excel\Concerns\OnEachRow;
-use Maatwebsite\Excel\Concerns\ToCollection;
 use Illuminate\Support\Collection;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
+use Maatwebsite\Excel\Concerns\ToCollection;
 
 class FilesImport implements ToCollection
 {
-    protected $warehouseId;
+    protected int $warehouseId;
 
     public function __construct($warehouseId)
     {
         $this->warehouseId = $warehouseId;
     }
 
+    /* =========================
+        توحيد الاسم (مهم جدًا)
+    ========================= */
+    private function normalize($value): string
+    {
+        if ($value === null) {
+            return '-';
+        }
+
+        $value = trim((string) $value);
+
+        $value = str_replace(
+            ['أ', 'إ', 'آ', 'ئ'],
+            ['ا', 'ا', 'ا', 'ي'],
+            $value
+        );
+
+        // توحيد المسافات
+        return preg_replace('/\s+/u', ' ', $value);
+    }
+
+
     public function collection(Collection $rows)
     {
-        // تخطي العناوين
+        // تجاهل العناوين
         $rows->shift();
 
-        // كاش داخلي
-        $areas = Area::pluck('id', 'name')->toArray();
+        DB::transaction(function () use ($rows) {
 
-        $specializations = Specialization::where('warehouse_id', $this->warehouseId)
-            ->pluck('id', 'name')->toArray();
+            /* =========================
+                تحميل الكاش مرة واحدة
+            ========================= */
+            $areas = Area::pluck('id', 'name')->toArray();
 
-        $classifications = Classification::where('warehouse_id', $this->warehouseId)
-            ->pluck('id', 'name')->toArray();
+            $specializations = Specialization::where('warehouse_id', $this->warehouseId)
+                ->pluck('id', 'name')->toArray();
 
-        $users = User::pluck('id', 'email')->toArray();
+            $classifications = Classification::where('warehouse_id', $this->warehouseId)
+                ->pluck('id', 'name')->toArray();
 
+            $users = User::pluck('id', 'email')->toArray();
 
-        foreach ($rows as $r) {
+            foreach ($rows as $r) {
 
-            $areaId = $areas[$r[4]] ??= Area::create([
-                'name' => $r[4],
-            ])->id;
+                if (empty($r[1])) {
+                    continue; // تخطي الصف الفارغ
+                }
 
-            $specId = $specializations[$r[3]] ??= Specialization::create([
-                'name' => $r[3],
-                'warehouse_id' => $this->warehouseId,
-            ])->id;
+                $doctorName = $this->normalize($r[1] ?? null);
+                $gender     = ($r[2] ?? '') === 'ذكر' ? 'male' : 'female';
+                $specName   = $this->normalize($r[3] ?? null);
+                $areaName   = $this->normalize($r[4] ?? null);
+                $address    = $this->normalize($r[5] ?? null);
+                $className  = $this->normalize($r[6] ?? null);
 
-            $classId = $classifications[$r[6]] ??= Classification::firstOrCreate([
-                'name' => $r[6],
-                'warehouse_id' => $this->warehouseId,
-            ])->id;
+                /* =========================
+                    Area
+                ========================= */
+                $areaId = $areas[$areaName] ??= Area::create([
+                    'name' => $areaName,
+                ])->id;
 
-            $email = Str::of($r[7])
-                ->lower()
-                ->replaceMatches('/[^a-z0-9]+/i', '')
-                ->append('@royvit.com')
-                ->toString();
-
-            $userId = $users[$email] ??= User::create([
-                'name' => $r[7],
-                'email' => $email,
-                'warehouse_id' => $this->warehouseId,
-                'password' => bcrypt('12345678'),
-            ])->id;
-
-            Doctor::firstOrCreate(
-                [
-                    'address' => $r[5],
-                    'name' => $r[1],
-                    'specialization_id' => $specId,
-                    'area_id' => $areaId,
-                    'representative_id' => $userId,
+                /* =========================
+                    Specialization
+                ========================= */
+                $specId = $specializations[$specName] ??= Specialization::create([
+                    'name' => $specName,
                     'warehouse_id' => $this->warehouseId,
-                    'gender' => $r[2] == 'ذكر' ? 'male' : 'female',
-                    'classification_id' => $classId,
-                ]
-            );
-        }
+                ])->id;
+
+                /* =========================
+                    Classification
+                ========================= */
+                $classId = $classifications[$className] ??= Classification::create([
+                    'name' => $className,
+                    'warehouse_id' => $this->warehouseId,
+                ])->id;
+
+                /* =========================
+                    User
+                ========================= */
+                $email = Str::of($r[7])
+                    ->lower()
+                    ->replaceMatches('/[^a-z0-9]+/i', '')
+                    ->append('@royvit.com')
+                    ->toString();
+
+                $userId = $users[$email] ??= User::create([
+                    'name' => trim($r[7]),
+                    'email' => $email,
+                    'warehouse_id' => $this->warehouseId,
+                    'password' => bcrypt('12345678'),
+                ])->id;
+
+                /* =========================
+                    Doctor (منع التكرار الحقيقي)
+                ========================= */
+                Doctor::firstOrCreate(
+                    [
+                        'name' => $doctorName,
+                        'address' => $address,
+                        'warehouse_id' => $this->warehouseId,
+                        'gender' => $gender,
+                        'specialization_id' => $specId,
+                        'area_id' => $areaId,
+                        'representative_id' => $userId,
+                        'classification_id' => $classId,
+                    ]
+                );
+            }
+        });
     }
 }

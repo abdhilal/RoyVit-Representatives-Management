@@ -8,20 +8,38 @@ use App\Models\Product;
 use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\DB;
 use App\Models\RepresentativeStore;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceService
 {
 
-    public function getAll()
+    public function getAll(Request $request)
     {
+        $query = Invoice::with(['invoiceItems', 'sender', 'receiver']);
         $user = auth()->user();
         if (auth()->user()->hasRole('super-admin')) {
-            return Invoice::with(['invoiceItems', 'sender', 'receiver'])->where('warehouse_id', $user->warehouse_id)->withCount('invoiceItems')->paginate(15);
+            $query->where('warehouse_id', $user->warehouse_id)->withCount('invoiceItems');
         }
 
-        $warehouseId = $user->warehouse_id;
-        return Invoice::with(['invoiceItems', 'sender', 'receiver'])->where('warehouse_id', $warehouseId)->where('receiver_id', $user->id)->withCount('invoiceItems')->paginate(15);
+        if (auth()->user()->hasRole('representative')) {
+            $warehouseId = $user->warehouse_id;
+            $query->where('warehouse_id', $warehouseId)->where('receiver_id', $user->id)->withCount('invoiceItems');
+        }
+        if ($request->filled('search')) {
+            $search = $request->search;
+
+            $query->where(function ($q) use ($search) {
+                $q->where('number', 'like', "%$search%")
+                    ->orWhereHas('sender', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    })
+                    ->orWhereHas('receiver', function ($q) use ($search) {
+                        $q->where('name', 'like', "%$search%");
+                    });
+            });
+        }
+        return $query->orderBy('created_at', 'desc')->paginate(15);
     }
     public function getInformationCraete()
     {

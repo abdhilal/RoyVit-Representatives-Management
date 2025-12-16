@@ -15,12 +15,15 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
+                        <x-search-form route="representativeStores.index" placeholder="{{ __('Search Stores') }}" />
+
                         @can('create-representative_stores')
                             <x-buttons.create :action="route('representativeStores.create')" />
                         @endcan
                     </div>
                 </div>
                 <div class="card-body">
+
                     <div class="table-responsive">
                         <table class="table table-striped">
                             <thead>
@@ -28,7 +31,9 @@
                                     <th>#</th>
                                     <th>{{ __('Representative') }}</th>
 
-                                    @canany(['show-representative_stores', 'update-representative_stores', 'delete-representative_stores'])
+                               
+                                    @canany(['show-representative_stores', 'update-representative_stores',
+                                        'delete-representative_stores'])
                                         <th>{{ __('actions') }}</th>
                                     @endcanany
                                 </tr>
@@ -38,10 +43,13 @@
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
 
-                                        <td><a href="{{ route('representativeStores.show', $representativeStore->id) }}">{{ $representativeStore->name }}</a></td>
+                                        <td><a
+                                                href="{{ route('representativeStores.show', $representativeStore->id) }}">{{ $representativeStore->name }}</a>
+                                        </td>
 
 
-                                        @canany(['show-representative_stores', 'update-representative_stores', 'delete-representative_stores'])
+                                        @canany(['show-representative_stores', 'update-representative_stores',
+                                            'delete-representative_stores'])
                                             <td>
                                                 @can('show-representative_stores')
                                                     <x-buttons.show :action="route('representativeStores.show', $representativeStore)" />
@@ -50,7 +58,10 @@
                                                     <x-buttons.edit :action="route('representativeStores.edit', $representativeStore)" />
                                                 @endcan
                                                 @can('delete-representative_stores')
-                                                    <x-buttons.delete-form :action="route('representativeStores.destroy', $representativeStore)" />
+                                                    <x-buttons.delete-form :action="route(
+                                                        'representativeStores.destroy',
+                                                        $representativeStore,
+                                                    )" />
                                                 @endcan
                                             </td>
                                         @endcanany

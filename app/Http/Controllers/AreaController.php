@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Area;
 use App\Models\City;
+use Illuminate\Http\Request;
 use App\Services\AreaService;
 use App\Services\CityService;
 use App\Http\Requests\StoreAreaRequest;
@@ -23,9 +24,9 @@ class AreaController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $areas = $this->areaService->getAllAreas();
+        $areas = $this->areaService->getAllAreas($request);
         return view('pages.areas.index', compact('areas'));
     }
 

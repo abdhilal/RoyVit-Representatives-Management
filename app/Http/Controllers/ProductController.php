@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use App\Enums\ProductsType;
+use Illuminate\Http\Request;
 use App\Services\ProductService;
 use App\Http\Requests\StoreProductRequest;
 use App\Http\Requests\UpdateProductRequest;
@@ -18,10 +19,10 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index($type = null)
+    public function index(Request $request, $type = null)
     {
-        $products = $this->productService->getAllProducts($type);
-        return view('pages.products.index', compact('products'));
+        $products = $this->productService->getAllProducts($request, $type);
+        return view('pages.products.index', compact('products', 'type'));
     }
 
     /**

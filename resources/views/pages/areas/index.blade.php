@@ -15,6 +15,8 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
+                        <x-search-form route="areas.index" placeholder="{{ __('search areas by name or city') }}"
+                            col="4" />
                         @can('create-areas')
                             <x-buttons.create :action="route('areas.create')" />
                         @endcan
