@@ -2,18 +2,22 @@
 
 namespace App\Services;
 
-use App\Models\RepresentativeStore;
 use App\Models\User;
+use Illuminate\Http\Request;
+use App\Models\RepresentativeStore;
 
 class RepresentativeStoreService
 {
-    public function getRepresentativeStores($id = null)
+    public function getRepresentativeStores(Request $request, $id = null)
     {
-        if ($id) {
+        $query = RepresentativeStore::where('representative_id', $id)->with('product');
 
-            return RepresentativeStore::where('representative_id', $id)->with('product')->paginate(15);
+        if ($request->filled('search')) {
+            $query->whereHas('product', function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->input('search') . '%');
+            });
         }
-        return RepresentativeStore::where('representative_id', auth()->user()->id)->with('product')->paginate(15);
+        return $query->paginate(15);
     }
 
     public function getAllRepresentativeStores($request)

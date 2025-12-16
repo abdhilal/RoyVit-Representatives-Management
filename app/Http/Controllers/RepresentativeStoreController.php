@@ -45,15 +45,18 @@ class RepresentativeStoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show(Request $request, $id)
     {
-        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores($id);
 
-        return view('pages.representativeStores.partials.show', compact('representativeStores'));
+        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores($request, $id);
+
+
+        return view('pages.representativeStores.partials.show', compact('representativeStores', 'id'));
     }
-    public function onlyshow()
+    public function onlyshow(Request $request)
     {
-        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores();
+        $id = auth()->user()->id;
+        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores($request, $id);
 
         return view('pages.representativeStores.partials.show', compact('representativeStores'));
     }
