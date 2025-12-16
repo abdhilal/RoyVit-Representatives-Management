@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('representative_id')->nullable()->constrained('users')->onDelete('set null');
             $table->foreignId('product_id')->nullable()->constrained('products')->onDelete('set null');
-            $table->integer('quantity');
+            $table->integer('quantity')->default(0);
 
 
             $table->timestamps();

@@ -30,10 +30,8 @@
                                                             <span
                                                                 style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:700;">{{ __('Invoice') }}</span>
                                                             <span
-                                                                style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:500;">{{ __('Receipt') }}
-                                                                #{{ $invoice->id }}</span>
-                                                            <span
-                                                                style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:500;">{{ $invoice->created_at->format('Y-m-d') }}</span>
+                                                                style="display:block; line-height: 1.5; font-size:16px; color: #fff; font-weight:500;">{{ __('Receipt') }} : {{ $invoice->number }}</span>
+
                                                         </div>
                                                     </td>
                                                 </tr>
@@ -79,7 +77,7 @@
                                             <thead>
                                                 <tr style="background: #308e87;">
                                                     <th style="padding: 18px 15px; "><span
-                                                            style="color: #fff; font-size: 16px; font-weight: 600;">{{ __('Products') }}</span>
+                                                            style="color: #fff; font-size: 16px; font-weight: 600;">{{ __('product') }}</span>
                                                     </th>
                                                     <th style="padding: 18px 15px; "><span
                                                             style="color: #fff; font-size: 16px; font-weight: 600;">{{ __('Qty') }}</span>
@@ -146,7 +144,8 @@
                                     <td>
                                         <div class="d-flex justify-content-end gap-2 d-print-none">
                                             <x-buttons.print text="Print Invoice" class="btn btn-primary" />
-                                            <x-buttons.back :action="route('invoices.index')" text="Back" class="btn btn-outline-secondary" />
+                                            <x-buttons.back :action="route('invoices.index')" text="Back"
+                                                class="btn btn-outline-secondary" />
                                         </div>
                                     </td>
                                 </tr>

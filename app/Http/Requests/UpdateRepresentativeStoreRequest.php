@@ -11,7 +11,7 @@ class UpdateRepresentativeStoreRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return auth()->check() && auth()->user()->hasPermissionTo('update-representative_stores');
     }
 
     /**
@@ -22,7 +22,25 @@ class UpdateRepresentativeStoreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'quantity' => 'required|integer|min:1',
+        ];
+
+
+    }
+
+    public function messages(): array
+    {
+        return [
+            'quantity.required' => __('quantity is required'),
+            'quantity.integer' => __('quantity must be an integer'),
+            'quantity.min' => __('quantity must be at least 1'),
+        ];
+    }
+
+    public function attributes(): array
+    {
+        return [
+            'quantity' => __('quantity'),
         ];
     }
 }

@@ -376,6 +376,8 @@
     "File deleted successfully.":"تم حذف الملف بنجاح.",
     "Upload failed":"فشل الرفع",
     "Network error":"خطأ في الشبكة",
+    "Upload Tree Products":"رفع شجرة المنتجات",
+    "Tree Products uploaded successfully":"تم رفع شجرة المنتجات بنجاح",
     "Uploading":"جاري الرفع",
     "Processing...":"جاري المعالجة...",
     "created_at":"تاريخ الإنشاء",
@@ -419,4 +421,17 @@
     "invoice created successfully":"تم إنشاء الفاتورة بنجاح",
     "invoice updated successfully":"تم تحديث الفاتورة بنجاح",
     "invoice deleted successfully":"تم حذف الفاتورة بنجاح"
+    ,
+    "Orders":"الطلبات",
+    "Orders List":"قائمة الطلبات",
+    "The Stores":"المخازن",
+    "Stores List":"قائمة المخازن",
+    "My storehouse":"مخزني",
+    "Create TreeProduct":"إنشاء شجرة المنتجات",
+    "warehouse is required":"المخزن مطلوب",
+    "warehouse must exist":"يجب أن يكون المخزن موجودًا",
+    "Representative Store updated successfully":"تم تحديث مخزن المندوب بنجاح",
+    "Representative Store deleted successfully":"تم حذف مخزن المندوب بنجاح",
+    "Create Order":"إنشاء طلب",
+    "List of invoices":"قائمة الفواتير"
 }

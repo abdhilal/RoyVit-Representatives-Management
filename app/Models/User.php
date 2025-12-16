@@ -66,4 +66,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Doctor::class);
     }
+
+    public function representativeStore()
+    {
+        return $this->belongsTo(RepresentativeStore::class);
+    }
 }

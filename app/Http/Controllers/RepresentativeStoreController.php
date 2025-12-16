@@ -3,17 +3,26 @@
 namespace App\Http\Controllers;
 
 use App\Models\RepresentativeStore;
+use App\Services\RepresentativeStoreService;
 use App\Http\Requests\StoreRepresentativeStoreRequest;
 use App\Http\Requests\UpdateRepresentativeStoreRequest;
 
 class RepresentativeStoreController extends Controller
 {
+
+    protected $RepresentativeStoreService;
+    public function __construct(RepresentativeStoreService $RepresentativeStoreService)
+    {
+        $this->RepresentativeStoreService = $RepresentativeStoreService;
+    }
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        //
+        $representativeStores = $this->RepresentativeStoreService->getAllRepresentativeStores();
+
+        return view('pages.representativeStores.index', compact('representativeStores'));
     }
 
     /**
@@ -35,9 +44,17 @@ class RepresentativeStoreController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(RepresentativeStore $representativeStore)
+    public function show($id)
     {
-        //
+        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores($id);
+
+        return view('pages.representativeStores.partials.show', compact('representativeStores'));
+    }
+    public function onlyshow()
+    {
+        $representativeStores = $this->RepresentativeStoreService->getRepresentativeStores();
+
+        return view('pages.representativeStores.partials.show', compact('representativeStores'));
     }
 
     /**
@@ -45,7 +62,7 @@ class RepresentativeStoreController extends Controller
      */
     public function edit(RepresentativeStore $representativeStore)
     {
-        //
+        return view('pages.representativeStores.partials.form', compact('representativeStore'));
     }
 
     /**
@@ -53,7 +70,9 @@ class RepresentativeStoreController extends Controller
      */
     public function update(UpdateRepresentativeStoreRequest $request, RepresentativeStore $representativeStore)
     {
-        //
+        $this->RepresentativeStoreService->updateRepresentativeStore($request->validated(), $representativeStore);
+
+        return redirect()->back()->with('success', __('Representative Store updated successfully'));
     }
 
     /**
@@ -61,6 +80,8 @@ class RepresentativeStoreController extends Controller
      */
     public function destroy(RepresentativeStore $representativeStore)
     {
-        //
+        $this->RepresentativeStoreService->deleteRepresentativeStore($representativeStore);
+
+        return redirect()->back()->with('success', __('Representative Store deleted successfully'));
     }
 }

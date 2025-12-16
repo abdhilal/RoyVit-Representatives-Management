@@ -26,6 +26,7 @@
                             <thead>
                                 <tr>
                                     <th>#</th>
+                                    <th>{{ __('Invoice Number') }}</th>
                                     <th>{{ __('Sender') }}</th>
                                     <th>{{ __('Receiver') }}</th>
                                     <th>{{ __('Products Number') }}</th>
@@ -39,6 +40,8 @@
                                 @forelse($invoices as $index => $invoice)
                                     <tr>
                                         <td>{{ $index + 1 }}</td>
+
+                                        <td><a href="{{ route('invoices.show', $invoice->id) }}">{{ $invoice->number }}</a></td>
                                         <td>{{ $invoice->sender->name }}</td>
                                         <td>{{ $invoice->receiver->name }}</td>
                                         <td>{{ $invoice->invoice_items_count }}</td>

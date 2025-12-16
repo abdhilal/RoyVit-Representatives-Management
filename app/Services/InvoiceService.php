@@ -7,6 +7,7 @@ use App\Models\Invoice;
 use App\Models\Product;
 use App\Models\InvoiceItem;
 use Illuminate\Support\Facades\DB;
+use App\Models\RepresentativeStore;
 use Illuminate\Support\Facades\Auth;
 
 class InvoiceService
@@ -34,7 +35,12 @@ class InvoiceService
     {
         $user = Auth::user();
 
+
+
+
+
         $invoic = Invoice::create([
+            'number' => "ROY" . date('YmdHis'),
             'sender_id' => $user->id,
             'receiver_id' => $data['representative_id'],
             'warehouse_id' => $user->warehouse_id,
@@ -47,7 +53,19 @@ class InvoiceService
                 'invoice_id' => $invoic->id,
                 'product_id' => $productId,
                 'quantity' => $data['quantity'][$key],
+                'created_at' => now(),
+
             ];
+
+            $representativeStore = RepresentativeStore::firstOrCreate(
+                [
+
+                    'representative_id' => $data['representative_id'],
+                    'product_id' => $productId,
+                    'warehouse_id' => $user->warehouse_id,
+                ]
+            );
+            $representativeStore->increment('quantity', $data['quantity'][$key]);
         }
         InvoiceItem::insert($invoiceItems);
     }
@@ -69,6 +87,7 @@ class InvoiceService
             'receiver_id' => $data['representative_id'],
             'note' => $data['note'] ?? null,
         ]);
+
 
         // حذف العناصر القديمة
         InvoiceItem::where('invoice_id', $invoice->id)->delete();

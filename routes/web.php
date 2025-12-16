@@ -16,6 +16,7 @@ use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
 use App\Http\Controllers\InvoiceItemController;
+use App\Http\Controllers\TreeProductController;
 use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
@@ -61,6 +62,11 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/products', ProductController::class)->except(['index']);
     Route::resource('/invoices', InvoiceController::class);
     Route::resource('/invoiceItems', InvoiceItemController::class);
+    Route::get('/representativeStores/onlyshow', [RepresentativeStoreController::class, 'onlyshow'])->name('representativeStores.onlyshow');
+
     Route::resource('/representativeStores', RepresentativeStoreController::class);
+
+    Route::post('/TreeProducts/store', [TreeProductController::class, 'store'])->name('TreeProducts.store');
+    Route::get('/TreeProducts/upload', [TreeProductController::class, 'upload'])->name('TreeProducts.upload');
 });
 require __DIR__ . '/auth.php';

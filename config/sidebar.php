@@ -1,5 +1,4 @@
 <?php
-
 return [
     [
         'title' => 'general',
@@ -39,6 +38,21 @@ return [
         'title' => 'Warehouses',
         'items' => [
             ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
+        ],
+    ],
+    [
+        'title' => 'The Stores',
+        'items' => [
+            ['label' => 'Stores List', 'icon_fa' => 'fa-solid fa-store', 'route' => 'representativeStores.index', 'parmitions' => ['can' => 'view-representative_stores'],],
+        ],
+    ],
+
+
+
+    [
+        'title' => 'My storehouse',
+        'items' => [
+            ['label' => 'My storehouse', 'icon_fa' => 'fa-solid fa-store', 'route' => 'representativeStores.onlyshow', 'parmitions' => ['can' => 'show-representative_stores'],],
         ],
     ],
     [
@@ -107,6 +121,7 @@ return [
 
         'items' => [
             ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],
+            ['label' => 'Create TreeProduct', 'icon_fa' => 'fa-solid fa-tree', 'route' => 'TreeProducts.upload', 'parmitions' => ['can' => 'create-files'],],
         ],
     ],
 ];

@@ -76,7 +76,7 @@
 
                             <div class="col-12 d-flex gap-2">
                                 <x-forms.submit-button label="{{ __('save') }}" />
-                                <x-buttons.cancel route="areas.index" />
+                                <x-buttons.cancel route="invoices.index" />
                             </div>
                         </x-forms.form>
                         <script>
