@@ -151,6 +151,29 @@ class PermissionSeeder extends Seeder
                 'delete-representative_stores',
             ]
         ];
+        $invoicesPermissions = [
+            'group_name' => 'invoices',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-invoices',
+                'show-invoices',
+                'create-invoices',
+                'update-invoices',
+                'delete-invoices',
+            ]
+        ];
+        $invoiceItemsPermissions = [
+            'group_name' => 'invoice_items',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-invoice_items',
+                'show-invoice_items',
+                'create-invoice_items',
+                'update-invoice_items',
+                'delete-invoice_items',
+            ]
+        ];
+
 
 
 
@@ -166,7 +189,9 @@ class PermissionSeeder extends Seeder
             $specializationPermissions,
             $filePermissions,
             $productPermissions,
-            $representativeStorePermissions
+            $representativeStorePermissions,
+            $invoicesPermissions,
+            $invoiceItemsPermissions,
         ];
 
 

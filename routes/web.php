@@ -10,13 +10,16 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\InvoiceItemController;
 use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
+use App\Http\Controllers\RepresentativeStoreController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -54,9 +57,10 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/doctors', DoctorController::class);
     Route::resource('/files', FileController::class);
     Route::get('/files/{file}/download', [FileController::class, 'download'])->name('files.download');
-
     Route::get('/products/type/{type}', [ProductController::class, 'index'])->name('products.type.index');
-
     Route::resource('/products', ProductController::class)->except(['index']);
+    Route::resource('/invoices', InvoiceController::class);
+    Route::resource('/invoiceItems', InvoiceItemController::class);
+    Route::resource('/representativeStores', RepresentativeStoreController::class);
 });
 require __DIR__ . '/auth.php';

@@ -1,5 +1,6 @@
 @props([
     'action' => '',
     'text' => 'back',
+    'class' => 'btn btn-sm btn-outline-secondary',
 ])
-<a href="{{ $action }}" class="btn btn-sm btn-outline-secondary">{{ __($text) }}</a>
+<a href="{{ $action }}" class="{{ $class }}">{{ __($text) }}</a>
