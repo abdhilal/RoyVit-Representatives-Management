@@ -47,4 +47,9 @@ class Warehouse extends Model
     {
         return $this->hasMany(File::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -173,6 +173,17 @@ class PermissionSeeder extends Seeder
                 'delete-invoice_items',
             ]
         ];
+        $orderPermissions = [
+            'group_name' => 'orders',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-orders',
+                'show-orders',
+                'create-orders',
+                'update-orders',
+                'delete-orders',
+            ]
+        ];
 
 
 
@@ -192,6 +203,7 @@ class PermissionSeeder extends Seeder
             $representativeStorePermissions,
             $invoicesPermissions,
             $invoiceItemsPermissions,
+            $orderPermissions,
         ];
 
 

@@ -59,6 +59,9 @@ return [
                 'icon_fa' => 'fa-solid fa-file-invoice',
                 'parmitions' => ['can' => 'create-invoices'],
                 'children' => [
+
+                    ['label' => 'Representative orders', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'orders.index', 'parmitions' => ['can' => 'view-orders'],],
+                    ['label' => 'Create an order from the warehouse', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'orders.create', 'parmitions' => ['can' => 'create-orders'],],
                     ['label' => 'Create Invoice', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.create', 'parmitions' => ['can' => 'create-invoices'],],
                     ['label' => 'List of invoices', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.index',  'parmitions' => ['can' => 'view-invoices'],],
 

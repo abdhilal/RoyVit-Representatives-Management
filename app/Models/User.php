@@ -71,4 +71,9 @@ class User extends Authenticatable
     {
         return $this->belongsTo(RepresentativeStore::class);
     }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
 }

@@ -9,6 +9,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
+use App\Http\Controllers\OrderController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\InvoiceController;
 use App\Http\Controllers\ProductController;
@@ -68,5 +69,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::post('/TreeProducts/store', [TreeProductController::class, 'store'])->name('TreeProducts.store');
     Route::get('/TreeProducts/upload', [TreeProductController::class, 'upload'])->name('TreeProducts.upload');
+    Route::resource('/orders', OrderController::class);
 });
 require __DIR__ . '/auth.php';
