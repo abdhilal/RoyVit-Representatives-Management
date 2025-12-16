@@ -461,5 +461,7 @@
     "Create Invoice": "انشاء فاتورة",
     "Operations": "العمليات",
     "Representative orders": "طلبيات المندوبين",
-    "Create an order from the warehouse": "إنشاء طلبية من المستودع"
+    "Create an order from the warehouse": "إنشاء طلبية من المستودع",
+    "title":"العنوان",
+    "Add New Order":"إضافة طلب جديد"
 }
