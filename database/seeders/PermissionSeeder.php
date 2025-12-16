@@ -182,6 +182,8 @@ class PermissionSeeder extends Seeder
                 'create-orders',
                 'update-orders',
                 'delete-orders',
+                'accept-orders',
+                'reject-orders',
             ]
         ];
 

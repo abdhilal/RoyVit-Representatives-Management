@@ -3,10 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Order;
+use App\Enums\OrderStatuses;
+use Illuminate\Http\Request;
 use App\Services\OrderService;
 use App\Http\Requests\StoreOrderRequest;
 use App\Http\Requests\UpdateOrderRequest;
-use Illuminate\Http\Request;
 
 class OrderController extends Controller
 {
@@ -22,8 +23,18 @@ class OrderController extends Controller
      */
     public function index(Request $request)
     {
+        
         $orders = $this->OrderService->getAllOrders($request);
-        return view('pages.orders.index', compact('orders'));
+        $summary = $this->OrderService->getOrderSummaryCounts($request);
+
+
+        return view('pages.orders.index', [
+            'orders' => $orders,
+            'ordersCount' => $summary['total'],
+            'ordersCountPending' => $summary['pending'],
+            'ordersCountAccepted' => $summary['accepted'],
+            'ordersCountCancelled' => $summary['cancelled'],
+        ]);
     }
 
     /**
@@ -69,6 +80,20 @@ class OrderController extends Controller
     {
         $this->OrderService->updateOrder($order, $request->validated());
         return redirect()->route('orders.index')->with('success', __('Order updated successfully'));
+    }
+
+    public function accept(Order $order)
+    {
+        abort_unless(auth()->user()->hasPermissionTo('accept-orders'), 403);
+        $this->OrderService->updateOrderStatus($order, OrderStatuses::ACCEPTED);
+        return redirect()->route('orders.show', $order)->with('success', __('Order accepted successfully'));
+    }
+
+    public function reject(Order $order)
+    {
+        abort_unless(auth()->user()->hasPermissionTo('reject-orders'), 403);
+        $this->OrderService->updateOrderStatus($order, OrderStatuses::CANCELLED);
+        return redirect()->route('orders.show', $order)->with('success', __('Order rejected successfully'));
     }
 
     /**

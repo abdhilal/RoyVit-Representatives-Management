@@ -30,8 +30,8 @@ class UpdateOrderRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required' => '__("Title is required")',
-            'description.required' => '__("Description is required")',
+            'title.required' => __('Title is required'),
+            'description.required' => __('Description is required'),
         ];
     }
 

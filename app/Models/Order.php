@@ -13,6 +13,7 @@ class Order extends Model
         'warehouse_id',
         'description',
         'title',
+        'status',
     ];
     /** @use HasFactory<\Database\Factories\OrderFactory> */
     use HasFactory;

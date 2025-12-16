@@ -70,5 +70,7 @@ Route::middleware(['auth'])->group(function () {
     Route::post('/TreeProducts/store', [TreeProductController::class, 'store'])->name('TreeProducts.store');
     Route::get('/TreeProducts/upload', [TreeProductController::class, 'upload'])->name('TreeProducts.upload');
     Route::resource('/orders', OrderController::class);
+    Route::put('/orders/{order}/accept', [OrderController::class, 'accept'])->name('orders.accept');
+    Route::put('/orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
 });
 require __DIR__ . '/auth.php';
