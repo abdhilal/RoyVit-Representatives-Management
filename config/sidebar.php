@@ -35,38 +35,14 @@ return [
         ],
     ],
     [
-        'title' => 'Warehouses',
+        'title' => 'Operations',
         'items' => [
             ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
-        ],
-    ],
-    [
-        'title' => 'The Stores',
-        'items' => [
+
+
             ['label' => 'Stores List', 'icon_fa' => 'fa-solid fa-store', 'route' => 'representativeStores.index', 'parmitions' => ['can' => 'view-representative_stores'],],
-        ],
-    ],
-
-
-
-    [
-        'title' => 'My storehouse',
-        'items' => [
             ['label' => 'My storehouse', 'icon_fa' => 'fa-solid fa-store', 'route' => 'representativeStores.onlyshow', 'parmitions' => ['can' => 'show-representative_stores'],],
-        ],
-    ],
-    [
-        'title' => 'Doctors',
-        'items' => [
             ['label' => 'Doctors List', 'icon_fa' => 'fa-solid fa-user-md', 'route' => 'doctors.index', 'parmitions' => ['can' => 'view-doctors'],],
-        ],
-    ],
-
-
-
-    [
-        'title' => 'Products',
-        'items' => [
             [
                 'label' => 'Products List',
                 'icon_fa' => 'fa-solid fa-box',
@@ -78,12 +54,6 @@ return [
 
                 ]
             ],
-
-        ],
-    ],
-    [
-        'title' => 'Orders',
-        'items' => [
             [
                 'label' => 'Orders List',
                 'icon_fa' => 'fa-solid fa-file-invoice',
@@ -95,12 +65,7 @@ return [
                 ]
             ],
 
-        ],
-    ],
 
-    [
-        'title' => 'information',
-        'items' => [
             [
                 'label' => 'the information',
                 'icon_fa' => 'fa-solid fa-info',
@@ -114,7 +79,11 @@ return [
             ],
 
         ],
+
     ],
+
+
+
     [
         'title' => 'Files',
         'parmitions' => ['can' => 'view-files'],

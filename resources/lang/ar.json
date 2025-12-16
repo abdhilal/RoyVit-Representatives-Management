@@ -446,5 +446,6 @@
     "Invoice Number":"رقم الفاتورة",
     "search invoices by number or sender or receiver":"بحث في الفواتير عن طريق رقم الفاتورة أو المرسل أو المستلم",
     "search areas by name or city":"بحث في المناطق عن طريق الاسم أو المدينة",
-    "Create Invoice":"انشاء فاتورة"
+    "Create Invoice":"انشاء فاتورة",
+    "Operations":"العمليات"
 }
