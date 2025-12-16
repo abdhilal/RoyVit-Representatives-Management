@@ -27,6 +27,12 @@ class UserUpdateRequest extends FormRequest
             'password' => 'sometimes|string|min:8|confirmed',
             'is_active' => 'sometimes|boolean',
             'roles' => 'sometimes|array|exists:roles,id',
+            'birth_date' => 'sometimes|date',
+            'phone' => 'sometimes|string|max:255',
+            'address' => 'sometimes|string|max:255',
+            'city' => 'sometimes|string|max:255',
+            'state' => 'sometimes|string|max:255',
+            'country' => 'sometimes|string|max:255',
         ];
     }
 

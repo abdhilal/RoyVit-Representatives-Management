@@ -8,6 +8,7 @@ use Spatie\Permission\Models\Role;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Services\UserService;
+use App\Models\UserInformation;
 use GuzzleHttp\Psr7\Query;
 
 class UserController extends Controller
@@ -47,9 +48,10 @@ class UserController extends Controller
         // إنشاء مستخدم جديد
         $this->authorize('create', User::class);
         $user = new User();
+        $userInformations = new UserInformation();
         $roles = Role::pluck('name', 'id');
         $userRoles = [];
-        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles'));
+        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles','userInformations'));
     }
 
     /**
@@ -80,7 +82,8 @@ class UserController extends Controller
         $this->authorize('update', $user);
         $roles = Role::pluck('name', 'id');
         $userRoles = $user->roles->pluck('id')->toArray();
-        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles'));
+        $userInformations = $user->userInformations;
+        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles','userInformations'));
     }
 
     /**

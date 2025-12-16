@@ -38,6 +38,24 @@
                                 :value="$userRoles" placeholder="{{ __('select roles') }}" required />
                             <x-forms.switch-checkbox name="is_active" label="{{ __('status') }}" :model="$user" />
 
+                            <hr />
+                            <h5 class="mb-3">{{ __('User Information') }}</h5>
+                            @php($userInformations = $userInformations ?? null)
+                            <div class="row">
+                                <x-forms.input name="birth_date" label="{{ __('Birth Date') }}" type="date"
+                                    :model="$userInformations" col="6" placeholder="{{ __('Not provided') }}" />
+                                <x-forms.input name="phone" label="{{ __('Phone') }}" type="tel" :model="$userInformations"
+                                    col="6" placeholder="{{ __('Not provided') }}" />
+                                <x-forms.input name="address" label="{{ __('Address') }}" :model="$userInformations" col="12"
+                                    placeholder="{{ __('Not provided') }}" />
+                                <x-forms.input name="city" label="{{ __('City') }}" :model="$userInformations" col="4"
+                                    placeholder="{{ __('Not provided') }}" />
+                                <x-forms.input name="state" label="{{ __('State') }}" :model="$userInformations" col="4"
+                                    placeholder="{{ __('Not provided') }}" />
+                                <x-forms.input name="country" label="{{ __('Country') }}" :model="$userInformations" col="4"
+                                    placeholder="{{ __('Not provided') }}" />
+                            </div>
+
                             <div class="col-12 d-flex gap-2">
                                 <x-forms.submit-button label="{{ __('save') }}" />
                                 <x-buttons.cancel route="users.index" />

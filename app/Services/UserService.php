@@ -2,6 +2,7 @@
 namespace App\Services;
 
 use App\Models\User;
+use App\Models\UserInformation;
 use Spatie\Permission\Models\Role;
 use App\Services\Interfaces\UserServiceInterface;
 
@@ -40,6 +41,10 @@ class UserService
             $roles=Role::whereIn('id', $data['roles'])->pluck('name')->toArray();
             $user->syncRoles($roles);
         }
+        $info = array_intersect_key($data, array_flip(['birth_date','phone','address','city','state','country']));
+        if (!empty(array_filter($info, fn($v) => $v !== null && $v !== ''))) {
+            $user->userInformations()->create($info);
+        }
         return $user;
     }
     // update data
@@ -49,6 +54,14 @@ class UserService
         if (isset($data['roles'])) {
             $roles=Role::whereIn('id', $data['roles'])->pluck('name')->toArray();
             $user->syncRoles($roles);
+        }
+        $info = array_intersect_key($data, array_flip(['birth_date','phone','address','city','state','country']));
+        if (!empty($info)) {
+            if ($user->userInformations) {
+                $user->userInformations->update($info);
+            } else {
+                $user->userInformations()->create($info);
+            }
         }
         return $user;
     }

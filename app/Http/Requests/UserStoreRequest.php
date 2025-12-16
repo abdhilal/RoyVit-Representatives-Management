@@ -28,6 +28,12 @@ class UserStoreRequest extends FormRequest
             'password' => 'required|string|min:8|confirmed',
             'is_active' => 'required|boolean',
             'roles' => 'required|array',
+            'birth_date' => 'nullable|date',
+            'phone' => 'nullable|string|max:255',
+            'address' => 'nullable|string|max:255',
+            'city' => 'nullable|string|max:255',
+            'state' => 'nullable|string|max:255',
+            'country' => 'nullable|string|max:255',
         ];
     }
 
