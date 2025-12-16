@@ -14,12 +14,12 @@
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    @if(!isset($id))
-                    <x-search-form route="representativeStores.onlyshow"
-                        placeholder="{{ __('search products by name or type') }}" col="7" />
+                    @if (!isset($id))
+                        <x-search-form route="representativeStores.onlyshow"
+                            placeholder="{{ __('search products by name or type') }}" col="7" />
                     @else
-                    <x-search-form route="representativeStores.show" params="{{ $id }}"
-                        placeholder="{{ __('search products by name or type') }}" col="7" />
+                        <x-search-form route="representativeStores.show" params="{{ $id }}"
+                            placeholder="{{ __('search products by name or type') }}" col="7" />
                     @endif
                 </div>
                 <div class="card-body">
