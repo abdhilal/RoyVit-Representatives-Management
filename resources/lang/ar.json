@@ -463,5 +463,17 @@
     "Representative orders": "طلبيات المندوبين",
     "Create an order from the warehouse": "إنشاء طلبية من المستودع",
     "title":"العنوان",
-    "Add New Order":"إضافة طلب جديد"
+    "Add New Order":"إضافة طلب جديد",
+    "Monthly Periods": "الفترات الشهرية",
+    "Monthly Periods List": "قائمة الفترات الشهرية",
+    "Edit Visit Period": "تعديل فترة الزيارات",
+    "Add New Visit Period": "إضافة فترة زيارات جديدة",
+    "month": "الشهر",
+    "max visits": "أقصى عدد زيارات",
+    "No visit periods found": "لا توجد فترات زيارات",
+    "Visit period updated successfully": "تم تحديث فترة الزيارات بنجاح",
+    "Max visits is required": "الحد الأقصى للزيارات مطلوب",
+    "Max visits must be an integer": "الحد الأقصى للزيارات يجب أن يكون عددًا صحيحًا",
+    "Max visits must be at least 1": "الحد الأقصى للزيارات يجب ألا يقل عن 1",
+    "Max visits": "الحد الأقصى للزيارات"
 }

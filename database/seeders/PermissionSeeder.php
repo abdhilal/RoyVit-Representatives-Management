@@ -186,6 +186,39 @@ class PermissionSeeder extends Seeder
                 'reject-orders',
             ]
         ];
+        $visitPeriodPermissions = [
+            'group_name' => 'visit_periods',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-visit_periods',
+                'show-visit_periods',
+                'create-visit_periods',
+                'update-visit_periods',
+                'delete-visit_periods',
+            ]
+        ];
+        $doctorVisitPermissions = [
+            'group_name' => 'doctor_visits',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-doctor_visits',
+                'show-doctor_visits',
+                'create-doctor_visits',
+                'update-doctor_visits',
+                'delete-doctor_visits',
+            ]
+        ];
+        $visitSamplePermissions = [
+            'group_name' => 'visit_samples',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-visit_samples',
+                'show-visit_samples',
+                'create-visit_samples',
+                'update-visit_samples',
+                'delete-visit_samples',
+            ]
+        ];
 
 
 
@@ -206,6 +239,9 @@ class PermissionSeeder extends Seeder
             $invoicesPermissions,
             $invoiceItemsPermissions,
             $orderPermissions,
+            $visitPeriodPermissions,
+            $doctorVisitPermissions,
+            $visitSamplePermissions,
         ];
 
 

@@ -32,6 +32,7 @@ return [
         'title' => 'Settings',
         'items' => [
             ['label' => 'Customize Appearance', 'icon_fa' => 'fa-solid fa-image', 'route' => 'settings.index'],
+            ['label' => 'Monthly Periods', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'visitPeriods.index'],
         ],
     ],
     [
