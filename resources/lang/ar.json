@@ -433,5 +433,9 @@
     "Representative Store updated successfully":"تم تحديث مخزن المندوب بنجاح",
     "Representative Store deleted successfully":"تم حذف مخزن المندوب بنجاح",
     "Create Order":"إنشاء طلب",
-    "List of invoices":"قائمة الفواتير"
+    "List of invoices":"قائمة الفواتير",
+    "Product":"المنتج",
+    "Quantity":"الكمية",
+    "Type":"النوع",
+    "No representative stores found":"لا توجد مخازن مندوب"
 }
