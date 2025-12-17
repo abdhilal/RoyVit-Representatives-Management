@@ -5,23 +5,29 @@ namespace App\Http\Controllers;
 use App\Models\DoctorVisit;
 use Illuminate\Http\Request;
 use App\Services\DoctorVisitService;
+use App\Services\VisitPeriodService;
 use App\Http\Requests\StoreDoctorVisitRequest;
 
 class DoctorVisitController extends Controller
 {
     protected $doctorVisitService;
+    protected $visitPeriodService;
 
-    public function __construct(DoctorVisitService $doctorVisitService)
+    public function __construct(DoctorVisitService $doctorVisitService, VisitPeriodService $visitPeriodService)
     {
         $this->doctorVisitService = $doctorVisitService;
+        $this->visitPeriodService = $visitPeriodService;
     }
 
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $doctorVisits = $this->doctorVisitService->getAll($request);
+
+        return $doctorVisits;   
+        return view('pages.doctorVisits.index', compact('doctorVisits'));
     }
 
     /**
@@ -42,7 +48,10 @@ class DoctorVisitController extends Controller
      */
     public function store(StoreDoctorVisitRequest $request)
     {
-        return $request;
+        $period = $this->visitPeriodService->currentVisitPeriod();
+        $this->doctorVisitService->create($request->validated(), $period);
+
+        return redirect()->route('doctorVisits.index')->with('success', __('Doctor visit created successfully.'));
     }
 
     /**

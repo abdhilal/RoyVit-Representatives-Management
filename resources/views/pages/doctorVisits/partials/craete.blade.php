@@ -145,7 +145,7 @@
                             </div>
 
                             <!-- Action Buttons -->
-                            <div class="d-flex flex-column flex-sm-row gap-3 justify-content-end mt-5">
+                            <div class="d-flex flex-row flex-sm-row gap-3 justify-content-center mt-5">
                                 <x-forms.submit-button label="{{ __('Save') }}" class="btn-lg px-5" />
                                 <x-buttons.cancel route="doctorVisits.index" label="{{ __('Cancel') }}"
                                     class="btn-lg btn-outline-secondary px-5" />
