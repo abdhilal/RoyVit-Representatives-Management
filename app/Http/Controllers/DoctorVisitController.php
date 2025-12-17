@@ -4,9 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorVisit;
 use Illuminate\Http\Request;
+use App\Services\DoctorVisitService;
 
 class DoctorVisitController extends Controller
 {
+    protected $doctorVisitService;
+
+    public function __construct(DoctorVisitService $doctorVisitService)
+    {
+        $this->doctorVisitService = $doctorVisitService;
+    }
+
     /**
      * Display a listing of the resource.
      */
@@ -20,7 +28,12 @@ class DoctorVisitController extends Controller
      */
     public function create()
     {
-        //
+        $data = $this->doctorVisitService->getToCreate();
+
+        $doctorVisit = new DoctorVisit();
+
+
+        return view('pages.doctorVisits.partials.craete', compact('data', 'doctorVisit'));
     }
 
     /**
@@ -28,7 +41,7 @@ class DoctorVisitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return $request;
     }
 
     /**

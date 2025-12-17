@@ -15,19 +15,12 @@ return new class extends Migration
             $table->id();
 
             $table->foreignId('representative_id')->nullable()->constrained('users')->nullOnDelete();
-
-
             $table->foreignId('doctor_id')->nullable()->constrained()->nullOnDelete();
-
-
             $table->foreignId('visit_period_id')->nullable()->constrained()->nullOnDelete();
-
             $table->dateTime('visit_date');
             $table->string('image')->nullable();
             $table->text('notes')->nullable();
-
             $table->timestamps();
-
             $table->index(['representative_id', 'doctor_id', 'visit_date']);
         });
     }

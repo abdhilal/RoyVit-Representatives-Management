@@ -16,6 +16,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\DoctorVisitController;
 use App\Http\Controllers\InvoiceItemController;
 use App\Http\Controllers\TreeProductController;
 use App\Http\Controllers\UserSettingController;
@@ -74,5 +75,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/orders/{order}/accept', [OrderController::class, 'accept'])->name('orders.accept');
     Route::put('/orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
     Route::resource('/visitPeriods', VisitPeriodController::class);
+    Route::resource('/doctorVisits', DoctorVisitController::class);
 });
 require __DIR__ . '/auth.php';
