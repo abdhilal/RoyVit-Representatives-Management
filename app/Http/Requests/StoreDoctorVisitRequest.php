@@ -28,11 +28,9 @@ class StoreDoctorVisitRequest extends FormRequest
             'quantity' => 'required|array',
             'quantity.*' => 'required|integer|min:1',
             'visit_date' => 'required|date',
-            'attachment' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'attachment' => 'nullable|image|mimes:jpeg,png,jpg,gif',
             'note' => 'nullable|string',
         ];
-
-
     }
 
     /**

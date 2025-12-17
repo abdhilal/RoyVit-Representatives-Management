@@ -31,6 +31,7 @@
     "inactive": "غير فعال",
     "Inactive": "غير فعال",
     "actions": "الإجراءات",
+    "Actions": "الإجراءات",
     "create": "إنشاء",
     "edit": "تعديل",
     "delete": "حذف",
@@ -496,5 +497,6 @@
     "Attachment":"المرفق",
     "Enter any additional notes...":"أدخل أي ملاحظات إضافية...",
     "Save":"حفظ",
-    "Delete":"حذف"
+    "Delete":"حذف",
+    "Create Doctor Visits":"إنشاء زيارة الطبيب"
 }
