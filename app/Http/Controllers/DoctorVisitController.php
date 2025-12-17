@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\DoctorVisit;
 use Illuminate\Http\Request;
 use App\Services\DoctorVisitService;
+use App\Http\Requests\StoreDoctorVisitRequest;
 
 class DoctorVisitController extends Controller
 {
@@ -39,7 +40,7 @@ class DoctorVisitController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreDoctorVisitRequest $request)
     {
         return $request;
     }

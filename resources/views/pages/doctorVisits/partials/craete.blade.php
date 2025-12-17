@@ -19,24 +19,7 @@
                     <div class="card-body p-4 p-md-5">
                         <x-forms.form :action="route('doctorVisits.store')" method="POST" enctype="multipart/form-data" class="needs-validation" novalidate>
 
-                            @php
-                                $doctorOptions = collect($data['doctors'] ?? [])
-                                    ->mapWithKeys(fn($d) => [$d->id => $d->name ?? ''])
-                                    ->toArray();
 
-                                $productOptions = collect($data['RepresentativeStores'] ?? [])
-                                    ->filter(fn($store) => $store->product && $store->product->id)
-                                    ->sortBy(fn($store) => $store->product->name ?? '')
-                                    ->mapWithKeys(function ($store) {
-                                        $name = $store->product->name ?? '';
-                                        $typeLabel = __($store->product->type ?? '');
-                                        $quantity = $store->quantity ?? 0;
-                                        return [
-                                            $store->product->id => "{$name} - {$typeLabel} - " . __('Quantity') . ": {$quantity}"
-                                        ];
-                                    })
-                                    ->toArray();
-                            @endphp
 
                             <!-- Doctor Selection -->
                             <div class="row mb-4">
@@ -44,7 +27,7 @@
                                     <x-forms.choices-select
                                         name="doctor_id"
                                         label="{{ __('Doctor') }}"
-                                        :options="$doctorOptions"
+                                        :options="$data['doctorOptions'] ?? []"
                                         placeholder="{{ __('Select Doctor') }}"
                                         searchPlaceholder="{{ __('Search Doctor') }}"
                                         noResultsText="{{ __('No results found') }}"
@@ -59,7 +42,12 @@
                             <div class="mb-5">
                                 <h6 class="text-primary mb-3">{{ __('Visit Items') }}</h6>
 
-                                <div >
+                                @php
+                                    $oldProductIds = old('product_id', []);
+                                    $oldQuantities = old('quantity', []);
+                                    $initialRows = max(1, is_array($oldProductIds) ? count($oldProductIds) : 0);
+                                @endphp
+                                <div>
                                     <table class="table table-bordered table-hover align-middle">
                                         <thead class="table-light">
                                             <tr>
@@ -69,37 +57,49 @@
                                             </tr>
                                         </thead>
                                         <tbody id="items-container">
-                                            <!-- Initial Row -->
-                                            <tr class="visit-item">
-                                                <td class="p-3">
-                                                    <x-forms.choices-select
-                                                        name="product_id[]"
-                                                        :options="$productOptions"
-                                                        placeholder="{{ __('Select Product') }}"
-                                                        searchPlaceholder="{{ __('Search Product') }}"
-                                                        noResultsText="{{ __('No results found') }}"
-                                                        itemSelectText="{{ __('Press to select') }}"
-                                                        required
-                                                        col="12"
-                                                    />
-                                                </td>
-                                                <td class="p-3">
-                                                    <x-forms.input
-                                                        name="quantity[]"
-                                                        type="number"
-                                                        value="1"
-                                                        min="1"
-                                                        required
-                                                        col="12"
-                                                    />
-                                                </td>
-                                                <td class="p-3 text-center">
-                                                    <button type="button" class="btn btn-outline-danger remove-item-btn">
-                                                        <i class="fas fa-trash-alt"></i>
-                                                        <span class="d-none d-md-inline ms-2">{{ __('Delete') }}</span>
-                                                    </button>
-                                                </td>
-                                            </tr>
+                                            @for($i = 0; $i < $initialRows; $i++)
+                                                <tr class="visit-item">
+                                                    <td class="p-3">
+                                                        <x-forms.choices-select
+                                                            name="product_id[]"
+                                                            :options="$data['productOptions'] ?? []"
+                                                            :value="$oldProductIds[$i] ?? null"
+                                                            placeholder="{{ __('Select Product') }}"
+                                                            searchPlaceholder="{{ __('Search Product') }}"
+                                                            noResultsText="{{ __('No results found') }}"
+                                                            itemSelectText="{{ __('Press to select') }}"
+                                                            required
+                                                            col="12"
+                                                        />
+                                                        @if($errors->has('product_id.' . $i))
+                                                            <div class="text-danger small">{{ $errors->first('product_id.' . $i) }}</div>
+                                                        @elseif($i === 0 && $errors->has('product_id'))
+                                                            <div class="text-danger small">{{ $errors->first('product_id') }}</div>
+                                                        @endif
+                                                    </td>
+                                                    <td class="p-3">
+                                                        <x-forms.input
+                                                            name="quantity[]"
+                                                            type="number"
+                                                            value="{{ $oldQuantities[$i] ?? 1 }}"
+                                                            min="1"
+                                                            required
+                                                            col="12"
+                                                        />
+                                                        @if($errors->has('quantity.' . $i))
+                                                            <div class="text-danger small">{{ $errors->first('quantity.' . $i) }}</div>
+                                                        @elseif($i === 0 && $errors->has('quantity'))
+                                                            <div class="text-danger small">{{ $errors->first('quantity') }}</div>
+                                                        @endif
+                                                    </td>
+                                                    <td class="p-3 text-center">
+                                                        <button type="button" class="btn btn-outline-danger remove-item-btn">
+                                                            <i class="fas fa-trash-alt"></i>
+                                                            <span class="d-none d-md-inline ms-2">{{ __('Delete') }}</span>
+                                                        </button>
+                                                    </td>
+                                                </tr>
+                                            @endfor
                                         </tbody>
                                     </table>
                                 </div>
@@ -108,7 +108,7 @@
                                         <td class="p-3">
                                             <x-forms.choices-select
                                                 name="product_id[]"
-                                                :options="$productOptions"
+                                                :options="$data['productOptions'] ?? []"
                                                 placeholder="{{ __('Select Product') }}"
                                                 searchPlaceholder="{{ __('Search Product') }}"
                                                 noResultsText="{{ __('No results found') }}"
