@@ -55,33 +55,4 @@
     <script src="{{ asset('assets/js/vendors/choices.js/public/assets/scripts/choices.js') }}"></script>
     <script src="{{ asset('assets/js/typeahead/typeahead.custom.js') }}"></script>
 
-    <!-- jquery-->
-    <script src="../assets/js/vendors/jquery/jquery.min.js"></script>
-    <!-- bootstrap js-->
-    <script src="../assets/js/vendors/bootstrap/dist/js/bootstrap.bundle.min.js" defer=""></script>
-    <script src="../assets/js/vendors/bootstrap/dist/js/popper.min.js" defer=""></script>
-    <!--fontawesome-->
-    <script src="../assets/js/vendors/font-awesome/fontawesome-min.js"></script>
-    <!-- sidebar -->
-    <script src="../assets/js/sidebar.js"></script>
-    <!-- scrollbar-->
-    <script src="../assets/js/scrollbar/simplebar.js"></script>
-    <script src="../assets/js/scrollbar/custom.js"></script>
-    <!-- slick-->
-    <script src="../assets/js/slick/slick.min.js"></script>
-    <script src="../assets/js/slick/slick.js"></script>
-    <!-- select2_options-->
-    <script src="../assets/js/vendors/@yaireo/tagify/dist/tagify.js"></script>
-    <script src="../assets/js/vendors/@yaireo/tagify/dist/tagify.polyfills.min.js"></script>
-    <script src="../assets/js/vendors/@yaireo/tagify/dist/intlTelInput.min.js"></script>
-    <!-- page_select3-->
-    <script src="../assets/js/select2/select3-custom.js"></script>
-    <!-- theme_customizer-->
-    <script src="../assets/js/theme-customizer/customizer.js"></script>
-    <!-- custom_select2-->
-    <script src="../assets/js/custom-inputsearch.js"></script>
-    <script src="../assets/js/telephone-inpu.js"></script>
-    <!-- custom script -->
-    <script src="../assets/js/script.js"></script>
-
     @stack('scripts')
