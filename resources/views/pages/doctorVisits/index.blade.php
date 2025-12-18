@@ -38,9 +38,10 @@
 
                                 <div class="me-2">
                                     <label class="form-label mb-0 small ">{{ __('Filter by month') }}</label>
-                                    <select id="monthSelect" class="form-select form-select-sm " name="month" onchange="this.form.submit()">
+                                    <select id="monthSelect" class="form-select form-select-sm " name="month"
+                                        onchange="this.form.submit()">
                                         <option value="" {{ !request('month') ? 'selected' : '' }}>
-                                                    {{ __('All Months') }}</option>
+                                            {{ __('All Months') }}</option>
                                         @foreach ($data['months'] ?? [] as $month)
                                             <option value="{{ $month->month }}"
                                                 {{ $month->month == request('month') ? 'selected' : '' }}>
@@ -79,7 +80,8 @@
 
                                 <div class="d-flex align-items-center gap-2">
                                     <x-forms.submit-button label="{{ __('filtering') }}" class="btn btn-primary btn-sm" />
-                                    <a href="{{ route('doctorVisits.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('Clear Filters') }}</a>
+                                    <a href="{{ route('doctorVisits.index') }}"
+                                        class="btn btn-outline-secondary btn-sm">{{ __('Clear Filters') }}</a>
                                 </div>
                             </x-forms.form>
                         </div>
@@ -88,7 +90,7 @@
                         @endcan
                     </div>
                 </div>
-         
+
                 <div class="card-body">
 
                     <div class="table-responsive">
@@ -116,10 +118,18 @@
                                         </td>
                                         <td>
                                             @if (!empty($visit->image_url))
-                                                <img src="{{ $visit->image_url }}" alt="{{ __('Attachment') }}"
-                                                    style="width:34px;height:34px;object-fit:cover;border-radius:6px;">
+                                                <span
+                                                    class="badge bg-success rounded-circle d-inline-flex align-items-center justify-content-center"
+                                                    style="width:26px;height:26px;">
+                                                    <i class="fa-solid fa-check text-white" style="font-size:15px;"></i>
+                                                </span>
                                             @else
-                                                <span class="text-muted">{{ __('No files found') }}</span>
+                                                <span
+                                                    class="badge bg-danger rounded-circle d-inline-flex align-items-center justify-content-center"
+                                                    style="width:26px;height:26px;">
+                                                    <i class="fa-solid fa-circle-xmark text-white"
+                                                        style="font-size:15px;"></i>
+                                                </span>
                                             @endif
                                         </td>
                                         <td>{{ $visit->doctor->name ?? '-' }}</td>

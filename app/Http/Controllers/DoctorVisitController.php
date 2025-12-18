@@ -58,7 +58,7 @@ class DoctorVisitController extends Controller
      */
     public function show(DoctorVisit $doctorVisit)
     {
-        //
+        return view('pages.doctorVisits.partials.show', compact('doctorVisit'));
     }
 
     /**
