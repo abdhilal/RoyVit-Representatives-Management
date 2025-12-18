@@ -5,6 +5,8 @@ use App\Models\User;
 use App\Models\UserInformation;
 use Spatie\Permission\Models\Role;
 use App\Services\Interfaces\UserServiceInterface;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 
 class UserService 
 {
@@ -94,5 +96,13 @@ class UserService
         $user->is_active = !$user->is_active;
         $user->save();
         return $user;
+    }
+    public function impersonate(User $user)
+    {
+        $current = Auth::user();
+        if ($current && !Session::has('impersonator_id')) {
+            Session::put('impersonator_id', $current->id);
+        }
+        Auth::login($user);
     }
 }

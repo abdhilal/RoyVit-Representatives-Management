@@ -66,6 +66,14 @@
                                         </td>
                                         @canany(['show-users', 'update-users', 'delete-users'])
                                             <td>
+                                                @can('update-users')
+                                                    <form action="{{ route('users.impersonate', $user) }}" method="POST"
+                                                        class="d-inline">
+                                                        @csrf
+                                                        <button type="submit"
+                                                            class="btn btn-outline-primary btn-sm">{{ __('Sign in') }}</button>
+                                                    </form>
+                                                @endcan
                                                 @can('show-users')
                                                     <x-buttons.show :action="route('users.show', $user)" />
                                                 @endcan
@@ -75,6 +83,7 @@
                                                 @can('delete-users')
                                                     <x-buttons.delete-form :action="route('users.destroy', $user)" />
                                                 @endcan
+
                                             </td>
                                         @endcanany
                                     </tr>

@@ -12,6 +12,8 @@ class ProductService
     public function getAllProducts(Request $request, $type = null)
     {
         $query = Product::query();
+
+        
         if ($type) {
             $query->where('type', $type);
         }

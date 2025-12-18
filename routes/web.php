@@ -36,6 +36,7 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/users/{user}/restore', [UserController::class, 'restore'])->withTrashed()->name('users.restore');
     Route::delete('/users/{user}/force-delete', [UserController::class, 'forceDelete'])->withTrashed()->name('users.forceDelete');
     Route::put('/users/{user}/toggle-active', [UserController::class, 'toggleActive'])->name('users.toggleActive');
+    Route::post('/users/{user}/impersonate', [UserController::class, 'impersonate'])->name('users.impersonate');
 
     Route::resource('/roles', RoleController::class);
 

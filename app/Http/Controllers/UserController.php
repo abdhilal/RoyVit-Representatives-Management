@@ -150,5 +150,12 @@ class UserController extends Controller
         return redirect()->route('users.index')->with('success', __('User active status updated'));
     }
 
+    public function impersonate(User $user)
+    {
+        $this->authorize('update', $user);
+        $this->userService->impersonate($user);
+        return redirect()->route('home')->with('success', __('Sign in'));
+    }
+
 
 }

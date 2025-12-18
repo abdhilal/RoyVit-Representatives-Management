@@ -21,9 +21,9 @@ class DoctorService
             $query->where('warehouse_id', auth()->user()->warehouse_id);
         }
 
-        if (auth()->user()->hasRole('representatives')) {
+        if (auth()->user()->hasRole('representative')) {
 
-            $query->where('user_id', auth()->user()->id);
+            $query->where('representative_id', auth()->user()->id);
         }
 
         if ($request->has('search')) {
