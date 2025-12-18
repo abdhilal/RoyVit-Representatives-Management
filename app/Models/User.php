@@ -76,4 +76,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Order::class);
     }
+
+    public function doctorVisits()
+    {
+        return $this->hasMany(DoctorVisit::class, 'representative_id');
+    }
 }

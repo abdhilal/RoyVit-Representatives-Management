@@ -45,7 +45,7 @@ class DoctorVisit extends Model
 
     public function getImageUrlAttribute()
     {
-        return asset('storage/' . $this->image);
+        return $this->image ? asset('storage/' . ltrim($this->image, '/')) : null;
     }
 
     public function warehouse()

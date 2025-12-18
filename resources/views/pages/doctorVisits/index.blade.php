@@ -30,13 +30,57 @@
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center flex-wrap" style="gap: 12px;">
                         <div class="d-flex align-items-center flex-wrap" style="gap: 12px;">
-                            <x-search-form route="doctorVisits.index"
-                                placeholder="{{ __('search doctors by name or address') }}" col="5" />
+
                             <x-forms.form action="{{ route('doctorVisits.index') }}" method="GET"
-                                class="d-flex align-items-center">
-                                <x-forms.select name="month" :options="$data['months'] ?? []" :value="request('month')"
-                                    placeholder="{{ __('month') }}" style="min-width:200px;" />
-                                <button type="submit" class="btn btn-outline-secondary ms-2">{{ __('search') }}</button>
+                                class="d-flex align-items-end flex-wrap gap-2">
+
+
+
+                                <div class="me-2">
+                                    <label class="form-label mb-0 small ">{{ __('Filter by month') }}</label>
+                                    <select id="monthSelect" class="form-select form-select-sm " name="month" onchange="this.form.submit()">
+                                        <option value="" {{ !request('month') ? 'selected' : '' }}>
+                                                    {{ __('All Months') }}</option>
+                                        @foreach ($data['months'] ?? [] as $month)
+                                            <option value="{{ $month->month }}"
+                                                {{ $month->month == request('month') ? 'selected' : '' }}>
+                                                {{ $month->month }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                @if (auth()->user()->hasRole('super-admin'))
+                                    <div class="me-2">
+                                        <label class="form-label mb-0 small">{{ __('Filter by representative') }}</label>
+                                        <select class="form-select form-select-sm" name="representative_id">
+                                            <option value="" {{ !request('representative_id') ? 'selected' : '' }}>
+                                                {{ __('All Representatives') }}</option>
+                                            @foreach ($data['representatives'] ?? [] as $representative)
+                                                <option value="{{ $representative->id }}"
+                                                    {{ $representative->id == request('representative_id') ? 'selected' : '' }}>
+                                                    {{ $representative->name }}</option>
+                                            @endforeach
+                                        </select>
+                                    </div>
+                                @endif
+
+                                <div class="me-2">
+                                    <label class="form-label mb-0 small">{{ __('Filter by doctor') }}</label>
+                                    <select class="form-select form-select-sm" name="doctor_id">
+                                        <option value="" {{ !request('doctor_id') ? 'selected' : '' }}>
+                                            {{ __('All Doctors') }}</option>
+                                        @foreach ($data['doctors'] ?? [] as $doctor)
+                                            <option value="{{ $doctor->id }}"
+                                                {{ $doctor->id == request('doctor_id') ? 'selected' : '' }}>
+                                                {{ $doctor->name }}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="d-flex align-items-center gap-2">
+                                    <x-forms.submit-button label="{{ __('filtering') }}" class="btn btn-primary btn-sm" />
+                                    <a href="{{ route('doctorVisits.index') }}" class="btn btn-outline-secondary btn-sm">{{ __('Clear Filters') }}</a>
+                                </div>
                             </x-forms.form>
                         </div>
                         @can('create-doctor_visits')
@@ -44,6 +88,7 @@
                         @endcan
                     </div>
                 </div>
+         
                 <div class="card-body">
 
                     <div class="table-responsive">

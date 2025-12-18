@@ -45,5 +45,12 @@ class Doctor extends Model
         return $this->belongsTo(User::class, 'representative_id');
     }
 
+    public function doctorVisits()
+    {
+        return $this->hasMany(DoctorVisit::class);
+    }
+
+    
+
 
 }

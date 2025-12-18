@@ -12,7 +12,9 @@
 @endphp
 
 <form method="{{ $isGet ? 'GET' : 'POST' }}" action="{{ $action }}" @if($enctype) enctype="{{ $enctype }}" @endif @if($novalidate) novalidate @endif {{ $attributes }}>
-    @csrf
+    @unless($isGet)
+        @csrf
+    @endunless
     @if($spoofNeeded)
         @method($methodUpper)
     @endif

@@ -23,7 +23,7 @@ class DoctorVisitController extends Controller
      * Display a listing of the resource.
      */
     public function index(Request $request)
-    {   
+    {
         $data = $this->doctorVisitService->getAllVisits($request);
 
         return view('pages.doctorVisits.index', compact('data'));

@@ -503,5 +503,14 @@
     "With Evidence": "إثبات الزيارة",
     "Without Evidence": "بدون إثبات",
     "Create Doctor Visits":"إنشاء زيارة الطبيب",
-    "The maximum number of visits allowed for this month has been reached.":"تم الوصول للحد المسموح من الزيارات لهذا الشهر"
+    "The maximum number of visits allowed for this month has been reached.":"تم الوصول للحد المسموح من الزيارات لهذا الشهر",
+    "All Months": "كل الأشهر",
+    "All Representatives": "كل المندوبين",
+    "All Doctors": "كل الأطباء",
+    "Filters": "التصفية",
+    "filtering": "تصفية",
+    "Clear Filters": "مسح التصفية",
+    "Filter by month": "حسب الشهر",
+    "Filter by representative": "حسب المندوب",
+    "Filter by doctor": "حسب الطبيب"
 }

@@ -149,4 +149,6 @@ class UserController extends Controller
         $this->userService->toggelActive($user);
         return redirect()->route('users.index')->with('success', __('User active status updated'));
     }
+
+
 }
