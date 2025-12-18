@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('doctor_id')->nullable()->constrained()->nullOnDelete();
             $table->foreignId('visit_period_id')->nullable()->constrained()->nullOnDelete();
-            $table->dateTime('visit_date');
+            $table->date('visit_date');
             $table->string('image')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

@@ -58,7 +58,11 @@ class DoctorVisitController extends Controller
      */
     public function show(DoctorVisit $doctorVisit)
     {
-        return view('pages.doctorVisits.partials.show', compact('doctorVisit'));
+        $doctorVisit->load(['doctor', 'representative', 'period', 'samples.product']);
+        $doctorMonthCount = DoctorVisit::where('doctor_id', $doctorVisit->doctor_id)
+            ->where('visit_period_id', $doctorVisit->visit_period_id)
+            ->count();
+        return view('pages.doctorVisits.partials.show', compact('doctorVisit', 'doctorMonthCount'));
     }
 
     /**
