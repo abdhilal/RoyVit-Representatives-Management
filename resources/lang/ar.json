@@ -498,6 +498,10 @@
     "Enter any additional notes...":"أدخل أي ملاحظات إضافية...",
     "Save":"حفظ",
     "Delete":"حذف",
+    "Total Visits": "إجمالي الزيارات",
+    "This Month": "هذا الشهر",
+    "With Evidence": "إثبات الزيارة",
+    "Without Evidence": "بدون إثبات",
     "Create Doctor Visits":"إنشاء زيارة الطبيب",
     "The maximum number of visits allowed for this month has been reached.":"تم الوصول للحد المسموح من الزيارات لهذا الشهر"
 }

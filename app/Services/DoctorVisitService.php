@@ -14,6 +14,56 @@ use Illuminate\Support\Facades\Auth;
 class DoctorVisitService
 {
 
+    public function getAllVisits(Request $request)
+    {
+
+        $baseQuery = DoctorVisit::query();
+
+        if (Auth::user()->hasRole('super-admin')) {
+            $baseQuery->where('warehouse_id', Auth::user()->warehouse_id);
+        }
+
+        if (Auth::user()->hasRole('representative')) {
+            $baseQuery->where('representative_id', Auth::id());
+        }
+
+
+        $stats = (clone $baseQuery)->selectRaw("
+        COUNT(*) as totalVisits,
+        SUM(CASE WHEN image IS NOT NULL THEN 1 ELSE 0 END) as totalVisitsIsHasImage,
+        SUM(CASE WHEN image IS NULL THEN 1 ELSE 0 END) as totalVisitsIsNotHasImage
+    ")->first();
+
+
+        $totalVisitsIsMonth = (clone $baseQuery)->whereHas('period', function ($q) {
+            $q->where('month', now()->format('Y-m'));
+        })->count();
+
+
+        $dataQuery = (clone $baseQuery)
+            ->with(['period', 'doctor', 'representative'])
+            ->withCount(['samples as total_samples']);
+
+        if ($request->has('month')) {
+            $dataQuery->whereHas('period', function ($q) use ($request) {
+                $q->where('month', $request->month);
+            });
+        }
+
+        $visits = $dataQuery->orderBy('visit_date', 'desc')->paginate(10);
+
+        $months = VisitPeriod::where('warehouse_id', Auth::user()->warehouse_id)->pluck('month')->unique();
+
+        return [
+            'totalVisits' => $stats->totalVisits,
+            'totalVisitsIsMonth' => $totalVisitsIsMonth,
+            'totalVisitsIsHasImage' => $stats->totalVisitsIsHasImage,
+            'totalVisitsIsNotHasImage' => $stats->totalVisitsIsNotHasImage,
+            'visits' => $visits,
+            'months' => $months,
+        ];
+    }
+
 
     public function getToCreate()
     {
@@ -72,6 +122,7 @@ class DoctorVisitService
 
         $doctorVisit = DoctorVisit::create([
             'doctor_id' => $data['doctor_id'],
+            'warehouse_id' => $user->warehouse_id,
             'visit_period_id' => $period->id,
             'visit_date' => $data['visit_date'],
             'representative_id' => $user->id,
@@ -92,18 +143,5 @@ class DoctorVisitService
 
 
         DB::commit();
-    }
-
-
-    public function getAll(Request $request)
-    {
-        $user = Auth::user();
-        $query = DoctorVisit::query();
-        $query->with(['doctor', 'period']);
-
-        if ($user->hasRole('super-admin')) {
-            return $query->paginate(20);
-        }
-        return $query->where('representative_id', $user->id)->orWhere('visit_period_id', $user->id)->paginate(20);
     }
 }

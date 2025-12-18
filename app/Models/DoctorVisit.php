@@ -9,6 +9,7 @@ class DoctorVisit extends Model
 {
     protected $fillable = [
         'representative_id',
+        'warehouse_id',
         'doctor_id',
         'visit_period_id',
         'visit_date',
@@ -45,5 +46,10 @@ class DoctorVisit extends Model
     public function getImageUrlAttribute()
     {
         return asset('storage/' . $this->image);
+    }
+
+    public function warehouse()
+    {
+        return $this->belongsTo(Warehouse::class);
     }
 }
