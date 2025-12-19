@@ -23,3 +23,7 @@
     RewriteCond %{REQUEST_FILENAME} !-f
     RewriteRule ^ index.php [L]
 </IfModule>
+
+# Ensure correct content types for PWA manifest files
+AddType application/manifest+json .webmanifest
+AddType application/json .json
