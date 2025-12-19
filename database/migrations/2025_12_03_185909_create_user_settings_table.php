@@ -17,7 +17,7 @@ return new class extends Migration
             $table->enum('sidebar_type',['Vertical','Horizontal'])->default('Vertical');
             $table->enum('icon',['Stroke','Colorful'])->default('Stroke');
             $table->enum('mode',['Dark','Light','Mix'])->default('Light');
-            $table->enum('color',['#308e87','#57375D','#0766AD','#025464','#884A39','#0C356A','#000000'])->default('#308e87');
+            $table->enum('color',['#308e87','#57375D','#0766AD','#025464','#884A39','#0C356A','#000000'])->default('#000000');
             $table->enum('locale',['en','ar'])->default('ar');
             $table->primary('id');
             $table->timestamps();
