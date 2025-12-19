@@ -1,4 +1,4 @@
-<!-- Web Application Manifest -->
+{{-- <!-- Web Application Manifest -->
 <link rel="manifest" href="{{ route('laravelpwa.manifest') }}">
 <!-- Chrome for Android theme color -->
 <meta name="theme-color" content="{{ $config['theme_color'] }}">
@@ -43,4 +43,4 @@
             console.log('Laravel PWA: ServiceWorker registration failed: ', err);
         });
     }
-</script>
+</script> --}}

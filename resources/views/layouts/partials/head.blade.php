@@ -7,5 +7,5 @@
     <meta name="author" content="ROYVIT"/>
 
     <title>ROYVIT - @yield('title')</title>
-    @laravelPWA
+    {{-- @laravelPWA --}}
     @include('layouts.partials.styles')
