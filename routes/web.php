@@ -25,6 +25,10 @@ use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\RepresentativeStoreController;
 
+Route::get('/offline', function () {
+    return view('vendor.laravelpwa.offline');
+});
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
