@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use App\Models\User;
 use App\Policies\UserPolicy;
+use Illuminate\Support\Facades\URL;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Auth\Notifications\ResetPassword;
 
@@ -27,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
     {
         ResetPassword::createUrlUsing(function (object $notifiable, string $token) {
             return config('app.frontend_url')."/password-reset/$token?email={$notifiable->getEmailForPasswordReset()}";
+
         });
+
+        //  URL::forceScheme('https');
     }
 }
