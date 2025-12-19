@@ -24,6 +24,7 @@ use App\Http\Controllers\VisitPeriodController;
 use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\RepresentativeStoreController;
+use App\Http\Controllers\ManifestController;
 
 Route::middleware(['auth'])->group(function () {
 
@@ -79,6 +80,6 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/doctorVisits', DoctorVisitController::class);
 });
 
-
+Route::get('/manifest.json', [ManifestController::class, 'show'])->name('manifest.json');
 
 require __DIR__ . '/auth.php';
