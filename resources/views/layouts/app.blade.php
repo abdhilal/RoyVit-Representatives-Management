@@ -1,5 +1,5 @@
 <!DOCTYPE html >
-<html lang="{{ session('locale') }}" @if(session('dir') !== 'box') dir="{{ session('dir')}}" @endif>
+<html lang="{{ session('locale') }}" @if(session('dir') !== 'box') dir="{{ session('dir')}}" @endif data-bs-theme="{{ session('mode') === 'Dark' ? 'dark' : 'light' }}">
 @include('layouts.partials.head')
   <body data-mode-source="server" class="{{ session('theme_class') }} {{ session('dir') === 'box' ? 'box-layout' : '' }}">
     @include('layouts.partials.alert')
@@ -16,7 +16,7 @@
         @include('layouts.partials.aside')
         <!-- Page sidebar end-->
         @include('layouts.partials.body')
-        
+
       </div>
     </div>
     @include('layouts.partials.scripts')

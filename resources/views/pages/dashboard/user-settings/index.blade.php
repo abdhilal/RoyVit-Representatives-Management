@@ -113,6 +113,9 @@
 
             <input type="radio" class="btn-check" name="color" id="palette-6" value="#0C356A" autocomplete="off" {{ ($settings && $settings->color === '#0C356A') ? 'checked' : '' }} required>
             <label class="btn btn-outline-success p-1" for="palette-6"><span class="d-block rounded" style="width:32px;height:32px;background-color:#0C356A"></span></label>
+            
+            <input type="radio" class="btn-check" name="color" id="palette-7" value="#000000" autocomplete="off" {{ ($settings && $settings->color === '#000000') ? 'checked' : '' }} required>
+            <label class="btn btn-outline-success p-1" for="palette-7"><span class="d-block rounded" style="width:32px;height:32px;background-color:#000000"></span></label>
           </div>
         </div>
         <div class="d-flex gap-2">
