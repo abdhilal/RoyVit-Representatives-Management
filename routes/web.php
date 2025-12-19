@@ -78,4 +78,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/visitPeriods', VisitPeriodController::class);
     Route::resource('/doctorVisits', DoctorVisitController::class);
 });
+
+
+
 require __DIR__ . '/auth.php';
