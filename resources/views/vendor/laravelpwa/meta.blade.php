@@ -1,5 +1,5 @@
 <!-- Web Application Manifest -->
-<link rel="manifest" href="{{ asset('manifest-static.json') }}">
+<link rel="manifest" href="{{ asset('manifest-static.json') }}" crossorigin="use-credentials">
 <!-- Chrome for Android theme color -->
 <meta name="theme-color" content="{{ $config['theme_color'] }}">
 
