@@ -37,6 +37,7 @@ return [
             ['label' => 'Create Doctor Visits', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'doctorVisits.create', 'parmitions' => ['can' => 'create-doctor_visits'],],
         ],
     ],
+    
     [
         'title' => 'Operations',
         'items' => [
