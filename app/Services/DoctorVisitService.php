@@ -11,6 +11,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RepresentativeStore;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
 
 class DoctorVisitService
 {
@@ -142,8 +144,11 @@ class DoctorVisitService
         }
 
         if (isset($data['attachment'])) {
-            $imagePath = $data['attachment']
-                ->store('doctor_visits', 'public');
+            $filename = Str::uuid() . '.' . $data['attachment']->getClientOriginalExtension();
+            $destination = public_path('uploads/doctor_visits');
+            File::ensureDirectoryExists($destination);
+            $data['attachment']->move($destination, $filename);
+            $imagePath = 'uploads/doctor_visits/' . $filename;
         } else {
             $imagePath = null;
         }

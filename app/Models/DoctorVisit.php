@@ -48,17 +48,16 @@ class DoctorVisit extends Model
         if (!$this->image) {
             return null;
         }
-        $path = ltrim($this->image, '/');
-        $storagePublicPath = 'storage/' . $path;
-        if (file_exists(public_path($storagePublicPath))) {
-            return asset($storagePublicPath);
+
+        $path = 'uploads/doctor_visits/' . basename($this->image);
+
+        if (file_exists(public_path($path))) {
+            return asset($path);
         }
-        $uploadsFallback = 'uploads/doctor_visits/' . basename($path);
-        if (file_exists(public_path($uploadsFallback))) {
-            return asset($uploadsFallback);
-        }
-        return asset($storagePublicPath);
+
+        return null; 
     }
+
 
     public function warehouse()
     {
