@@ -4,6 +4,7 @@
     $title = $isEdit ? __('Edit Invoice') : __('Add New Invoice');
     $action = $isEdit ? route('invoices.update', $invoice) : route('invoices.store');
     $method = $isEdit ? 'PUT' : 'POST';
+    
 @endphp
 @section('title')
     {{ $title }}

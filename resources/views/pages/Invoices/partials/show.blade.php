@@ -5,6 +5,7 @@
 @section('breadcrumb')
     {{ __('Invoices') }}
 @endsection
+
 @section('breadcrumbActive')
     {{ __('Invoice Details') }}
 @endsection
