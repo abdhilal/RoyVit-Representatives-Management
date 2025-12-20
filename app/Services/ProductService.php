@@ -2,7 +2,7 @@
 
 namespace App\Services;
 
-use App\Models\product;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
@@ -13,7 +13,7 @@ class ProductService
     {
         $query = Product::query();
 
-        
+
         if ($type) {
             $query->where('type', $type);
         }
