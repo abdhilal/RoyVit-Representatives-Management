@@ -512,5 +512,6 @@
     "Clear Filters": "مسح التصفية",
     "Filter by month": "حسب الشهر",
     "Filter by representative": "حسب المندوب",
-    "Filter by doctor": "حسب الطبيب"
+    "Filter by doctor": "حسب الطبيب",
+    "Doctor visit created successfully.": "تم إنشاء زيارة الطبيب بنجاح."
 }

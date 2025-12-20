@@ -48,7 +48,11 @@ class DoctorVisitController extends Controller
     public function store(StoreDoctorVisitRequest $request)
     {
         $period = $this->visitPeriodService->currentVisitPeriod();
-        $this->doctorVisitService->create($request->validated(), $period);
+        try {
+            $this->doctorVisitService->create($request->validated(), $period);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
 
         return redirect()->route('doctorVisits.index')->with('success', __('Doctor visit created successfully.'));
     }
