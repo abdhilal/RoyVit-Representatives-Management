@@ -134,7 +134,7 @@
                                         </td>
                                         <td>{{ $visit->doctor->name ?? '-' }}</td>
                                         <td>{{ $visit->representative->name ?? '-' }}</td>
-                                        <td>{{ $visit->visit_date->format('Y-m-d H') }}</td>
+                                        <td>{{ $visit->visit_date->format('Y-m-d H:i') }}</td>
                                         <td>{{ $visit->period->month ?? '-' }}</td>
                                         <td>{{ $visit->total_samples ?? '-' }}</td>
                                         <td>{{ $visit->notes ?? '-' }}</td>

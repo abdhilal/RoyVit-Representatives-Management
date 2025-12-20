@@ -2,16 +2,17 @@
 
 namespace App\Services;
 
+use Carbon\Carbon;
 use App\Models\User;
 use App\Models\Doctor;
 use App\Models\Product;
 use App\Models\DoctorVisit;
 use App\Models\VisitPeriod;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\RepresentativeStore;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Str;
 use Illuminate\Support\Facades\File;
 
 class DoctorVisitService
@@ -157,7 +158,7 @@ class DoctorVisitService
                 'doctor_id' => $data['doctor_id'],
                 'warehouse_id' => $user->warehouse_id,
                 'visit_period_id' => $period->id,
-                'visit_date' => $data['visit_date'],
+                'visit_date' => Carbon::parse($data['visit_date'] . ' ' . now()->format('H:i:s')),
                 'representative_id' => $user->id,
                 'notes' => $data['note'] ?? null,
                 'image' => $imagePath,
@@ -174,6 +175,5 @@ class DoctorVisitService
                     ->decrement('quantity', $data['quantity'][$index]);
             }
         });
-        
     }
 }

@@ -9,7 +9,6 @@
     {{ __('doctor visit') }}
 @endsection
 @section('content')
-
     <div class="row">
         <div class="col-md-12">
             <div class="card">
@@ -20,11 +19,16 @@
                 <div class="card-body">
                     <x-cards.container>
                         <x-cards.card :value="$doctorVisit->doctor->name ?? '-'" label="{{ __('Doctor') }}" icon="user" roundColor="primary" />
-                        <x-cards.card :value="$doctorVisit->representative->name ?? '-'" label="{{ __('Representative') }}" icon="users" roundColor="info" />
-                        <x-cards.card :value="$doctorVisit->visit_date->format('Y-m-d H') ?? '-'" label="{{ __('Visit Date') }}" icon="calendar" roundColor="warning" />
-                        <x-cards.card :value="$doctorVisit->period->month ?? '-'" label="{{ __('month') }}" icon="calendar" roundColor="secondary" />
-                        <x-cards.card :value="$doctorVisit->samples->count()" label="{{ __('Products Number') }}" icon="list" roundColor="dark" />
-                        <x-cards.card :value="$doctorMonthCount" label="{{ __('This Month') }}" icon="calendar" roundColor="success" />
+                        <x-cards.card :value="$doctorVisit->representative->name ?? '-'" label="{{ __('Representative') }}" icon="users"
+                            roundColor="info" />
+                        <x-cards.card :value="$doctorVisit->visit_date->format('Y-m-d H:i') ?? '-'" label="{{ __('Visit Date') }}" icon="calendar"
+                            roundColor="warning" />
+                        <x-cards.card :value="$doctorVisit->period->month ?? '-'" label="{{ __('month') }}" icon="calendar"
+                            roundColor="secondary" />
+                        <x-cards.card :value="$doctorVisit->samples->count()" label="{{ __('Products Number') }}" icon="list"
+                            roundColor="dark" />
+                        <x-cards.card :value="$doctorMonthCount" label="{{ __('This Month') }}" icon="calendar"
+                            roundColor="success" />
                     </x-cards.container>
 
                     <div class="row mt-3">
@@ -33,12 +37,16 @@
                                 <div class="card-header">
                                     {{ __('Attachment') }}
                                 </div>
-                                <div class="card-body d-flex align-items-center justify-content-center" style="min-height: 160px;">
+                                <div class="card-body d-flex align-items-center justify-content-center"
+                                    style="min-height: 160px;">
                                     @if (!empty($doctorVisit->image_url))
-                                        <img src="{{ $doctorVisit->image_url }}" alt="{{ __('Attachment') }}"
-                                            style="max-width:100%;max-height:140px;object-fit:cover;border-radius:6px;">
+                                        <a href="{{ $doctorVisit->image_url }}" target="_blank" rel="noopener noreferrer">
+                                            <img src="{{ $doctorVisit->image_url }}" alt="{{ __('Attachment') }}"
+                                                style="max-width:100%;max-height:140px;object-fit:cover;border-radius:6px;">
+                                        </a>
                                     @else
-                                        <span class="badge bg-danger rounded-circle d-inline-flex align-items-center justify-content-center"
+                                        <span
+                                            class="badge bg-danger rounded-circle d-inline-flex align-items-center justify-content-center"
                                             style="width:48px;height:48px;">
                                             <i class="fa-solid fa-circle-xmark text-white" style="font-size:22px;"></i>
                                         </span>
