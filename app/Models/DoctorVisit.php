@@ -45,7 +45,19 @@ class DoctorVisit extends Model
 
     public function getImageUrlAttribute()
     {
-        return $this->image ? asset('storage/' . ltrim($this->image, '/')) : null;
+        if (!$this->image) {
+            return null;
+        }
+        $path = ltrim($this->image, '/');
+        $storagePublicPath = 'storage/' . $path;
+        if (file_exists(public_path($storagePublicPath))) {
+            return asset($storagePublicPath);
+        }
+        $uploadsFallback = 'uploads/doctor_visits/' . basename($path);
+        if (file_exists(public_path($uploadsFallback))) {
+            return asset($uploadsFallback);
+        }
+        return asset($storagePublicPath);
     }
 
     public function warehouse()
