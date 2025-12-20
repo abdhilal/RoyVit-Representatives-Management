@@ -131,50 +131,49 @@ class DoctorVisitService
 
     public function create(array $data, VisitPeriod $period)
     {
-        DB::beginTransaction();
-        $user = auth()->user();
+        DB::transaction(function () use ($data, $period) {
+            $user = auth()->user();
 
-        $visitsCount = DoctorVisit::where('representative_id', $user->id)
-            ->where('doctor_id', $data['doctor_id'])
-            ->where('visit_period_id', $period->id)
-            ->count();
+            $visitsCount = DoctorVisit::where('representative_id', $user->id)
+                ->where('doctor_id', $data['doctor_id'])
+                ->where('visit_period_id', $period->id)
+                ->count();
 
-        if ($visitsCount >= $period->max_visits) {
-            throw new \Exception(__('The maximum number of visits allowed for this month has been reached.'));
-        }
+            if ($visitsCount >= $period->max_visits) {
+                throw new \Exception(__('The maximum number of visits allowed for this month has been reached.'));
+            }
 
-        if (isset($data['attachment'])) {
-            $filename = Str::uuid() . '.' . $data['attachment']->getClientOriginalExtension();
-            $destination = public_path('uploads/doctor_visits');
-            File::ensureDirectoryExists($destination);
-            $data['attachment']->move($destination, $filename);
-            $imagePath = 'uploads/doctor_visits/' . $filename;
-        } else {
-            $imagePath = null;
-        }
+            if (isset($data['attachment'])) {
+                $filename = Str::uuid() . '.' . $data['attachment']->getClientOriginalExtension();
+                $destination = public_path('uploads/doctor_visits');
+                File::ensureDirectoryExists($destination);
+                $data['attachment']->move($destination, $filename);
+                $imagePath = 'uploads/doctor_visits/' . $filename;
+            } else {
+                $imagePath = null;
+            }
 
-        $doctorVisit = DoctorVisit::create([
-            'doctor_id' => $data['doctor_id'],
-            'warehouse_id' => $user->warehouse_id,
-            'visit_period_id' => $period->id,
-            'visit_date' => $data['visit_date'],
-            'representative_id' => $user->id,
-            'notes' => $data['note'] ?? null,
-            'image' => $imagePath,
-        ]);
-
-        foreach ($data['product_id'] as $index => $productId) {
-            $doctorVisit->samples()->create([
-                'product_id' => $productId,
-                'quantity' => $data['quantity'][$index],
+            $doctorVisit = DoctorVisit::create([
+                'doctor_id' => $data['doctor_id'],
+                'warehouse_id' => $user->warehouse_id,
+                'visit_period_id' => $period->id,
+                'visit_date' => $data['visit_date'],
+                'representative_id' => $user->id,
+                'notes' => $data['note'] ?? null,
+                'image' => $imagePath,
             ]);
 
-            RepresentativeStore::where('representative_id', $user->id)
-                ->where('product_id', $productId)
-                ->decrement('quantity', $data['quantity'][$index]);
-        }
+            foreach ($data['product_id'] as $index => $productId) {
+                $doctorVisit->samples()->create([
+                    'product_id' => $productId,
+                    'quantity' => $data['quantity'][$index],
+                ]);
 
-
-        DB::commit();
+                RepresentativeStore::where('representative_id', $user->id)
+                    ->where('product_id', $productId)
+                    ->decrement('quantity', $data['quantity'][$index]);
+            }
+        });
+        
     }
 }
