@@ -219,6 +219,28 @@ class PermissionSeeder extends Seeder
                 'delete-visit_samples',
             ]
         ];
+        $planPermissions = [
+            'group_name' => 'plans',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-plans',
+                'show-plans',
+                'create-plans',
+                'update-plans',
+                'delete-plans',
+            ]
+        ];
+        $planItemPermissions = [
+            'group_name' => 'plan_items',
+            'guard_name' => 'web',
+            'permissions' => [
+                'view-plan_items',
+                'show-plan_items',
+                'create-plan_items',
+                'update-plan_items',
+                'delete-plan_items',
+            ]
+        ];
 
 
 
@@ -242,6 +264,8 @@ class PermissionSeeder extends Seeder
             $visitPeriodPermissions,
             $doctorVisitPermissions,
             $visitSamplePermissions,
+            $planPermissions,
+            $planItemPermissions,
         ];
 
 

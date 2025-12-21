@@ -513,5 +513,17 @@
     "Filter by month": "حسب الشهر",
     "Filter by representative": "حسب المندوب",
     "Filter by doctor": "حسب الطبيب",
-    "Doctor visit created successfully.": "تم إنشاء زيارة الطبيب بنجاح."
+    "Doctor visit created successfully.": "تم إنشاء زيارة الطبيب بنجاح.",
+    "Plans": "الخطط",
+    "Plans List": "قائمة الخطط",
+    "Add New Plan": "إضافة خطة جديدة",
+    "Edit Plan": "تعديل الخطة",
+    "Plan name": "اسم الخطة",
+    "search plans by name": "بحث عن الخطط بالاسم",
+    "No plans found": "لا توجد خطط",
+    "Plan created successfully": "تم إنشاء الخطة بنجاح",
+    "Plan Items": "عناصر الخطة",
+    "Visit Period": "فترة الزيارات",
+    "Date": "التاريخ",
+    "Plan Details": "تفاصيل الخطة"
 }

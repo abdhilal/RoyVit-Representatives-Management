@@ -6,6 +6,7 @@ use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\FileController;
 use App\Http\Controllers\ItemController;
+use App\Http\Controllers\PlanController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\GroupController;
@@ -77,5 +78,6 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/orders/{order}/reject', [OrderController::class, 'reject'])->name('orders.reject');
     Route::resource('/visitPeriods', VisitPeriodController::class);
     Route::resource('/doctorVisits', DoctorVisitController::class);
+    Route::resource('/plans', PlanController::class);
 });
 require __DIR__ . '/auth.php';

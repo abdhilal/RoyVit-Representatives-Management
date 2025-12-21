@@ -37,7 +37,7 @@ return [
             ['label' => 'Create Doctor Visits', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'doctorVisits.create', 'parmitions' => ['can' => 'create-doctor_visits'],],
         ],
     ],
-    
+
     [
         'title' => 'Operations',
         'items' => [
@@ -98,6 +98,7 @@ return [
         'items' => [
             ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],
             ['label' => 'Create TreeProduct', 'icon_fa' => 'fa-solid fa-tree', 'route' => 'TreeProducts.upload', 'parmitions' => ['can' => 'create-files'],],
+            ['label' => 'Plans', 'icon_fa' => 'fa-solid fa-file', 'route' => 'plans.index', 'parmitions' => ['can' => 'view-plans'],],
         ],
     ],
 ];
