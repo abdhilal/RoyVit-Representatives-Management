@@ -283,14 +283,15 @@
             var form = document.getElementById('doctorVisitForm');
             if(!form) return;
             var overlay = document.createElement('div');
-            overlay.className = 'position-fixed top-0 start-0 w-100 h-100 d-flex align-items-center justify-content-center';
-            overlay.style.cssText = 'background:rgba(0,0,0,.25);z-index:3000;display:none;';
+            overlay.className = 'position-fixed top-0 start-0 w-100 h-100 align-items-center justify-content-center d-none';
+            overlay.style.cssText = 'background:rgba(0,0,0,.25);z-index:3000;';
             overlay.innerHTML = '<div class="spinner-border text-primary" role="status"><span class="visually-hidden">...</span></div>';
             document.body.appendChild(overlay);
             form.addEventListener('submit', function(e){
                 var btn = form.querySelector('button[type="submit"]');
                 if(btn){ btn.disabled = true; btn.innerHTML = '<span class="spinner-border spinner-border-sm me-2" role="status" aria-hidden="true"></span>' + btn.textContent.trim(); }
-                overlay.style.display = 'flex';
+                overlay.classList.remove('d-none');
+                overlay.classList.add('d-flex');
             });
         })();
     </script>
