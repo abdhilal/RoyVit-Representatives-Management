@@ -143,8 +143,7 @@
                                                 <i class="fa-solid fa-image me-2"></i> {{ __('Select from Gallery') }}
                                             </button>
                                         </div>
-                                        <input type="file" name="attachment" capture="environment" class="d-none" id="attachment_camera_input">
-                                        <input type="file" name="attachment" accept="image/*" class="d-none" id="attachment_gallery_input">
+                                        <input type="file" name="attachment" accept="image/*" class="d-none" id="attachment_input">
                                         @error('attachment')
                                             <div class="text-danger small">{{ $message }}</div>
                                         @enderror
@@ -222,32 +221,31 @@
         (function(){
             var cameraBtn = document.getElementById('btn-attachment-camera');
             var filesBtn = document.getElementById('btn-attachment-files');
-            var cameraInput = document.getElementById('attachment_camera_input');
-            var galleryInput = document.getElementById('attachment_gallery_input');
+            var attachmentInput = document.getElementById('attachment_input');
             var fileNameEl = document.getElementById('attachment_file_name');
             function updateName(input){
                 if(!fileNameEl) return;
                 var f = input && input.files && input.files[0];
                 fileNameEl.textContent = f ? f.name : '';
             }
-            if(cameraBtn && cameraInput){
+            if(cameraBtn && attachmentInput){
                 cameraBtn.addEventListener('click', function(){
-                    if(galleryInput) galleryInput.value = '';
-                    cameraInput.click();
+                    attachmentInput.value = '';
+                    attachmentInput.setAttribute('capture','environment');
+                    attachmentInput.click();
                 });
-                cameraInput.addEventListener('change', function(){
-                    if(galleryInput) galleryInput.value = '';
-                    updateName(cameraInput);
+                attachmentInput.addEventListener('change', function(){
+                    updateName(attachmentInput);
                 });
             }
-            if(filesBtn && galleryInput){
+            if(filesBtn && attachmentInput){
                 filesBtn.addEventListener('click', function(){
-                    if(cameraInput) cameraInput.value = '';
-                    galleryInput.click();
+                    attachmentInput.value = '';
+                    attachmentInput.removeAttribute('capture');
+                    attachmentInput.click();
                 });
-                galleryInput.addEventListener('change', function(){
-                    if(cameraInput) cameraInput.value = '';
-                    updateName(galleryInput);
+                attachmentInput.addEventListener('change', function(){
+                    updateName(attachmentInput);
                 });
             }
         })();
