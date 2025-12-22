@@ -134,7 +134,7 @@
                                 </div>
                                 <div class="col-12 col-md-6">
                                     <x-forms.input name="attachment" type="file" label="{{ __('Attachment') }}"
-                                        accept="image/*" col="12" />
+                                        accept="image/*" capture="environment" col="12" />
                                 </div>
                             </div>
 
