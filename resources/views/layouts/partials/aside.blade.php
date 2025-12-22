@@ -135,5 +135,14 @@
                 @endforeach
             @endforeach
         </ul>
+        <div class="p-3" style="position: sticky; bottom: 0; background: var(--bs-body-bg);">
+            <form action="{{ route('logout') }}" method="POST" class="w-100">
+                @csrf
+                <a href="javascript:void(0)" class="sidebar-link text-danger d-flex align-items-center gap-2" onclick="this.closest('form').submit()">
+                    <i class="fa-solid fa-right-from-bracket"></i>
+                    <h6 class="f-w-600">{{ __('Log Out') }}</h6>
+                </a>
+            </form>
+        </div>
     </div>
 </aside>
