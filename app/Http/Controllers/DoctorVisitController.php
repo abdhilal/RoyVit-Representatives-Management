@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\DoctorVisit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Services\DoctorVisitService;
 use App\Services\VisitPeriodService;
 use App\Http\Requests\StoreDoctorVisitRequest;
@@ -49,7 +50,9 @@ class DoctorVisitController extends Controller
     {
         $period = $this->visitPeriodService->currentVisitPeriod();
         try {
+            DB::beginTransaction();
             $this->doctorVisitService->create($request->validated(), $period);
+            DB::commit();
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }

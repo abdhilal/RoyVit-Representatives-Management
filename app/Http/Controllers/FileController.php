@@ -43,14 +43,14 @@ class FileController extends Controller
      */
     public function store(StoreFileRequest $request)
     {
-        // DB::beginTransaction();
+        DB::beginTransaction();
         $data=$request->validated();
 
         $this->fileServer->upload($data  );
 
 
         Excel::import(new FilesImport(Auth::user()->warehouse_id), $data['file']);
-        // DB::commit();
+        DB::commit();
 
 
         return redirect()
