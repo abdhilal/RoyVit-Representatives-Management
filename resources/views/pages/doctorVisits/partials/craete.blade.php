@@ -133,8 +133,23 @@
                                         value="{{ now()->format('Y-m-d') }}" required col="12" />
                                 </div>
                                 <div class="col-12 col-md-6">
-                                    <x-forms.input name="attachment" type="file" label="{{ __('Attachment') }}"
-                                        accept="image/*" capture="environment" col="12" />
+                                    <div class="mb-3">
+                                        <label class="form-label">{{ __('Attachment') }}</label>
+                                        <div class="d-flex flex-wrap gap-2">
+                                            <button type="button" class="btn btn-outline-primary" id="btn-attachment-camera">
+                                                <i class="fa-solid fa-camera me-2"></i> {{ __('Open Camera') }}
+                                            </button>
+                                            <button type="button" class="btn btn-outline-secondary" id="btn-attachment-files">
+                                                <i class="fa-solid fa-image me-2"></i> {{ __('Select from Gallery') }}
+                                            </button>
+                                        </div>
+                                        <input type="file" name="attachment" capture="environment" class="d-none" id="attachment_camera_input">
+                                        <input type="file" name="attachment" accept="image/*" class="d-none" id="attachment_gallery_input">
+                                        @error('attachment')
+                                            <div class="text-danger small">{{ $message }}</div>
+                                        @enderror
+                                        <div id="attachment_file_name" class="form-text text-muted mt-2"></div>
+                                    </div>
                                 </div>
                             </div>
 
@@ -204,6 +219,38 @@
                 }
             });
         });
+        (function(){
+            var cameraBtn = document.getElementById('btn-attachment-camera');
+            var filesBtn = document.getElementById('btn-attachment-files');
+            var cameraInput = document.getElementById('attachment_camera_input');
+            var galleryInput = document.getElementById('attachment_gallery_input');
+            var fileNameEl = document.getElementById('attachment_file_name');
+            function updateName(input){
+                if(!fileNameEl) return;
+                var f = input && input.files && input.files[0];
+                fileNameEl.textContent = f ? f.name : '';
+            }
+            if(cameraBtn && cameraInput){
+                cameraBtn.addEventListener('click', function(){
+                    if(galleryInput) galleryInput.value = '';
+                    cameraInput.click();
+                });
+                cameraInput.addEventListener('change', function(){
+                    if(galleryInput) galleryInput.value = '';
+                    updateName(cameraInput);
+                });
+            }
+            if(filesBtn && galleryInput){
+                filesBtn.addEventListener('click', function(){
+                    if(cameraInput) cameraInput.value = '';
+                    galleryInput.click();
+                });
+                galleryInput.addEventListener('change', function(){
+                    if(cameraInput) cameraInput.value = '';
+                    updateName(galleryInput);
+                });
+            }
+        })();
     </script>
 @endpush
 
