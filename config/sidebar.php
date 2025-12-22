@@ -31,7 +31,7 @@ return [
     [
         'title' => 'Settings',
         'items' => [
-            ['label' => 'Customize Appearance', 'icon_fa' => 'fa-solid fa-image', 'route' => 'settings.index', ],
+            ['label' => 'Customize Appearance', 'icon_fa' => 'fa-solid fa-image', 'route' => 'settings.index',],
             ['label' => 'Monthly Periods', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'visitPeriods.index', 'parmitions' => ['can' => 'view-visit_periods'],],
             ['label' => 'Doctor Visits', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'doctorVisits.index', 'parmitions' => ['can' => 'view-doctor_visits'],],
             ['label' => 'Create Doctor Visits', 'icon_fa' => 'fa-solid fa-calendar', 'route' => 'doctorVisits.create', 'parmitions' => ['can' => 'create-doctor_visits'],],
@@ -41,6 +41,7 @@ return [
     [
         'title' => 'Operations',
         'items' => [
+
             ['label' => 'Warehouses List', 'icon_fa' => 'fa-solid fa-warehouse', 'route' => 'warehouses.index', 'parmitions' => ['can' => 'view-warehouses'],],
 
 
@@ -61,10 +62,9 @@ return [
             [
                 'label' => 'Orders List',
                 'icon_fa' => 'fa-solid fa-file-invoice',
-                'parmitions' => ['can' => 'create-invoices'],
                 'children' => [
 
-                    ['label' => 'Representative orders', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'orders.index', 'parmitions' => ['can' => 'view-orders'],],
+                    ['label' => 'Representative orders', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'orders.index', 'parmitions' => ['role' => 'super-admin'],],
                     ['label' => 'Create an order from the warehouse', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'orders.create', 'parmitions' => ['can' => 'create-orders'],],
                     ['label' => 'Create Invoice', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.create', 'parmitions' => ['can' => 'create-invoices'],],
                     ['label' => 'List of invoices', 'icon_fa' => 'fa-solid fa-pills', 'route' => 'invoices.index',  'parmitions' => ['can' => 'view-invoices'],],
@@ -76,10 +76,10 @@ return [
             [
                 'label' => 'the information',
                 'icon_fa' => 'fa-solid fa-info',
-                'parmitions' => ['can' => 'create-users'],
                 'children' => [
                     ['label' => 'Cities List', 'icon_fa' => 'fa-solid fa-city', 'route' => 'cities.index', 'parmitions' => ['can' => 'view-cities'],],
-                    ['label' => 'Areas List', 'icon_fa' => 'fa-solid fa-map-marker-alt', 'route' => 'areas.index', 'parmitions' => ['can' => 'view-areas'],],
+                    ['label' => 'Create Area', 'icon_fa' => 'fa-solid fa-map-marker-alt', 'route' => 'areas.create', 'parmitions' => ['role' => 'representative'],],
+                    ['label' => 'Areas List', 'icon_fa' => 'fa-solid fa-map-marker-alt', 'route' => 'areas.index', 'parmitions' => ['role' => 'super-admin'],],
                     ['label' => 'Specialization List', 'icon_fa' => 'fa-solid fa-graduation-cap', 'route' => 'specializations.index', 'parmitions' => ['can' => 'view-specializations'],],
                     ['label' => 'Classification List', 'icon_fa' => 'fa-solid fa-graduation-cap', 'route' => 'classifications.index', 'parmitions' => ['can' => 'view-classifications'],],
                 ]
@@ -92,8 +92,7 @@ return [
 
 
     [
-        'title' => 'Files',
-        'parmitions' => ['can' => 'view-files'],
+        'parmitions' => ['can' => 'view-fles'],
 
         'items' => [
             ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],

@@ -11,6 +11,8 @@ use Illuminate\Support\Collection;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Spatie\Permission\Models\Permission;
+
 
 class FilesImport implements ToCollection
 {
@@ -61,7 +63,7 @@ class FilesImport implements ToCollection
             $classifications = Classification::where('warehouse_id', $this->warehouseId)
                 ->pluck('id', 'name')->toArray();
 
-            $users = User::pluck('id', 'email')->toArray();
+            $users = User::query()->get()->keyBy('email');
 
             foreach ($rows as $r) {
 
@@ -108,12 +110,14 @@ class FilesImport implements ToCollection
                     ->append('@royvit.com')
                     ->toString();
 
-                $userId = $users[$email] ??= User::create([
+                $user = $users[$email] ??= User::create([
                     'name' => trim($r[7]),
                     'email' => $email,
                     'warehouse_id' => $this->warehouseId,
                     'password' => bcrypt('12345678'),
-                ])->id;
+                ]);
+
+                $user->assignRole('representative');
 
                 /* =========================
                     Doctor (منع التكرار الحقيقي)
@@ -126,7 +130,7 @@ class FilesImport implements ToCollection
                         'gender' => $gender,
                         'specialization_id' => $specId,
                         'area_id' => $areaId,
-                        'representative_id' => $userId,
+                        'representative_id' => $user->id,
                         'classification_id' => $classId,
                     ]
                 );
