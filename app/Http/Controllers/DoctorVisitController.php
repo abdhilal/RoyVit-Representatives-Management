@@ -54,7 +54,7 @@ class DoctorVisitController extends Controller
             $this->doctorVisitService->create($request->validated(), $period);
             DB::commit();
         } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
+            return redirect()->route('doctorVisits.create')->with('error', $e->getMessage());
         }
 
         return redirect()->route('doctorVisits.index')->with('success', __('Doctor visit created successfully.'));
