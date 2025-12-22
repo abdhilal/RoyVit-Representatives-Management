@@ -223,10 +223,44 @@
             var filesBtn = document.getElementById('btn-attachment-files');
             var attachmentInput = document.getElementById('attachment_input');
             var fileNameEl = document.getElementById('attachment_file_name');
+            function readAsDataURL(file){ return new Promise(function(res,rej){ var r=new FileReader(); r.onload=function(){res(r.result)}; r.onerror=rej; r.readAsDataURL(file); }); }
+            function loadImg(src){ return new Promise(function(res,rej){ var img=new Image(); img.onload=function(){res(img)}; img.onerror=rej; img.src=src; }); }
+            function toBlob(canvas, type, quality){ return new Promise(function(res){ canvas.toBlob(res, type, quality); }); }
+            async function compressImage(file, maxDim, quality){
+                var dataUrl = await readAsDataURL(file);
+                var img = await loadImg(dataUrl);
+                var w = img.naturalWidth || img.width, h = img.naturalHeight || img.height;
+                var ratio = Math.min(1, maxDim / Math.max(w, h));
+                var nw = Math.round(w * ratio), nh = Math.round(h * ratio);
+                var canvas = document.createElement('canvas');
+                canvas.width = nw; canvas.height = nh;
+                var ctx = canvas.getContext('2d');
+                ctx.drawImage(img, 0, 0, nw, nh);
+                var blob = await toBlob(canvas, 'image/jpeg', quality);
+                var name = (file.name && file.name.toLowerCase().endsWith('.jpg')) ? file.name : 'attachment.jpg';
+                return new File([blob], name, { type: 'image/jpeg' });
+            }
             function updateName(input){
                 if(!fileNameEl) return;
                 var f = input && input.files && input.files[0];
                 fileNameEl.textContent = f ? f.name : '';
+            }
+            async function handleAttachmentChange(){
+                if(!attachmentInput || !attachmentInput.files || !attachmentInput.files[0]) return;
+                var file = attachmentInput.files[0];
+                var isCamera = attachmentInput.hasAttribute('capture');
+                var need = isCamera || file.size > 600*1024;
+                if(!need){ updateName(attachmentInput); return; }
+                if(fileNameEl) fileNameEl.textContent = '...';
+                try{
+                    var compressed = await compressImage(file, isCamera ? 1280 : 1600, isCamera ? 0.7 : 0.8);
+                    if(compressed && compressed.size < file.size && typeof DataTransfer === 'function'){
+                        var dt = new DataTransfer();
+                        dt.items.add(compressed);
+                        attachmentInput.files = dt.files;
+                    }
+                } catch(e){}
+                updateName(attachmentInput);
             }
             if(cameraBtn && attachmentInput){
                 cameraBtn.addEventListener('click', function(){
@@ -234,9 +268,7 @@
                     attachmentInput.setAttribute('capture','environment');
                     attachmentInput.click();
                 });
-                attachmentInput.addEventListener('change', function(){
-                    updateName(attachmentInput);
-                });
+                attachmentInput.addEventListener('change', function(){ handleAttachmentChange(); });
             }
             if(filesBtn && attachmentInput){
                 filesBtn.addEventListener('click', function(){
@@ -244,9 +276,7 @@
                     attachmentInput.removeAttribute('capture');
                     attachmentInput.click();
                 });
-                attachmentInput.addEventListener('change', function(){
-                    updateName(attachmentInput);
-                });
+                attachmentInput.addEventListener('change', function(){ handleAttachmentChange(); });
             }
         })();
     </script>
