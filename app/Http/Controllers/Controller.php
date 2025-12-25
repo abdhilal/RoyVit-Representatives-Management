@@ -48,7 +48,7 @@ class Controller
                 'number' => "ROY" . date('YmdHis')*rand(1,1000),
                 'sender_id' => $user_sender->id,
                 'receiver_id' => $user->id,
-                'warehouse_id' => $user->warehouse_id,
+                'warehouse_id' => 1,
                 'note' =>' 2 فاتورة تجريبية',
             ]);
 
@@ -67,7 +67,7 @@ class Controller
 
                         'representative_id' => $user->id,
                         'product_id' => $productId,
-                        'warehouse_id' => $user->warehouse_id,
+                        'warehouse_id' => 1,
                     ]
                 );
                 $representativeStore->increment('quantity', 20);
