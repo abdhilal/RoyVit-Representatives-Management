@@ -36,6 +36,7 @@ class Controller
         $productIds = Product::all()->pluck('id');
 
 
+
         foreach ($usrs as $user) {
             $user->representativeStore()->delete();
             $invoic = Invoice::create([
@@ -61,7 +62,7 @@ class Controller
 
                         'representative_id' => $user->id,
                         'product_id' => $productId,
-                        'warehouse_id' => $user->warehouse_id,
+                        'warehouse_id' => 1,
                     ]
                 );
                 $representativeStore->increment('quantity', 50);
