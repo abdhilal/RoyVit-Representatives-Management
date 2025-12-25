@@ -68,9 +68,9 @@ class Controller
                         'representative_id' => $user->id,
                         'product_id' => $productId,
                         'warehouse_id' => 1,
+                        'quantity' => 50,
                     ]
                 );
-                $representativeStore->increment('quantity', 50);
             }
             InvoiceItem::insert($invoiceItems);
         }
