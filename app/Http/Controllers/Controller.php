@@ -70,7 +70,7 @@ class Controller
                         'warehouse_id' => 1,
                     ]
                 );
-                $representativeStore->increment('quantity', 20);
+                $representativeStore->increment('quantity', 50);
             }
             InvoiceItem::insert($invoiceItems);
         }
