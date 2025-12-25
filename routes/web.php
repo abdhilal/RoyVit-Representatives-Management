@@ -28,7 +28,7 @@ use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\RepresentativeStoreController;
 
-Route::get('/craeteInvoiceToUsers', [\App\Http\Controllers\Controller::class, 'storeee'])->name('categories.craeteInvoiceToUsers');
+// Route::get('/craeteInvoiceToUsers', [\App\Http\Controllers\Controller::class, 'storeee'])->name('categories.craeteInvoiceToUsers');
 
 Route::middleware(['auth'])->group(function () {
 

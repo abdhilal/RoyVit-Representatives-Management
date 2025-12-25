@@ -29,47 +29,47 @@ class Controller
 
 
 
-    public function storeee()
-    {
-        $usrs = User::with('representativeStore')->get();
-        $user_sender = $usrs->first();
-        $productIds = Product::all()->pluck('id');
+    // public function storeee()
+    // {
+    //     $usrs = User::with('representativeStore')->get();
+    //     $user_sender = $usrs->first();
+    //     $productIds = Product::all()->pluck('id');
 
 
 
-        foreach ($usrs as $user) {
-            $user->representativeStore()->delete();
-            $invoic = Invoice::create([
-                'number' => "ROY" . date('YmdHis') * rand(1, 1000),
-                'sender_id' => $user_sender->id,
-                'receiver_id' => $user->id,
-                'warehouse_id' => 1,
-                'note' => ' 2 فاتورة تجريبية',
-            ]);
+    //     foreach ($usrs as $user) {
+    //         $user->representativeStore()->delete();
+    //         $invoic = Invoice::create([
+    //             'number' => "ROY" . date('YmdHis') * rand(1, 1000),
+    //             'sender_id' => $user_sender->id,
+    //             'receiver_id' => $user->id,
+    //             'warehouse_id' => 1,
+    //             'note' => ' 2 فاتورة تجريبية',
+    //         ]);
 
-            $invoiceItems = [];
-            foreach ($productIds as $productId) {
-                $invoiceItems[] = [
-                    'invoice_id' => $invoic->id,
-                    'product_id' => $productId,
-                    'quantity' => 50,
-                    'created_at' => now(),
+    //         $invoiceItems = [];
+    //         foreach ($productIds as $productId) {
+    //             $invoiceItems[] = [
+    //                 'invoice_id' => $invoic->id,
+    //                 'product_id' => $productId,
+    //                 'quantity' => 50,
+    //                 'created_at' => now(),
 
-                ];
+    //             ];
 
-                $representativeStore = RepresentativeStore::firstOrCreate(
-                    [
+    //             $representativeStore = RepresentativeStore::firstOrCreate(
+    //                 [
 
-                        'representative_id' => $user->id,
-                        'product_id' => $productId,
-                        'warehouse_id' => 1,
-                    ]
-                );
-                $representativeStore->increment('quantity', 50);
-            }
-            InvoiceItem::insert($invoiceItems);
-        }
+    //                     'representative_id' => $user->id,
+    //                     'product_id' => $productId,
+    //                     'warehouse_id' => 1,
+    //                 ]
+    //             );
+    //             $representativeStore->increment('quantity', 50);
+    //         }
+    //         InvoiceItem::insert($invoiceItems);
+    //     }
 
-        return "done";
-    }
+    //     return "done";
+    // }
 }
