@@ -36,20 +36,14 @@ class Controller
         $productIds = Product::all()->pluck('id');
 
 
-
-
-
-
-
         foreach ($usrs as $user) {
-            // $user->representativeStore()->delete();
             $user->representativeStore()->delete();
             $invoic = Invoice::create([
-                'number' => "ROY" . date('YmdHis')*rand(1,1000),
+                'number' => "ROY" . date('YmdHis') * rand(1, 1000),
                 'sender_id' => $user_sender->id,
                 'receiver_id' => $user->id,
                 'warehouse_id' => 1,
-                'note' =>' 2 فاتورة تجريبية',
+                'note' => ' 2 فاتورة تجريبية',
             ]);
 
             $invoiceItems = [];
@@ -67,8 +61,7 @@ class Controller
 
                         'representative_id' => $user->id,
                         'product_id' => $productId,
-                        'warehouse_id' => 1,
-                        
+                        'warehouse_id' => $user->warehouse_id,
                     ]
                 );
                 $representativeStore->increment('quantity', 50);
