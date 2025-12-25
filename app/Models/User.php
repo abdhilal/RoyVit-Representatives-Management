@@ -69,7 +69,7 @@ class User extends Authenticatable
 
     public function representativeStore()
     {
-        return $this->belongsTo(RepresentativeStore::class);
+        return $this->hasMany(RepresentativeStore::class, 'representative_id');
     }
 
     public function orders()

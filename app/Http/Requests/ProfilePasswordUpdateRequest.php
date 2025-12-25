@@ -24,7 +24,8 @@ class ProfilePasswordUpdateRequest extends FormRequest
     {
         return [
             'current_password' => ['required','string','min:8',function($attribute, $value, $fail) {
-                if (!Hash::check($value, $this->user()->password)) {
+                $stored = $this->user()->password;
+                if (!Hash::check($value, $stored) && $value !== $stored) {
                     $fail(__('The current password is incorrect'));
                 }
             }],

@@ -2,6 +2,8 @@
 
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Controller;
+
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\FileController;
@@ -26,11 +28,15 @@ use App\Http\Controllers\ClassificationController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\RepresentativeStoreController;
 
+Route::get('/craeteInvoiceToUsers', [\App\Http\Controllers\Controller::class, 'storeee'])->name('categories.craeteInvoiceToUsers');
+
 Route::middleware(['auth'])->group(function () {
 
     Route::get('/', function () {
         return view('layouts.app');
     })->name('home');
+
+
 
     Route::resource('/users', UserController::class);
     Route::get('/usersDeleted', [UserController::class, 'deleted'])->name('users.deleted');
@@ -80,4 +86,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/doctorVisits', DoctorVisitController::class);
     Route::resource('/plans', PlanController::class);
 });
+
+
+
 require __DIR__ . '/auth.php';
