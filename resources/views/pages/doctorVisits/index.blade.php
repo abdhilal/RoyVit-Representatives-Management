@@ -100,9 +100,10 @@
                                     <th>#</th>
                                     <th>{{ __('Attachment') }}</th>
                                     <th>{{ __('Doctor') }}</th>
-                                    <th>{{ __('Representative') }}</th>
+                                    @canany('create-users')
+                                        <th>{{ __('Representative') }}</th>
+                                    @endcan
                                     <th>{{ __('Visit Date') }}</th>
-                                    <th>{{ __('month') }}</th>
                                     <th>{{ __('Products Number') }}</th>
                                     <th>{{ __('Note') }}</th>
 
@@ -133,9 +134,10 @@
                                             @endif
                                         </td>
                                         <td>{{ $visit->doctor->name ?? '-' }}</td>
-                                        <td>{{ $visit->representative->name ?? '-' }}</td>
+                                        @canany('create-users')
+                                            <td>{{ $visit->representative->name ?? '-' }}</td>
+                                        @endcan
                                         <td>{{ $visit->visit_date->format('Y-m-d H:i') }}</td>
-                                        <td>{{ $visit->period->month ?? '-' }}</td>
                                         <td>{{ $visit->total_samples ?? '-' }}</td>
                                         <td>{{ $visit->notes ?? '-' }}</td>
 
