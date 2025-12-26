@@ -178,4 +178,23 @@ class DoctorVisitService
             }
         });
     }
+
+    /**
+     * Delete the specified resource from storage.
+     */
+    public function delete(DoctorVisit $doctorVisit)
+    {
+        $doctorVisit->load('samples', 'doctor', 'representative');
+
+        $doctorVisit->doctor->update(['visits_count' => $doctorVisit->doctor->visits_count - 1]);
+
+        foreach ($doctorVisit->samples as $sample) {
+            RepresentativeStore::where('representative_id', $doctorVisit->representative_id)
+                ->where('product_id', $sample->product_id)
+                ->increment('quantity', $sample->quantity);
+        }
+
+        $doctorVisit->samples()->delete();
+        $doctorVisit->delete();
+    }
 }

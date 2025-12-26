@@ -143,6 +143,9 @@
                                             <td>
                                                 @can('show-doctor_visits')
                                                     <x-buttons.show :action="route('doctorVisits.show', $visit)" />
+                                                    @if ($visit->created_at->diffInHours(now()) <= 12)
+                                                        <x-buttons.delete-form :action="route('doctorVisits.destroy', $visit)" />
+                                                    @endif
                                                 @endcan
                                             </td>
                                         @endcanany

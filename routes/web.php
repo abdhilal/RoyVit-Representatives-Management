@@ -1,9 +1,15 @@
 <?php
 
-use Illuminate\Support\Facades\App;
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Controller;
+use App\Models\Area;
+use App\Models\User;
+use App\Models\Doctor;
 
+use App\Models\Product;
+use App\Models\Classification;
+use App\Models\RepresentativeStore;
+use Illuminate\Support\Facades\App;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AreaController;
 use App\Http\Controllers\CityController;
 use App\Http\Controllers\FileController;
@@ -86,5 +92,16 @@ Route::middleware(['auth'])->group(function () {
 });
 
 
+
+Route::get('/accept', function () {
+
+    $products = Product::all();
+    $users = User::all();
+
+
+
+
+    return ['products' => $products, 'users' => $users];
+})->name('doctorVisits.accept');
 
 require __DIR__ . '/auth.php';

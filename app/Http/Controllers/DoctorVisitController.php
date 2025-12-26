@@ -74,24 +74,32 @@ class DoctorVisitController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(DoctorVisit $doctorVisit)
-    {
-        //
-    }
+    // public function edit(DoctorVisit $doctorVisit)
+    // {
+    //     $data = $this->doctorVisitService->getToCreate();
+
+    //     return view('pages.doctorVisits.partials.edit', compact('data', 'doctorVisit'));
+    // }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, DoctorVisit $doctorVisit)
-    {
-        //
-    }
+    // public function update(Request $request, DoctorVisit $doctorVisit)
+    // {
+
+    //     return ['request' => $request->all(), 'doctorVisit' => $doctorVisit];
+    // }
 
     /**
      * Remove the specified resource from storage.
      */
     public function destroy(DoctorVisit $doctorVisit)
     {
-        //
+
+        $doctorVisitDelete =     $this->doctorVisitService->delete($doctorVisit);
+
+
+
+        return redirect()->route('doctorVisits.index')->with('success', __('Doctor visit deleted successfully.'));
     }
 }
