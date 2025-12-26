@@ -3,11 +3,9 @@
     {{ __('dashboard') }}
 @endsection
 @section('breadcrumb')
-    {{ __('dashboard') }}
+    {{ __('My statistics') }}
 @endsection
-@section('breadcrumbActive')
-    {{ __('dashboard') }}
-@endsection
+
 @section('content')
     <div class="row">
         <div class="col-md-12">
