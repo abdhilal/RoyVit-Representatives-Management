@@ -15,7 +15,7 @@
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        @can('create-classifications')
+                        @can('super-admin')
                             <x-buttons.create :action="route('classifications.create')" />
                         @endcan
                     </div>
