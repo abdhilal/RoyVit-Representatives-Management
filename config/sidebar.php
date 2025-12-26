@@ -91,13 +91,13 @@ return [
 
 
 
-    [
-        'parmitions' => ['can' => 'view-fles'],
+    // [
+    //     'parmitions' => ['can' => 'view-fles'],
 
-        'items' => [
-            ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],
-            ['label' => 'Create TreeProduct', 'icon_fa' => 'fa-solid fa-tree', 'route' => 'TreeProducts.upload', 'parmitions' => ['can' => 'create-files'],],
-            ['label' => 'Plans', 'icon_fa' => 'fa-solid fa-file', 'route' => 'plans.index', 'parmitions' => ['can' => 'view-plans'],],
-        ],
-    ],
+    //     'items' => [
+    //         ['label' => 'Files List', 'icon_fa' => 'fa-solid fa-file', 'route' => 'files.index', 'parmitions' => ['can' => 'view-files'],],
+    //         ['label' => 'Create TreeProduct', 'icon_fa' => 'fa-solid fa-tree', 'route' => 'TreeProducts.upload', 'parmitions' => ['can' => 'create-files'],],
+    //         ['label' => 'Plans', 'icon_fa' => 'fa-solid fa-file', 'route' => 'plans.index', 'parmitions' => ['can' => 'view-plans'],],
+    //     ],
+    // ],
 ];

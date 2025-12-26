@@ -29,7 +29,7 @@
                                     <th>{{ __('Specialization Name') }}</th>
                                     <th>{{ __('Warehouse') }}</th>
 
-                                    @canany(['show-specializations', 'update-specializations', 'delete-specializations'])
+                                    @canany(['super-admin'])
                                         <th>{{ __('actions') }}</th>
                                     @endcanany
                                 </tr>
@@ -41,7 +41,7 @@
                                         <td>{{ $specialization->name }}</td>
                                         <td>{{ $specialization->warehouse->name??__('No warehouse') }}</td>
 
-                                        @canany(['show-specializations', 'update-specializations', 'delete-specializations'])
+                                        @canany(['super-admin'])
                                             <td>
                                                 @can('show-specializations')
                                                     <x-buttons.show :action="route('specializations.show', $specialization)" />
