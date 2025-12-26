@@ -49,6 +49,7 @@ class DoctorVisitController extends Controller
     public function store(StoreDoctorVisitRequest $request)
     {
         $period = $this->visitPeriodService->currentVisitPeriod();
+
         try {
             $this->doctorVisitService->create($request->validated(), $period);
         } catch (\Exception $e) {

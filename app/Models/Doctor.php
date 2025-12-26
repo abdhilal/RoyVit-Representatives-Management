@@ -18,6 +18,7 @@ class Doctor extends Model
         'classification_id',
         'specialization_id',
         'representative_id',
+        'visits_count',
     ];
     /** @use HasFactory<\Database\Factories\DoctorFactory> */
     use HasFactory;
@@ -50,7 +51,7 @@ class Doctor extends Model
         return $this->hasMany(DoctorVisit::class);
     }
 
-    
+
 
 
 }

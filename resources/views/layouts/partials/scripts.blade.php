@@ -15,6 +15,7 @@
     <!-- config-->
     <script src="{{ asset('assets/js/config.js') }}"></script>
     <!-- apex-->
+    <script src="{{ asset('assets/js/chart/apex-chart/apexcharts.js') }}"></script>
     <script src="{{ asset('assets/js/chart/apex-chart/apex-chart.js') }}"></script>
     <script src="{{ asset('assets/js/chart/apex-chart/stock-prices.js') }}"></script>
     <!-- scrollbar-->

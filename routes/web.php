@@ -32,12 +32,10 @@ use App\Http\Controllers\RepresentativeStoreController;
 
 Route::middleware(['auth'])->group(function () {
 
-    Route::get('/', function () {
-        return view('layouts.app');
-    })->name('home');
 
 
 
+    Route::get('/', [Controller::class, 'dashboard'])->name('home');
     Route::resource('/users', UserController::class);
     Route::get('/usersDeleted', [UserController::class, 'deleted'])->name('users.deleted');
     Route::put('/users/{user}/restore', [UserController::class, 'restore'])->withTrashed()->name('users.restore');

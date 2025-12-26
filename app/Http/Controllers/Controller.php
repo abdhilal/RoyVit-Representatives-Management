@@ -22,8 +22,9 @@ class Controller
 
     public function dashboard()
     {
-        return "Sacx";
-        return view('layouts.app');
+        $data = $this->DashboardService->getDashboardData();
+
+        return view('pages.dashboard.index', compact('data'));
     }
 
 

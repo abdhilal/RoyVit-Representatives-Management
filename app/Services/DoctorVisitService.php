@@ -17,13 +17,6 @@ use Illuminate\Support\Facades\File;
 
 class DoctorVisitService
 {
-    protected $visitPeriodService;
-    public function __construct(VisitPeriodService $visitPeriodService)
-    {
-        $this->visitPeriodService = $visitPeriodService;
-    }
-
-
 
     public function getAllVisits(Request $request)
     {
@@ -105,18 +98,14 @@ class DoctorVisitService
 
     public function getToCreate()
     {
-        $period = $this->visitPeriodService->currentVisitPeriod();
-
-
-        $doctors = Doctor::with('doctorVisits')->where('representative_id', Auth::id())->get();
+        $doctors = Doctor::where('representative_id', Auth::id())->get();
         $RepresentativeStores = RepresentativeStore::with(['product'])->where('representative_id', Auth::id())->get();
 
         $doctorOptions = $doctors
-            ->mapWithKeys(function ($d, $key) use ($period) {
-                return [$d->id => ($d->name . ' - ' . __('Visit') . ': ' . ($d->doctorVisits->where('visit_period_id', $period->id)->count() ?? ''))];
+            ->mapWithKeys(function ($d) {
+                return [$d->id => ($d->name . ' - ' . $d->visits_count . ' ' . __('Visit') ?? '')];
             })
             ->toArray();
-
 
         $productOptions = $RepresentativeStores
             ->filter(function ($store) {
@@ -150,6 +139,8 @@ class DoctorVisitService
                 ->where('doctor_id', $data['doctor_id'])
                 ->where('visit_period_id', $period->id)
                 ->count();
+
+            Doctor::where('id', $data['doctor_id'])->increment('visits_count');
 
             if ($visitsCount >= $period->max_visits) {
                 throw new \Exception(__('The maximum number of visits allowed for this month has been reached.'));

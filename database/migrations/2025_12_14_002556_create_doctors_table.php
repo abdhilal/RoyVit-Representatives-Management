@@ -22,6 +22,7 @@ return new class extends Migration
             $table->foreignId('warehouse_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('area_id')->nullable()->constrained()->onDelete('set null');
             $table->foreignId('representative_id')->nullable()->constrained('users')->onDelete('set null');
+            $table->integer('visits_count')->default(0);
             $table->timestamps();
         });
     }
