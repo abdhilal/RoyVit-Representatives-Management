@@ -31,6 +31,7 @@ use App\Http\Controllers\TreeProductController;
 use App\Http\Controllers\UserSettingController;
 use App\Http\Controllers\VisitPeriodController;
 use App\Http\Controllers\ClassificationController;
+use App\Http\Controllers\RepresentativeController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\RepresentativeStoreController;
 
@@ -89,6 +90,7 @@ Route::middleware(['auth'])->group(function () {
     Route::resource('/visitPeriods', VisitPeriodController::class);
     Route::resource('/doctorVisits', DoctorVisitController::class);
     Route::resource('/plans', PlanController::class);
+    Route::resource('/representatives', RepresentativeController::class);
 });
 
 

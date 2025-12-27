@@ -1,28 +1,24 @@
 @extends('layouts.app')
 @section('title')
-    {{ __('Users List') }}
+    {{ __('Representatives List') }}
 @endsection
 @section('breadcrumb')
-    {{ __('Users') }}
+    {{ __('Representatives') }}
 @endsection
 @section('breadcrumbActive')
-    {{ __('Users List') }}
+    {{ __('Representatives List') }}
 @endsection
 @section('content')
-    <x-cards.container>
-        <x-cards.card :value="$usersCount" label="{{ __('Total Users') }}" icon="users" roundColor="primary" trendText="+0%"
-            trendClass="font-primary" />
-        <x-cards.card :value="$usersCountActive" label="{{ __('Active Users') }}" icon="users" roundColor="success" />
-        <x-cards.card :value="$usersCountInactive" label="{{ __('Inactive Users') }}" icon="users" roundColor="danger" />
-    </x-cards.container>
+
     <div class="row">
         <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
                     <div class="d-flex justify-content-between align-items-center">
-                        <x-search-form route="users.index" placeholder="{{ __('search users') }}" />
-                        @can('create-users')
-                            <x-buttons.create :action="route('users.create')" />
+                        <x-search-form route="representatives.index" col="5"
+                            placeholder="{{ __('search representatives by name') }}" />
+                        @can('create-representatives')
+                            <x-buttons.create :action="route('representatives.create')" />
                         @endcan
                     </div>
                 </div>
@@ -33,75 +29,51 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('name') }}</th>
-                                    <th>{{ __('email') }}</th>
-                                    <th>{{ __('roles') }}</th>
-                                    <th>{{ __('status') }}</th>
-                                    @canany(['show-users', 'update-users', 'delete-users'])
+                                    <th>{{ __('Associated doctors') }}</th>
+                                    <th>{{ __('Specializations') }}</th>
+                                    @canany(['show-representatives', 'update-representatives', 'delete-representatives'])
                                         <th>{{ __('actions') }}</th>
                                     @endcanany
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($users as $user)
+                                @forelse($representatives as $representative)
                                     <tr>
-                                        <td>{{ $user->id }}</td>
-                                        <td>{{ $user->name }}</td>
-                                        <td>{{ $user->email }}</td>
-                                        <td>
-                                            @if ($user->roles->count() > 0)
-                                                @foreach ($user->roles as $role)
-                                                    <span class="badge bg-primary">{{ $role->name }}</span>
-                                                @endforeach
-                                            @else
-                                                <span class="badge bg-secondary">{{ __('No roles assigned') }}</span>
-                                            @endif
-                                        </td>
-                                        <td>
-                                            @can('update-users')
-                                                <x-buttons.toggle-active :model="$user" action="users.toggleActive" />
-                                            @else
-                                                <span
-                                                    class="badge bg-{{ $user->is_active ? 'success' : 'danger' }}">{{ $user->is_active ? __('active') : __('inactive') }}</span>
-                                            @endcan
-                                        </td>
-                                        @canany(['show-users', 'update-users', 'delete-users'])
+                                        <td>{{ $representative->id }}</td>
+                                        <td><a class="text-info" href="{{ route('representatives.show', $representative) }}">{{ $representative->name }}</a></td>
+                                        <td>{{ $representative->doctors_count }}</td>
+                                        <td>{{ $representative->specializations_count }}</td>
+
+
+                                        @canany(['show-representatives', 'update-representatives'])
                                             <td>
-                                                @can('update-users')
-                                                    <form action="{{ route('users.impersonate', $user) }}" method="POST"
-                                                        class="d-inline">
-                                                        @csrf
-                                                        <button type="submit"
-                                                            class="btn btn-outline-primary btn-sm">{{ __('Sign in') }}</button>
-                                                    </form>
+
+                                                @can('show-representatives')
+                                                    <x-buttons.show :action="route('representatives.show', $representative)" />
                                                 @endcan
-                                                @can('show-users')
-                                                    <x-buttons.show :action="route('users.show', $user)" />
+                                                @can('update-representatives')
+                                                    <x-buttons.edit :action="route('users.edit', $representative)" />
                                                 @endcan
-                                                @can('update-users')
-                                                    <x-buttons.edit :action="route('users.edit', $user)" />
-                                                @endcan
-                                                @can('delete-users')
-                                                    <x-buttons.delete-form :action="route('users.destroy', $user)" />
-                                                @endcan
+
 
                                             </td>
                                         @endcanany
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6">{{ __('No users found') }}</td>
+                                        <td colspan="6">{{ __('No representatives found') }}</td>
                                     </tr>
                                 @endforelse
                             </tbody>
-                            @if ($users->count())
-                                <x-table.tfoot :page="$users" />
+                            @if ($representatives->count())
+                                <x-table.tfoot :page="$representatives" />
                             @endif
                         </table>
                     </div>
                 </div>
-                @if ($users->count())
+                @if ($representatives->count())
                     <div class="card-footer">
-                        @include('layouts.partials.pagination', ['page' => $users])
+                        @include('layouts.partials.pagination', ['page' => $representatives])
                     </div>
                 @endif
             </div>

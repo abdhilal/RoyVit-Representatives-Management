@@ -542,5 +542,13 @@
     "Register a new visit": "تسجيل زيارة جديدة",
     "My statistics": "إحصائياتي",
     "Doctor visit deleted successfully.": "تم حذف زيارة الطبيب بنجاح.",
-    "Super admin cannot be deleted": "لا يمكن حذف المستخدم الذي لديه دور الإدارة المسبق"
+    "Super admin cannot be deleted": "لا يمكن حذف المستخدم الذي لديه دور الإدارة المسبق",
+    "Representatives": "المندوبين",
+    "Associated doctors": "الاطباء المرتبطين",
+    "Representatives List": "قائمة المندوبين",
+    "search representatives by name": "بحث عن المندوبين بالاسم",
+    "Associated Specializations": "التخصصات المرتبطة",
+    "Visited This Month": "تم زيارة هذا الشهر",
+    "Representative Details": "تفاصيل المندوب"
+
 }

@@ -64,7 +64,7 @@ class User extends Authenticatable
     }
     public function doctors()
     {
-        return $this->hasMany(Doctor::class);
+        return $this->hasMany(Doctor::class, 'representative_id');
     }
 
     public function representativeStore()

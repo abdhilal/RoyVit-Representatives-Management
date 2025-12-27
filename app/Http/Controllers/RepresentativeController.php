@@ -2,18 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
+use Illuminate\Http\Request;
 use App\Models\Representative;
+use App\Services\RepresentativeService;
 use App\Http\Requests\StoreRepresentativeRequest;
 use App\Http\Requests\UpdateRepresentativeRequest;
 
 class RepresentativeController extends Controller
 {
+    protected $RepresentativeService;
+
+    public function __construct(RepresentativeService $RepresentativeService)
+    {
+        $this->RepresentativeService = $RepresentativeService;
+    }
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $representatives = $this->RepresentativeService->getAll($request);
+        return view('pages.representatives.index', compact('representatives'));
     }
 
     /**
@@ -35,9 +45,10 @@ class RepresentativeController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Representative $representative)
+    public function show(User $representative)
     {
-        //
+        $representatives = $this->RepresentativeService->getRepresentative($representative);
+        return view('pages.representatives.partials.show', $representatives);
     }
 
     /**
