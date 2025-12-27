@@ -23,7 +23,7 @@ class StoreAreaRequest extends FormRequest
     {
         return [
             //
-            'name' => 'required|string|max:255',
+            'name' => 'required|string|max:255|unique:areas,name',
             'city_id' => 'required|exists:cities,id',
         ];
     }
@@ -45,6 +45,7 @@ class StoreAreaRequest extends FormRequest
     {
         return [
             'name.required' => __('area name is required'),
+            'name.unique' => __('area name already exists'),
             'city_id.required' => __('city is required'),
             'city_id.exists' => __('The selected city is invalid.'),
         ];

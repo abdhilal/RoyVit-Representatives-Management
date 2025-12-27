@@ -7,6 +7,7 @@ use App\Models\City;
 use Illuminate\Http\Request;
 use App\Services\AreaService;
 use App\Services\CityService;
+use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\StoreAreaRequest;
 use App\Http\Requests\UpdateAreaRequest;
 
@@ -35,7 +36,7 @@ class AreaController extends Controller
      */
     public function create()
     {
-        $cities = $this->cityService->getAllCities();
+        $cities = City::where('warehouse_id', Auth::user()->warehouse_id)->get();
         $area = new Area();
         return view('pages.areas.partials.form', compact('cities', 'area'));
     }
@@ -45,6 +46,7 @@ class AreaController extends Controller
      */
     public function store(StoreAreaRequest $request)
     {
+        
         $this->areaService->createArea($request->validated());
         return redirect()->route('areas.index')->with('success', __('area created successfully'));
     }

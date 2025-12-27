@@ -26,7 +26,7 @@
                             <x-forms.input name="name" label="{{ __('name') }}" :model="$area" required />
                             <x-forms.select
                                 name="city_id"
-                                label="{{ __('city') }}"
+                                label="{{ __('State') }}"
                                 :model="$area"
                                 :options="$cities->pluck('name', 'id')->toArray()"
                                 placeholder="{{ __('Press to select') }}"

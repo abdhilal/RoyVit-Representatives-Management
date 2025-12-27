@@ -549,6 +549,8 @@
     "search representatives by name": "بحث عن المندوبين بالاسم",
     "Associated Specializations": "التخصصات المرتبطة",
     "Visited This Month": "تم زيارة هذا الشهر",
-    "Representative Details": "تفاصيل المندوب"
+    "Representative Details": "تفاصيل المندوب",
+    "State": "المحافظة",
+    "area name already exists": "اسم المنطقة موجود بالفعل"
 
 }
