@@ -541,5 +541,6 @@
     "My visits": "زياراتي",
     "Register a new visit": "تسجيل زيارة جديدة",
     "My statistics": "إحصائياتي",
-    "Doctor visit deleted successfully.": "تم حذف زيارة الطبيب بنجاح."
+    "Doctor visit deleted successfully.": "تم حذف زيارة الطبيب بنجاح.",
+    "Super admin cannot be deleted": "لا يمكن حذف المستخدم الذي لديه دور الإدارة المسبق"
 }

@@ -51,7 +51,7 @@ class UserController extends Controller
         $userInformations = new UserInformation();
         $roles = Role::pluck('name', 'id');
         $userRoles = [];
-        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles','userInformations'));
+        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles', 'userInformations'));
     }
 
     /**
@@ -83,7 +83,7 @@ class UserController extends Controller
         $roles = Role::pluck('name', 'id');
         $userRoles = $user->roles->pluck('id')->toArray();
         $userInformations = $user->userInformations;
-        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles','userInformations'));
+        return view('pages.dashboard.users.partials.form', compact('user', 'roles', 'userRoles', 'userInformations'));
     }
 
     /**
@@ -100,6 +100,10 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        if ($user->hasRole('super-admin')) {
+            return redirect()->route('users.index')->with('error', __('Super admin cannot be deleted'));
+        }
+    
         // حذف المستخدم
         $this->authorize('delete', $user);
         $this->userService->delete($user);
@@ -156,6 +160,4 @@ class UserController extends Controller
         $this->userService->impersonate($user);
         return redirect()->route('home')->with('success', __('Sign in'));
     }
-
-
 }
