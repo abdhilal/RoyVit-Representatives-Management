@@ -25,6 +25,8 @@ class StorePlanRequest extends FormRequest
             'specializations_id' => 'required|array',
             'specializations_id.*' => 'exists:specializations,id',
             'product_id' => 'nullable|array',
+            'product_id.*' => 'nullable|array',
+            'product_id.*.*' => 'exists:products,id',
             'name' => 'required|string|max:255',
         ];
     }
@@ -40,7 +42,7 @@ class StorePlanRequest extends FormRequest
             'name.required' => __('The :attribute field is required.'),
             'specializations_id.required' => __('The specializations field is required.'),
             'specializations_id.*.exists' => __('The selected specialization is invalid.'),
-            'product_id.*.exists' => __('The selected product is invalid.'),
+            'product_id.*.*.exists' => __('The selected product is invalid.'),
         ];
     }
 

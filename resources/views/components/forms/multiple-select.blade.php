@@ -12,8 +12,8 @@
     'selectClass' => 'form-control',
 ])
 @php
-    // Use requested identifiers for styling integrations (Choices.js, etc.)
-    $id = $id ?? 'choices-multiple-remove-button';
+    $baseId = str_replace(['[', ']'], '_', $name) . '_choices_multi';
+    $id = $id ?? (str_contains($name, '[]') ? $baseId . '_' . uniqid() : $baseId);
     $colClass = 'col-md-' . (int) $col;
     $selectedValues = collect(old($name, $value ?? []))->map(fn($v) => (string) $v)->all();
     $hasError = $errors->has($name);
@@ -27,7 +27,7 @@
     <select
         id="{{ $id }}"
         name="{{ $selectName }}"
-        class="{{ $selectClass }} {{ $hasError ? 'is-invalid' : '' }}"
+        class="{{ $selectClass }} js-choices {{ $hasError ? 'is-invalid' : '' }}"
         multiple
         @if($disabled) disabled @endif
         @if($required) required @endif
@@ -49,3 +49,33 @@
         <div class="invalid-feedback">{{ $errors->first($name) }}</div>
     @endif
 </div>
+@once
+    @push('scripts')
+        <script>
+            (function() {
+                function initChoicesMulti(scope) {
+                    if (typeof Choices !== 'function') return;
+                    var els = scope.querySelectorAll('.js-choices[multiple]');
+                    els.forEach(function(el) {
+                        if (el._choicesInstance) return;
+                        var opts = {
+                            searchEnabled: true,
+                            removeItemButton: true,
+                            shouldSort: false
+                        };
+                        try {
+                            el._choicesInstance = new Choices(el, opts);
+                        } catch (e) {}
+                    });
+                }
+                document.addEventListener('DOMContentLoaded', function() {
+                    initChoicesMulti(document);
+                });
+                var mo = new MutationObserver(function() {
+                    initChoicesMulti(document);
+                });
+                mo.observe(document.body, { childList: true, subtree: true });
+            })();
+        </script>
+    @endpush
+@endonce

@@ -26,13 +26,16 @@
                             <x-forms.input name="name" label="{{ __('Plan name') }}" :model="$plan" required />
 
                             @foreach ($data['specializations'] as $index => $specialization)
-
                                 <span class="text-success">{{ $index + 1 }}</span>
-                                <x-forms.input class="border-2 text-center bg-secondary text-white" name="specializations_name[]" value="{{ $specialization->name }}"
+                                <x-forms.input class="border-2 text-center bg-secondary text-white"
+                                    name="specializations_name[]" value="{{ $specialization->name }}"
                                     label="{{ __('Specialization') }}" :model="$plan" readonly col="6" />
                                 <input type="hidden" name="specializations_id[]" value="{{ $specialization->id }}">
-                                <x-forms.select class="border-2 text-center"  name="product_id[]" label="{{ __('product') }}" :model="$plan"
-                                    :options="$data['products']->pluck('name', 'id')->toArray()" placeholder="{{ __('Press to select') }}" required col="6" />
+                                <x-forms.multiple-select class="border-2 text-center" name="product_id[{{ $index }}]"
+                                    label="{{ __('product') }}"
+                                    :options="$data['products']->pluck('name', 'id')->toArray()"
+                                    :value="$isEdit ? $plan->planItems->where('specialization_id', $specialization->id)->pluck('product_id')->toArray() : []"
+                                    placeholder="{{ __('Press to select') }}" required col="6" />
                                 <hr class="my-4 border-2 ">
                             @endforeach
 

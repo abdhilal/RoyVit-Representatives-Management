@@ -26,7 +26,8 @@ class UpdatePlanRequest extends FormRequest
             'specializations_id' => 'nullable|array',
             'specializations_id.*' => 'exists:specializations,id',
             'product_id' => 'nullable|array',
-            'product_id.*' => 'exists:products,id',
+            'product_id.*' => 'nullable|array',
+            'product_id.*.*' => 'exists:products,id',
         ];
     }
 
@@ -40,7 +41,7 @@ class UpdatePlanRequest extends FormRequest
         return [
             'name.required' => __('The :attribute field is required.'),
             'specializations_id.*.exists' => __('The selected specialization is invalid.'),
-            'product_id.*.exists' => __('The selected product is invalid.'),
+            'product_id.*.*.exists' => __('The selected product is invalid.'),
         ];
     }
 

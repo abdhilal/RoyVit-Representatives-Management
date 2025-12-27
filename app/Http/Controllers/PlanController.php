@@ -40,6 +40,7 @@ class PlanController extends Controller
      */
     public function store(StorePlanRequest $request)
     {
+
         $plan = $this->PlanService->createPlan($request->validated());
         return redirect()->route('plans.index')->with('success', __('Plan created successfully'));
     }

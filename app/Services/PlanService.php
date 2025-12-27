@@ -53,13 +53,18 @@ class PlanService
         ]);
 
         foreach ($data['specializations_id'] as $key => $specialization_id) {
-            if (!isset($data['product_id'][$key])) {
-                continue;
+            $products = $data['product_id'][$key] ?? [];
+            if (is_array($products)) {
+                foreach ($products as $productId) {
+                    if (!$productId) {
+                        continue;
+                    }
+                    $plan->planItems()->create([
+                        'specialization_id' => $specialization_id,
+                        'product_id' => $productId,
+                    ]);
+                }
             }
-            $plan->planItems()->create([
-                'specialization_id' => $specialization_id,
-                'product_id' => $data['product_id'][$key],
-            ]);
         }
         return $plan;
     }

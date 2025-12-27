@@ -27,15 +27,22 @@
                                 <tr>
                                     <th>#</th>
                                     <th>{{ __('Specialization') }}</th>
-                                    <th>{{ __('Product') }}</th>
+                                    <th>{{ __('Products') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @forelse($plan->planItems as $index => $item)
+                                @php($groups = $plan->planItems->groupBy('specialization_id'))
+                                @forelse($groups as $specId => $items)
                                     <tr>
-                                        <td>{{ $index + 1 }}</td>
-                                        <td>{{ $item->specialization->name ?? '-' }}</td>
-                                        <td>{{ $item->product->name ?? '-' }}</td>
+                                        <td>{{ $loop->iteration }}</td>
+                                        <td>{{ optional($items->first()->specialization)->name ?? '-' }}</td>
+                                        <td>
+                                            <div class="d-flex flex-wrap gap-2">
+                                                @foreach($items as $it)
+                                                    <span class="badge bg-primary">{{ $it->product->name ?? '-' }}</span>
+                                                @endforeach
+                                            </div>
+                                        </td>
                                     </tr>
                                 @empty
                                     <tr>
