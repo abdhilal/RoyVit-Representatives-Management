@@ -30,7 +30,7 @@ class DashboardService
         $user = auth()->user();
         $Doctors = Doctor::where('representative_id', $user->id)->get();
 
-
+        $totalVisits =0;
         $doctorVisitsZero = 0;
         $doctorVisitsOne = 0;
         $doctorVisitsTwo = 0;
@@ -39,6 +39,7 @@ class DashboardService
         $doctorVisitsFive = 0;
 
         foreach ($Doctors as $doctor) {
+            $totalVisits += $doctor->visits_count;
             if ($doctor->visits_count == 0) {
                 $doctorVisitsZero++;
             }
@@ -48,15 +49,14 @@ class DashboardService
                 $doctorVisitsTwo++;
             } elseif ($doctor->visits_count == 3) {
                 $doctorVisitsThree++;
-            } elseif ($doctor->visits_count >= 4) {
+            } elseif ($doctor->visits_count == 4) {
                 $doctorVisitsFour++;
             }
-            if ($doctor->visits_count >= 5) {
+            if ($doctor->visits_count == 5) {
                 $doctorVisitsFive++;
             }
         }
         $doctorVisitsAll = $doctorVisitsZero + $doctorVisitsOne + $doctorVisitsTwo + $doctorVisitsThree + $doctorVisitsFour + $doctorVisitsFive;
-        $totalVisits = ($doctorVisitsAll - $doctorVisitsZero) ?? 0;
         return [
             'totalVisits' => $totalVisits,
             'doctorVisitsAll' => $doctorVisitsAll,
